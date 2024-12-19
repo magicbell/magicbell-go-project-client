@@ -1,0 +1,19 @@
+{
+  "name": "magicbell-go-project-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "changeset": "changeset",
+    "codegen": "tsx scripts/liblab-gen.ts",
+    "build:docs": "tsx scripts/liblab-docs.ts"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.10",
+    "@magicbell/codegen": "^0.3.0",
+    "@types/node": "^22.10.2",
+    "glob": "^11.0.0",
+    "tsx": "^4.19.2"
+  }
+}

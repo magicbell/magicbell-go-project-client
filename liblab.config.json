@@ -1,0 +1,38 @@
+{
+  "sdkName": "magicbell-project-client",
+  "specFilePath": "https://site.magicbell.cloud/docs/api/openapi.project.json",
+  "apiName": "magicbell-api",
+  "languages": ["go"],
+  "auth": ["bearer"],
+  "customizations": {
+    "devContainer": false,
+    "generateEnv": false,
+    "includeOptionalSnippetParameters": true,
+    "authentication": {
+      "access": {
+        "prefix": "Bearer"
+      }
+    },
+    "inferServiceNames": false,
+    "injectedModels": [],
+    "license": {
+      "type": "MIT"
+    },
+    "responseHeaders": false,
+    "retry": {
+      "enabled": true,
+      "maxAttempts": 3,
+      "retryDelay": 150
+    }
+  },
+  "languageOptions": {
+    "go": {
+      "githubRepoName": "magicbell-go-project-client",
+      "sdkVersion": "0.0.0",
+      "goModuleName": "github.com/magicbell/magicbell-go-project-client"
+    }
+  },
+  "publishing": {
+    "githubOrg": "magicbell"
+  }
+}

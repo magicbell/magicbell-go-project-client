@@ -1,0 +1,20 @@
+# Tooling
+node_modules/
+target
+
+docs-dist
+
+# act
+.env
+.secrets
+
+# Binaries and executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+.DStore
+
+# Output of go coverage
+*.out
