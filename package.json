@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "changeset": "changeset",
     "codegen": "tsx scripts/liblab-gen.ts",
     "build:docs": "tsx scripts/liblab-docs.ts"
   },
