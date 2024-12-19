@@ -1,0 +1,46 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.BELLA_ACTION_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.18'
+
+      - uses: bahmutov/npm-install@v1
+
+      - name: Create release Pull Request or publish release
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: yarn changeset version
+          publish: 'echo: handing publishing in the next step'
+          commit: 'chore: version package'
+          title: 'chore: version package'
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.BELLA_ACTION_TOKEN }}
+
+      - name: Publish to pkg.go.dev
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          MODULE_NAME=$(jq -r '.config.languageOptions.go.goModuleName' .manifest.json)
+          GOPROXY=proxy.golang.org 
+          go mod download
+          go list -m $MODULE_NAME
+            
