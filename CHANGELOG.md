@@ -1,5 +1,11 @@
 # magicbell-go-project-client
 
+## 0.1.1
+
+### Patch Changes
+
+- [`0c7183c`](https://github.com/magicbell/magicbell-go-project-client/commit/0c7183c763871983a65e5349831db21ea9388ff7) Thanks [@smeijer](https://github.com/smeijer)! - test release
+
 ## 0.1.0
 
 ### Minor Changes
