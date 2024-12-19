@@ -39,7 +39,7 @@ jobs:
       - name: Publish to pkg.go.dev
         if: steps.changesets.outputs.published == 'true'
         run: |
-          MODULE_NAME=$(jq -r '.config.languageOptions.go.goModuleName' .manifest.json)
+          MODULE_NAME=$(jq -r '.languageOptions.go.goModuleName' liblab.config.json)
           GOPROXY=proxy.golang.org 
           go mod download
           go list -m $MODULE_NAME
