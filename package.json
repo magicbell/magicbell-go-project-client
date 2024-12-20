@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "changeset": "./scripts/changeset.sh",
+    "changeset:postversion": "tsx scripts/update-version.ts",
     "codegen": "tsx scripts/liblab-gen.ts",
     "build:docs": "tsx scripts/liblab-docs.ts"
   },
@@ -13,6 +15,7 @@
     "@magicbell/codegen": "^0.3.0",
     "@types/node": "^22.10.2",
     "glob": "^11.0.0",
+    "replace-in-file": "^8.3.0",
     "tsx": "^4.19.2"
   }
 }

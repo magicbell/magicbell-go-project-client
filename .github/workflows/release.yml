@@ -4,7 +4,7 @@ on:
     branches:
       - main
 
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+concurrency: '${{ github.workflow }}-${{ github.ref }}'
 
 jobs:
   release:
@@ -29,7 +29,7 @@ jobs:
         uses: changesets/action@v1
         with:
           version: yarn changeset version
-          publish: 'yarn changeset publish'
+          publish: yarn changeset publish
           commit: 'chore: version package'
           title: 'chore: version package'
           createGithubReleases: true
