@@ -28,7 +28,7 @@
   "languageOptions": {
     "go": {
       "githubRepoName": "magicbell-go-project-client",
-      "sdkVersion": "0.1.1",
+      "sdkVersion": "0.1.2",
       "goModuleName": "github.com/magicbell/magicbell-go-project-client"
     }
   },
