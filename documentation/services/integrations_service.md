@@ -1746,15 +1746,12 @@ import (
 config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
-endpoint := integrations.Endpoint{}
-
 
 sesConfigFrom := integrations.SesConfigFrom{}
 sesConfigFrom.SetEmail("Email")
 sesConfigFrom.SetName("Name")
 
 request := integrations.SesConfig{}
-request.SetEndpoint(endpoint)
 request.SetFrom(sesConfigFrom)
 request.SetKeyId("KeyId")
 request.SetRegion("Region")

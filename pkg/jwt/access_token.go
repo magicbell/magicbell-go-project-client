@@ -103,6 +103,7 @@ func (a *AccessToken) SetTokenIdNil() {
 	a.touched["TokenId"] = true
 	a.TokenId = nil
 }
+
 func (a AccessToken) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -131,4 +132,12 @@ func (a AccessToken) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a AccessToken) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: AccessToken to string"
+	}
+	return string(jsonData)
 }

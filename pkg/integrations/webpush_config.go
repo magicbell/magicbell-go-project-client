@@ -55,6 +55,7 @@ func (w *WebpushConfig) SetPublicKeyNil() {
 	w.touched["PublicKey"] = true
 	w.PublicKey = nil
 }
+
 func (w WebpushConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -71,4 +72,12 @@ func (w WebpushConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (w WebpushConfig) String() string {
+	jsonData, err := json.MarshalIndent(w, "", "  ")
+	if err != nil {
+		return "error converting struct: WebpushConfig to string"
+	}
+	return string(jsonData)
 }

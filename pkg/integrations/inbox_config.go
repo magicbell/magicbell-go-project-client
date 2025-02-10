@@ -79,6 +79,7 @@ func (i *InboxConfig) SetThemeNil() {
 	i.touched["Theme"] = true
 	i.Theme = nil
 }
+
 func (i InboxConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,6 +102,14 @@ func (i InboxConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (i InboxConfig) String() string {
+	jsonData, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "error converting struct: InboxConfig to string"
+	}
+	return string(jsonData)
 }
 
 type Images struct {
@@ -130,6 +139,7 @@ func (i *Images) SetEmptyInboxUrlNil() {
 	i.touched["EmptyInboxUrl"] = true
 	i.EmptyInboxUrl = nil
 }
+
 func (i Images) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -140,6 +150,14 @@ func (i Images) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (i Images) String() string {
+	jsonData, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "error converting struct: Images to string"
+	}
+	return string(jsonData)
 }
 
 type Theme struct {
@@ -313,6 +331,7 @@ func (t *Theme) SetUnseenBadgeNil() {
 	t.touched["UnseenBadge"] = true
 	t.UnseenBadge = nil
 }
+
 func (t Theme) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -359,6 +378,14 @@ func (t Theme) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (t Theme) String() string {
+	jsonData, err := json.MarshalIndent(t, "", "  ")
+	if err != nil {
+		return "error converting struct: Theme to string"
+	}
+	return string(jsonData)
 }
 
 type Banner struct {
@@ -460,6 +487,7 @@ func (b *Banner) SetTextColorNil() {
 	b.touched["TextColor"] = true
 	b.TextColor = nil
 }
+
 func (b Banner) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -488,6 +516,14 @@ func (b Banner) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (b Banner) String() string {
+	jsonData, err := json.MarshalIndent(b, "", "  ")
+	if err != nil {
+		return "error converting struct: Banner to string"
+	}
+	return string(jsonData)
 }
 
 type Dialog struct {
@@ -565,6 +601,7 @@ func (d *Dialog) SetTextColorNil() {
 	d.touched["TextColor"] = true
 	d.TextColor = nil
 }
+
 func (d Dialog) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -587,6 +624,14 @@ func (d Dialog) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (d Dialog) String() string {
+	jsonData, err := json.MarshalIndent(d, "", "  ")
+	if err != nil {
+		return "error converting struct: Dialog to string"
+	}
+	return string(jsonData)
 }
 
 type Footer struct {
@@ -688,6 +733,7 @@ func (f *Footer) SetTextColorNil() {
 	f.touched["TextColor"] = true
 	f.TextColor = nil
 }
+
 func (f Footer) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -716,6 +762,14 @@ func (f Footer) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (f Footer) String() string {
+	jsonData, err := json.MarshalIndent(f, "", "  ")
+	if err != nil {
+		return "error converting struct: Footer to string"
+	}
+	return string(jsonData)
 }
 
 type Header struct {
@@ -841,6 +895,7 @@ func (h *Header) SetTextColorNil() {
 	h.touched["TextColor"] = true
 	h.TextColor = nil
 }
+
 func (h Header) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -875,6 +930,14 @@ func (h Header) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (h Header) String() string {
+	jsonData, err := json.MarshalIndent(h, "", "  ")
+	if err != nil {
+		return "error converting struct: Header to string"
+	}
+	return string(jsonData)
 }
 
 type Icon struct {
@@ -928,6 +991,7 @@ func (i *Icon) SetWidthNil() {
 	i.touched["Width"] = true
 	i.Width = nil
 }
+
 func (i Icon) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -944,6 +1008,14 @@ func (i Icon) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (i Icon) String() string {
+	jsonData, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "error converting struct: Icon to string"
+	}
+	return string(jsonData)
 }
 
 type Notification struct {
@@ -1021,6 +1093,7 @@ func (n *Notification) SetUnseenNil() {
 	n.touched["Unseen"] = true
 	n.Unseen = nil
 }
+
 func (n Notification) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1043,6 +1116,14 @@ func (n Notification) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (n Notification) String() string {
+	jsonData, err := json.MarshalIndent(n, "", "  ")
+	if err != nil {
+		return "error converting struct: Notification to string"
+	}
+	return string(jsonData)
 }
 
 type Default_ struct {
@@ -1240,6 +1321,7 @@ func (d *Default_) SetTextColorNil() {
 	d.touched["TextColor"] = true
 	d.TextColor = nil
 }
+
 func (d Default_) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1294,6 +1376,14 @@ func (d Default_) MarshalJSON() ([]byte, error) {
 	return json.Marshal(data)
 }
 
+func (d Default_) String() string {
+	jsonData, err := json.MarshalIndent(d, "", "  ")
+	if err != nil {
+		return "error converting struct: Default_ to string"
+	}
+	return string(jsonData)
+}
+
 type DefaultHover struct {
 	BackgroundColor *string `json:"backgroundColor,omitempty" required:"true"`
 	touched         map[string]bool
@@ -1321,6 +1411,7 @@ func (d *DefaultHover) SetBackgroundColorNil() {
 	d.touched["BackgroundColor"] = true
 	d.BackgroundColor = nil
 }
+
 func (d DefaultHover) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1331,6 +1422,14 @@ func (d DefaultHover) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (d DefaultHover) String() string {
+	jsonData, err := json.MarshalIndent(d, "", "  ")
+	if err != nil {
+		return "error converting struct: DefaultHover to string"
+	}
+	return string(jsonData)
 }
 
 type DefaultState struct {
@@ -1360,6 +1459,7 @@ func (d *DefaultState) SetColorNil() {
 	d.touched["Color"] = true
 	d.Color = nil
 }
+
 func (d DefaultState) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1370,6 +1470,14 @@ func (d DefaultState) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (d DefaultState) String() string {
+	jsonData, err := json.MarshalIndent(d, "", "  ")
+	if err != nil {
+		return "error converting struct: DefaultState to string"
+	}
+	return string(jsonData)
 }
 
 type Unread struct {
@@ -1471,6 +1579,7 @@ func (u *Unread) SetTextColorNil() {
 	u.touched["TextColor"] = true
 	u.TextColor = nil
 }
+
 func (u Unread) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1501,6 +1610,14 @@ func (u Unread) MarshalJSON() ([]byte, error) {
 	return json.Marshal(data)
 }
 
+func (u Unread) String() string {
+	jsonData, err := json.MarshalIndent(u, "", "  ")
+	if err != nil {
+		return "error converting struct: Unread to string"
+	}
+	return string(jsonData)
+}
+
 type UnreadHover struct {
 	BackgroundColor *string `json:"backgroundColor,omitempty" required:"true"`
 	touched         map[string]bool
@@ -1528,6 +1645,7 @@ func (u *UnreadHover) SetBackgroundColorNil() {
 	u.touched["BackgroundColor"] = true
 	u.BackgroundColor = nil
 }
+
 func (u UnreadHover) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1538,6 +1656,14 @@ func (u UnreadHover) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (u UnreadHover) String() string {
+	jsonData, err := json.MarshalIndent(u, "", "  ")
+	if err != nil {
+		return "error converting struct: UnreadHover to string"
+	}
+	return string(jsonData)
 }
 
 type UnreadState struct {
@@ -1567,6 +1693,7 @@ func (u *UnreadState) SetColorNil() {
 	u.touched["Color"] = true
 	u.Color = nil
 }
+
 func (u UnreadState) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1577,6 +1704,14 @@ func (u UnreadState) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (u UnreadState) String() string {
+	jsonData, err := json.MarshalIndent(u, "", "  ")
+	if err != nil {
+		return "error converting struct: UnreadState to string"
+	}
+	return string(jsonData)
 }
 
 type Unseen struct {
@@ -1678,6 +1813,7 @@ func (u *Unseen) SetTextColorNil() {
 	u.touched["TextColor"] = true
 	u.TextColor = nil
 }
+
 func (u Unseen) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1708,6 +1844,14 @@ func (u Unseen) MarshalJSON() ([]byte, error) {
 	return json.Marshal(data)
 }
 
+func (u Unseen) String() string {
+	jsonData, err := json.MarshalIndent(u, "", "  ")
+	if err != nil {
+		return "error converting struct: Unseen to string"
+	}
+	return string(jsonData)
+}
+
 type UnseenHover struct {
 	BackgroundColor *string `json:"backgroundColor,omitempty" required:"true"`
 	touched         map[string]bool
@@ -1735,6 +1879,7 @@ func (u *UnseenHover) SetBackgroundColorNil() {
 	u.touched["BackgroundColor"] = true
 	u.BackgroundColor = nil
 }
+
 func (u UnseenHover) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1745,6 +1890,14 @@ func (u UnseenHover) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (u UnseenHover) String() string {
+	jsonData, err := json.MarshalIndent(u, "", "  ")
+	if err != nil {
+		return "error converting struct: UnseenHover to string"
+	}
+	return string(jsonData)
 }
 
 type UnseenState struct {
@@ -1774,6 +1927,7 @@ func (u *UnseenState) SetColorNil() {
 	u.touched["Color"] = true
 	u.Color = nil
 }
+
 func (u UnseenState) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1784,6 +1938,14 @@ func (u UnseenState) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (u UnseenState) String() string {
+	jsonData, err := json.MarshalIndent(u, "", "  ")
+	if err != nil {
+		return "error converting struct: UnseenState to string"
+	}
+	return string(jsonData)
 }
 
 type UnseenBadge struct {
@@ -1813,6 +1975,7 @@ func (u *UnseenBadge) SetBackgroundColorNil() {
 	u.touched["BackgroundColor"] = true
 	u.BackgroundColor = nil
 }
+
 func (u UnseenBadge) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -1823,4 +1986,12 @@ func (u UnseenBadge) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (u UnseenBadge) String() string {
+	jsonData, err := json.MarshalIndent(u, "", "  ")
+	if err != nil {
+		return "error converting struct: UnseenBadge to string"
+	}
+	return string(jsonData)
 }

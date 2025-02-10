@@ -79,6 +79,7 @@ func (s *SendgridConfigObject) SetNameNil() {
 	s.touched["Name"] = true
 	s.Name = nil
 }
+
 func (s SendgridConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (s SendgridConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (s SendgridConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: SendgridConfigObject to string"
+	}
+	return string(jsonData)
 }

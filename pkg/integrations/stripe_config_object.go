@@ -79,6 +79,7 @@ func (s *StripeConfigObject) SetNameNil() {
 	s.touched["Name"] = true
 	s.Name = nil
 }
+
 func (s StripeConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (s StripeConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (s StripeConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: StripeConfigObject to string"
+	}
+	return string(jsonData)
 }

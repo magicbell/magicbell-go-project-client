@@ -1,9 +1,9 @@
 package integrations
 
 type ListIntegrationsRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *ListIntegrationsRequestParams) SetPageSize(pageSize int64) {

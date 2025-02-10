@@ -79,6 +79,7 @@ func (t *TwilioConfigObject) SetNameNil() {
 	t.touched["Name"] = true
 	t.Name = nil
 }
+
 func (t TwilioConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (t TwilioConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (t TwilioConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(t, "", "  ")
+	if err != nil {
+		return "error converting struct: TwilioConfigObject to string"
+	}
+	return string(jsonData)
 }

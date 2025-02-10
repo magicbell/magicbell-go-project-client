@@ -80,6 +80,7 @@ func (s *SendgridConfig) SetReplyToNil() {
 	s.touched["ReplyTo"] = true
 	s.ReplyTo = nil
 }
+
 func (s SendgridConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -102,6 +103,14 @@ func (s SendgridConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (s SendgridConfig) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: SendgridConfig to string"
+	}
+	return string(jsonData)
 }
 
 type SendgridConfigFrom struct {
@@ -157,6 +166,7 @@ func (s *SendgridConfigFrom) SetNameNil() {
 	s.touched["Name"] = true
 	s.Name = nil
 }
+
 func (s SendgridConfigFrom) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -173,6 +183,14 @@ func (s SendgridConfigFrom) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (s SendgridConfigFrom) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: SendgridConfigFrom to string"
+	}
+	return string(jsonData)
 }
 
 type ReplyTo struct {
@@ -228,6 +246,7 @@ func (r *ReplyTo) SetNameNil() {
 	r.touched["Name"] = true
 	r.Name = nil
 }
+
 func (r ReplyTo) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -244,4 +263,12 @@ func (r ReplyTo) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (r ReplyTo) String() string {
+	jsonData, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "error converting struct: ReplyTo to string"
+	}
+	return string(jsonData)
 }

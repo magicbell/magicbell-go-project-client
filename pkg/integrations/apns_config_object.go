@@ -79,6 +79,7 @@ func (a *ApnsConfigObject) SetNameNil() {
 	a.touched["Name"] = true
 	a.Name = nil
 }
+
 func (a ApnsConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (a ApnsConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a ApnsConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: ApnsConfigObject to string"
+	}
+	return string(jsonData)
 }

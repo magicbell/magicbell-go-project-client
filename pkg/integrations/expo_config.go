@@ -31,6 +31,7 @@ func (e *ExpoConfig) SetAccessTokenNil() {
 	e.touched["AccessToken"] = true
 	e.AccessToken = nil
 }
+
 func (e ExpoConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -41,4 +42,12 @@ func (e ExpoConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (e ExpoConfig) String() string {
+	jsonData, err := json.MarshalIndent(e, "", "  ")
+	if err != nil {
+		return "error converting struct: ExpoConfig to string"
+	}
+	return string(jsonData)
 }

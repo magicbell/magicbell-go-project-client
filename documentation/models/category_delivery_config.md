@@ -4,23 +4,21 @@
 
 | Name     | Type                                      | Required | Description |
 | :------- | :---------------------------------------- | :------- | :---------- |
-| Category | string                                    | ✅       |             |
 | Channels | []channels.CategoryDeliveryConfigChannels | ✅       |             |
+| Key      | string                                    | ✅       |             |
 | Disabled | bool                                      | ❌       |             |
 
 # CategoryDeliveryConfigChannels
 
 **Properties**
 
-| Name     | Type                      | Required | Description |
-| :------- | :------------------------ | :------- | :---------- |
-| Channel  | channels.ChannelsChannel2 | ✅       |             |
-| Delay    | int64                     | ❌       |             |
-| Disabled | bool                      | ❌       |             |
-| If\_     | string                    | ❌       |             |
-| Priority | int64                     | ❌       |             |
+| Name    | Type             | Required | Description |
+| :------ | :--------------- | :------- | :---------- |
+| Channel | channels.Channel | ✅       |             |
+| Delay   | int64            | ❌       |             |
+| If\_    | string           | ❌       |             |
 
-# ChannelsChannel2
+# Channel
 
 **Properties**
 
@@ -32,3 +30,4 @@
 | mobile_push | string | ✅       | "mobile_push" |
 | teams       | string | ✅       | "teams"       |
 | email       | string | ✅       | "email"       |
+| sms         | string | ✅       | "sms"         |

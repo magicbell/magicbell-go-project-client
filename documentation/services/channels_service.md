@@ -4,9 +4,8 @@ A list of all methods in the `ChannelsService` service. Click on the method name
 
 | Methods                                                           | Description                                                                                                                                                                                                                                                        |
 | :---------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [GetProjectDeliveryconfig](#getprojectdeliveryconfig)             |                                                                                                                                                                                                                                                                    |
-| [SaveProjectDeliveryconfig](#saveprojectdeliveryconfig)           |                                                                                                                                                                                                                                                                    |
-| [SaveCategoriesDeliveryconfig](#savecategoriesdeliveryconfig)     |                                                                                                                                                                                                                                                                    |
+| [GetDeliveryconfig](#getdeliveryconfig)                           |                                                                                                                                                                                                                                                                    |
+| [SaveDeliveryconfig](#savedeliveryconfig)                         |                                                                                                                                                                                                                                                                    |
 | [GetMobilePushApnsUserTokens](#getmobilepushapnsusertokens)       | Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.                                                               |
 | [GetMobilePushApnsUserToken](#getmobilepushapnsusertoken)         | Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata. |
 | [DiscardMobilePushApnsUserToken](#discardmobilepushapnsusertoken) | Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.         |
@@ -26,57 +25,21 @@ A list of all methods in the `ChannelsService` service. Click on the method name
 | [GetWebPushUserToken](#getwebpushusertoken)                       | Retrieves a specific web_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.    |
 | [DiscardWebPushUserToken](#discardwebpushusertoken)               | Revokes a specific user's web_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.            |
 
-## GetProjectDeliveryconfig
+## GetDeliveryconfig
 
 - HTTP Method: `GET`
 - Endpoint: `/channels/deliveryconfig`
 
 **Parameters**
 
-| Name | Type    | Required | Description                 |
-| :--- | :------ | :------- | :-------------------------- |
-| ctx  | Context | ✅       | Default go language context |
+| Name   | Type                           | Required | Description                   |
+| :----- | :----------------------------- | :------- | :---------------------------- |
+| ctx    | Context                        | ✅       | Default go language context   |
+| params | GetDeliveryconfigRequestParams | ✅       | Additional request parameters |
 
 **Return Type**
 
-`ProjectDeliveryConfig`
-
-**Example Usage Code Snippet**
-
-```go
-import (
-  "fmt"
-  "encoding/json"
-  "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
-  "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
-)
-
-config := magicbellprojectclientconfig.NewConfig()
-client := magicbellprojectclient.NewMagicbellProjectClient(config)
-
-response, err := client.Channels.GetProjectDeliveryconfig(context.Background())
-if err != nil {
-  panic(err)
-}
-
-fmt.Println(response)
-```
-
-## SaveProjectDeliveryconfig
-
-- HTTP Method: `PUT`
-- Endpoint: `/channels/deliveryconfig`
-
-**Parameters**
-
-| Name                  | Type                  | Required | Description                 |
-| :-------------------- | :-------------------- | :------- | :-------------------------- |
-| ctx                   | Context               | ✅       | Default go language context |
-| projectDeliveryConfig | ProjectDeliveryConfig | ✅       |                             |
-
-**Return Type**
-
-`ProjectDeliveryConfig`
+`CategoryDeliveryConfig`
 
 **Example Usage Code Snippet**
 
@@ -92,19 +55,11 @@ import (
 config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
-channelsChannel1 := channels.CHANNELS_CHANNEL1_IN_APP
 
-projectDeliveryConfigChannels := channels.ProjectDeliveryConfigChannels{}
-projectDeliveryConfigChannels.SetChannel(channelsChannel1)
-projectDeliveryConfigChannels.SetDelay(int64(123))
-projectDeliveryConfigChannels.SetDisabled(true)
-projectDeliveryConfigChannels.SetIf_("If_")
-projectDeliveryConfigChannels.SetPriority(int64(123))
+params := channels.GetDeliveryconfigRequestParams{}
 
-request := channels.ProjectDeliveryConfig{}
-request.SetChannels([]channels.ProjectDeliveryConfigChannels{projectDeliveryConfigChannels})
 
-response, err := client.Channels.SaveProjectDeliveryconfig(context.Background(), request)
+response, err := client.Channels.GetDeliveryconfig(context.Background(), params)
 if err != nil {
   panic(err)
 }
@@ -112,10 +67,10 @@ if err != nil {
 fmt.Println(response)
 ```
 
-## SaveCategoriesDeliveryconfig
+## SaveDeliveryconfig
 
-- HTTP Method: `POST`
-- Endpoint: `/channels/deliveryconfig/categories`
+- HTTP Method: `PUT`
+- Endpoint: `/channels/deliveryconfig`
 
 **Parameters**
 
@@ -142,21 +97,19 @@ import (
 config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
-channelsChannel2 := channels.CHANNELS_CHANNEL2_IN_APP
+channel := channels.CHANNEL_IN_APP
 
 categoryDeliveryConfigChannels := channels.CategoryDeliveryConfigChannels{}
-categoryDeliveryConfigChannels.SetChannel(channelsChannel2)
+categoryDeliveryConfigChannels.SetChannel(channel)
 categoryDeliveryConfigChannels.SetDelay(int64(123))
-categoryDeliveryConfigChannels.SetDisabled(true)
 categoryDeliveryConfigChannels.SetIf_("If_")
-categoryDeliveryConfigChannels.SetPriority(int64(123))
 
 request := channels.CategoryDeliveryConfig{}
-request.SetCategory("Category")
 request.SetChannels([]channels.CategoryDeliveryConfigChannels{categoryDeliveryConfigChannels})
 request.SetDisabled(true)
+request.SetKey("Key")
 
-response, err := client.Channels.SaveCategoriesDeliveryconfig(context.Background(), request)
+response, err := client.Channels.SaveDeliveryconfig(context.Background(), request)
 if err != nil {
   panic(err)
 }
@@ -181,7 +134,7 @@ Lists all mobile_push tokens associated with a specific user. This endpoint is a
 
 **Return Type**
 
-`ArrayOfMetadataApnsTokens`
+`ArrayOfApnsTokenResponses`
 
 **Example Usage Code Snippet**
 
@@ -226,7 +179,7 @@ Retrieves a specific mobile_push token by its ID for a given user. This endpoint
 
 **Return Type**
 
-`MetadataApnsToken`
+`ApnsTokenResponse`
 
 **Example Usage Code Snippet**
 
@@ -306,7 +259,7 @@ Lists all mobile_push tokens associated with a specific user. This endpoint is a
 
 **Return Type**
 
-`ArrayOfMetadataExpoTokens`
+`ArrayOfExpoTokenResponses`
 
 **Example Usage Code Snippet**
 
@@ -351,7 +304,7 @@ Retrieves a specific mobile_push token by its ID for a given user. This endpoint
 
 **Return Type**
 
-`MetadataExpoToken`
+`ExpoTokenResponse`
 
 **Example Usage Code Snippet**
 
@@ -431,7 +384,7 @@ Lists all mobile_push tokens associated with a specific user. This endpoint is a
 
 **Return Type**
 
-`ArrayOfMetadataFcmTokens`
+`ArrayOfFcmTokenResponses`
 
 **Example Usage Code Snippet**
 
@@ -476,7 +429,7 @@ Retrieves a specific mobile_push token by its ID for a given user. This endpoint
 
 **Return Type**
 
-`MetadataFcmToken`
+`FcmTokenResponse`
 
 **Example Usage Code Snippet**
 
@@ -556,7 +509,7 @@ Lists all slack tokens associated with a specific user. This endpoint is availab
 
 **Return Type**
 
-`ArrayOfMetadataSlackTokens`
+`ArrayOfSlackTokenResponses`
 
 **Example Usage Code Snippet**
 
@@ -601,7 +554,7 @@ Retrieves a specific slack token by its ID for a given user. This endpoint is av
 
 **Return Type**
 
-`MetadataSlackToken`
+`SlackTokenResponse`
 
 **Example Usage Code Snippet**
 
@@ -681,7 +634,7 @@ Lists all teams tokens associated with a specific user. This endpoint is availab
 
 **Return Type**
 
-`ArrayOfMetadataTeamsTokens`
+`ArrayOfTeamsTokenResponses`
 
 **Example Usage Code Snippet**
 
@@ -726,7 +679,7 @@ Retrieves a specific teams token by its ID for a given user. This endpoint is av
 
 **Return Type**
 
-`MetadataTeamsToken`
+`TeamsTokenResponse`
 
 **Example Usage Code Snippet**
 
@@ -806,7 +759,7 @@ Lists all web_push tokens associated with a specific user. This endpoint is avai
 
 **Return Type**
 
-`ArrayOfMetadataWebPushTokens`
+`ArrayOfWebPushTokenResponses`
 
 **Example Usage Code Snippet**
 
@@ -851,7 +804,7 @@ Retrieves a specific web_push token by its ID for a given user. This endpoint is
 
 **Return Type**
 
-`MetadataWebPushToken`
+`WebPushTokenResponse`
 
 **Example Usage Code Snippet**
 

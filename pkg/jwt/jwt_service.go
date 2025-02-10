@@ -14,10 +14,15 @@ type JwtService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewJwtService(manager *configmanager.ConfigManager) *JwtService {
+func NewJwtService() *JwtService {
 	return &JwtService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(magicbellprojectclientconfig.Config{}),
 	}
+}
+
+func (api *JwtService) WithConfigManager(manager *configmanager.ConfigManager) *JwtService {
+	api.manager = manager
+	return api
 }
 
 func (api *JwtService) getConfig() *magicbellprojectclientconfig.Config {

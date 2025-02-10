@@ -14,10 +14,15 @@ type BroadcastsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewBroadcastsService(manager *configmanager.ConfigManager) *BroadcastsService {
+func NewBroadcastsService() *BroadcastsService {
 	return &BroadcastsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(magicbellprojectclientconfig.Config{}),
 	}
+}
+
+func (api *BroadcastsService) WithConfigManager(manager *configmanager.ConfigManager) *BroadcastsService {
+	api.manager = manager
+	return api
 }
 
 func (api *BroadcastsService) getConfig() *magicbellprojectclientconfig.Config {

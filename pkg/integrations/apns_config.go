@@ -153,6 +153,7 @@ func (a *ApnsConfig) SetTeamIdNil() {
 	a.touched["TeamId"] = true
 	a.TeamId = nil
 }
+
 func (a ApnsConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -193,6 +194,14 @@ func (a ApnsConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a ApnsConfig) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: ApnsConfig to string"
+	}
+	return string(jsonData)
 }
 
 type Badge string

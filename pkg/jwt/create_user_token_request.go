@@ -107,6 +107,7 @@ func (c *CreateUserTokenRequest) SetNameNil() {
 	c.touched["Name"] = true
 	c.Name = nil
 }
+
 func (c CreateUserTokenRequest) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -135,4 +136,12 @@ func (c CreateUserTokenRequest) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (c CreateUserTokenRequest) String() string {
+	jsonData, err := json.MarshalIndent(c, "", "  ")
+	if err != nil {
+		return "error converting struct: CreateUserTokenRequest to string"
+	}
+	return string(jsonData)
 }

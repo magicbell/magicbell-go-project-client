@@ -271,6 +271,7 @@ func (f *FcmConfig) SetUniverseDomainNil() {
 	f.touched["UniverseDomain"] = true
 	f.UniverseDomain = nil
 }
+
 func (f FcmConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -341,6 +342,14 @@ func (f FcmConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (f FcmConfig) String() string {
+	jsonData, err := json.MarshalIndent(f, "", "  ")
+	if err != nil {
+		return "error converting struct: FcmConfig to string"
+	}
+	return string(jsonData)
 }
 
 type Type_ string

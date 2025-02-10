@@ -79,6 +79,7 @@ func (a *AwssnsConfigObject) SetNameNil() {
 	a.touched["Name"] = true
 	a.Name = nil
 }
+
 func (a AwssnsConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (a AwssnsConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a AwssnsConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: AwssnsConfigObject to string"
+	}
+	return string(jsonData)
 }

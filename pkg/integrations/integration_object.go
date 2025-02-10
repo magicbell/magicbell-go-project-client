@@ -79,6 +79,7 @@ func (i *IntegrationObject) SetNameNil() {
 	i.touched["Name"] = true
 	i.Name = nil
 }
+
 func (i IntegrationObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (i IntegrationObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (i IntegrationObject) String() string {
+	jsonData, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "error converting struct: IntegrationObject to string"
+	}
+	return string(jsonData)
 }

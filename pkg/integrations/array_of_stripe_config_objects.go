@@ -56,6 +56,7 @@ func (a *ArrayOfStripeConfigObjects) SetLinksNil() {
 	a.touched["Links"] = true
 	a.Links = nil
 }
+
 func (a ArrayOfStripeConfigObjects) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -72,4 +73,12 @@ func (a ArrayOfStripeConfigObjects) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a ArrayOfStripeConfigObjects) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: ArrayOfStripeConfigObjects to string"
+	}
+	return string(jsonData)
 }

@@ -107,6 +107,7 @@ func (s *SlackConfig) SetSigningSecretNil() {
 	s.touched["SigningSecret"] = true
 	s.SigningSecret = nil
 }
+
 func (s SlackConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -135,4 +136,12 @@ func (s SlackConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (s SlackConfig) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: SlackConfig to string"
+	}
+	return string(jsonData)
 }

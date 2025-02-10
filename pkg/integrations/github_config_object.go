@@ -79,6 +79,7 @@ func (g *GithubConfigObject) SetNameNil() {
 	g.touched["Name"] = true
 	g.Name = nil
 }
+
 func (g GithubConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (g GithubConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (g GithubConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(g, "", "  ")
+	if err != nil {
+		return "error converting struct: GithubConfigObject to string"
+	}
+	return string(jsonData)
 }

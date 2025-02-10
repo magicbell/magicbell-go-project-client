@@ -56,6 +56,7 @@ func (a *ArrayOfTwilioConfigObjects) SetLinksNil() {
 	a.touched["Links"] = true
 	a.Links = nil
 }
+
 func (a ArrayOfTwilioConfigObjects) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -72,4 +73,12 @@ func (a ArrayOfTwilioConfigObjects) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a ArrayOfTwilioConfigObjects) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: ArrayOfTwilioConfigObjects to string"
+	}
+	return string(jsonData)
 }

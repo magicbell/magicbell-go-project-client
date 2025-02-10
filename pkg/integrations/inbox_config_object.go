@@ -79,6 +79,7 @@ func (i *InboxConfigObject) SetNameNil() {
 	i.touched["Name"] = true
 	i.Name = nil
 }
+
 func (i InboxConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (i InboxConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (i InboxConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(i, "", "  ")
+	if err != nil {
+		return "error converting struct: InboxConfigObject to string"
+	}
+	return string(jsonData)
 }
