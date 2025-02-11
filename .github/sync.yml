@@ -1,3 +1,4 @@
 magicbell/magicbell:
   - source: docs-dist
     dest: src/go/app/site/docs/mdx/03-libraries/magicbell-go-project-client
+    deleteOrphaned: true
