@@ -79,6 +79,7 @@ func (l *Links) SetPrevNil() {
 	l.touched["Prev"] = true
 	l.Prev = nil
 }
+
 func (l Links) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (l Links) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (l Links) String() string {
+	jsonData, err := json.MarshalIndent(l, "", "  ")
+	if err != nil {
+		return "error converting struct: Links to string"
+	}
+	return string(jsonData)
 }

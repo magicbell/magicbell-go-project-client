@@ -32,6 +32,7 @@ func (g *GithubConfig) SetWebhookSigningSecretNil() {
 	g.touched["WebhookSigningSecret"] = true
 	g.WebhookSigningSecret = nil
 }
+
 func (g GithubConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -42,4 +43,12 @@ func (g GithubConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (g GithubConfig) String() string {
+	jsonData, err := json.MarshalIndent(g, "", "  ")
+	if err != nil {
+		return "error converting struct: GithubConfig to string"
+	}
+	return string(jsonData)
 }

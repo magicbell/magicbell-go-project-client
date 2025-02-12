@@ -175,6 +175,7 @@ func (e *Event) SetType_Nil() {
 	e.touched["Type_"] = true
 	e.Type_ = nil
 }
+
 func (e Event) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -221,4 +222,12 @@ func (e Event) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (e Event) String() string {
+	jsonData, err := json.MarshalIndent(e, "", "  ")
+	if err != nil {
+		return "error converting struct: Event to string"
+	}
+	return string(jsonData)
 }

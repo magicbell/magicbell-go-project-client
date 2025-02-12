@@ -79,6 +79,7 @@ func (s *SlackConfigObject) SetNameNil() {
 	s.touched["Name"] = true
 	s.Name = nil
 }
+
 func (s SlackConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (s SlackConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (s SlackConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: SlackConfigObject to string"
+	}
+	return string(jsonData)
 }

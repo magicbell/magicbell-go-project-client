@@ -79,6 +79,7 @@ func (f *FcmConfigObject) SetNameNil() {
 	f.touched["Name"] = true
 	f.Name = nil
 }
+
 func (f FcmConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (f FcmConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (f FcmConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(f, "", "  ")
+	if err != nil {
+		return "error converting struct: FcmConfigObject to string"
+	}
+	return string(jsonData)
 }

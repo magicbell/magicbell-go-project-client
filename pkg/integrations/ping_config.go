@@ -32,6 +32,7 @@ func (p *PingConfig) SetUrlNil() {
 	p.touched["Url"] = true
 	p.Url = nil
 }
+
 func (p PingConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -42,4 +43,12 @@ func (p PingConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (p PingConfig) String() string {
+	jsonData, err := json.MarshalIndent(p, "", "  ")
+	if err != nil {
+		return "error converting struct: PingConfig to string"
+	}
+	return string(jsonData)
 }

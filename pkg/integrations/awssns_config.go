@@ -32,6 +32,7 @@ func (a *AwssnsConfig) SetWebhookSigningSecretNil() {
 	a.touched["WebhookSigningSecret"] = true
 	a.WebhookSigningSecret = nil
 }
+
 func (a AwssnsConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -42,4 +43,12 @@ func (a AwssnsConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a AwssnsConfig) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: AwssnsConfig to string"
+	}
+	return string(jsonData)
 }

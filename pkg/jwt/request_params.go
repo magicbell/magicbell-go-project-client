@@ -1,9 +1,9 @@
 package jwt
 
 type FetchProjectTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *FetchProjectTokensRequestParams) SetPageSize(pageSize int64) {
@@ -17,9 +17,9 @@ func (params *FetchProjectTokensRequestParams) SetPageBefore(pageBefore string) 
 }
 
 type FetchUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *FetchUserTokensRequestParams) SetPageSize(pageSize int64) {

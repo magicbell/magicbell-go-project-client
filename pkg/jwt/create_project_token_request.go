@@ -57,6 +57,7 @@ func (c *CreateProjectTokenRequest) SetNameNil() {
 	c.touched["Name"] = true
 	c.Name = nil
 }
+
 func (c CreateProjectTokenRequest) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -73,4 +74,12 @@ func (c CreateProjectTokenRequest) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (c CreateProjectTokenRequest) String() string {
+	jsonData, err := json.MarshalIndent(c, "", "  ")
+	if err != nil {
+		return "error converting struct: CreateProjectTokenRequest to string"
+	}
+	return string(jsonData)
 }

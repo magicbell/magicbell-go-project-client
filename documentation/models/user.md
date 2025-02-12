@@ -1,0 +1,18 @@
+# User
+
+**Properties**
+
+| Name             | Type     | Required | Description |
+| :--------------- | :------- | :------- | :---------- |
+| CreatedAt        | string   | ✅       |             |
+| CustomAttributes | any      | ✅       |             |
+| Id               | string   | ✅       |             |
+| ProjectId        | int64    | ✅       |             |
+| UpdatedAt        | string   | ✅       |             |
+| Email            | string   | ❌       |             |
+| ExternalId       | string   | ❌       |             |
+| FirstName        | string   | ❌       |             |
+| LastName         | string   | ❌       |             |
+| LastNotifiedAt   | string   | ❌       |             |
+| LastSeenAt       | string   | ❌       |             |
+| PhoneNumbers     | []string | ❌       |             |

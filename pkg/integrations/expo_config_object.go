@@ -79,6 +79,7 @@ func (e *ExpoConfigObject) SetNameNil() {
 	e.touched["Name"] = true
 	e.Name = nil
 }
+
 func (e ExpoConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (e ExpoConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (e ExpoConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(e, "", "  ")
+	if err != nil {
+		return "error converting struct: ExpoConfigObject to string"
+	}
+	return string(jsonData)
 }

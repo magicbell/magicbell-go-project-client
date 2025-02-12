@@ -1,0 +1,21 @@
+# FcmTokenResponse
+
+**Properties**
+
+| Name           | Type                                    | Required | Description |
+| :------------- | :-------------------------------------- | :------- | :---------- |
+| CreatedAt      | string                                  | ✅       |             |
+| DeviceToken    | string                                  | ✅       |             |
+| Id             | string                                  | ✅       |             |
+| DiscardedAt    | string                                  | ❌       |             |
+| InstallationId | channels.FcmTokenResponseInstallationId | ❌       |             |
+| UpdatedAt      | string                                  | ❌       |             |
+
+# FcmTokenResponseInstallationId
+
+**Properties**
+
+| Name        | Type   | Required | Description   |
+| :---------- | :----- | :------- | :------------ |
+| development | string | ✅       | "development" |
+| production  | string | ✅       | "production"  |

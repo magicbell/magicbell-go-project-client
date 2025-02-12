@@ -56,6 +56,7 @@ func (a *ArrayOfSlackConfigObjects) SetLinksNil() {
 	a.touched["Links"] = true
 	a.Links = nil
 }
+
 func (a ArrayOfSlackConfigObjects) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -72,4 +73,12 @@ func (a ArrayOfSlackConfigObjects) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a ArrayOfSlackConfigObjects) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: ArrayOfSlackConfigObjects to string"
+	}
+	return string(jsonData)
 }

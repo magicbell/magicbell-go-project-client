@@ -79,6 +79,7 @@ func (m *MailgunConfig) SetRegionNil() {
 	m.touched["Region"] = true
 	m.Region = nil
 }
+
 func (m MailgunConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,6 +102,14 @@ func (m MailgunConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (m MailgunConfig) String() string {
+	jsonData, err := json.MarshalIndent(m, "", "  ")
+	if err != nil {
+		return "error converting struct: MailgunConfig to string"
+	}
+	return string(jsonData)
 }
 
 type MailgunConfigRegion string

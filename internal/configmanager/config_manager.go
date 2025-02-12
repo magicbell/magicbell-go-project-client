@@ -1,9 +1,8 @@
 package configmanager
 
 import (
-	"time"
-
 	"github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
+	"time"
 )
 
 type ConfigManager struct {
@@ -12,6 +11,7 @@ type ConfigManager struct {
 	Events       magicbellprojectclientconfig.Config
 	Integrations magicbellprojectclientconfig.Config
 	Jwt          magicbellprojectclientconfig.Config
+	Users        magicbellprojectclientconfig.Config
 }
 
 func NewConfigManager(config magicbellprojectclientconfig.Config) *ConfigManager {
@@ -21,6 +21,7 @@ func NewConfigManager(config magicbellprojectclientconfig.Config) *ConfigManager
 		Events:       config,
 		Integrations: config,
 		Jwt:          config,
+		Users:        config,
 	}
 }
 
@@ -30,6 +31,7 @@ func (c *ConfigManager) SetBaseUrl(baseUrl string) {
 	c.Events.SetBaseUrl(baseUrl)
 	c.Integrations.SetBaseUrl(baseUrl)
 	c.Jwt.SetBaseUrl(baseUrl)
+	c.Users.SetBaseUrl(baseUrl)
 }
 
 func (c *ConfigManager) SetTimeout(timeout time.Duration) {
@@ -38,6 +40,7 @@ func (c *ConfigManager) SetTimeout(timeout time.Duration) {
 	c.Events.SetTimeout(timeout)
 	c.Integrations.SetTimeout(timeout)
 	c.Jwt.SetTimeout(timeout)
+	c.Users.SetTimeout(timeout)
 }
 
 func (c *ConfigManager) SetAccessToken(accessToken string) {
@@ -46,6 +49,7 @@ func (c *ConfigManager) SetAccessToken(accessToken string) {
 	c.Events.SetAccessToken(accessToken)
 	c.Integrations.SetAccessToken(accessToken)
 	c.Jwt.SetAccessToken(accessToken)
+	c.Users.SetAccessToken(accessToken)
 }
 
 func (c *ConfigManager) UpdateAccessToken(originalValue string, newValue string) {
@@ -69,6 +73,10 @@ func (c *ConfigManager) UpdateAccessToken(originalValue string, newValue string)
 	if c.Jwt.AccessToken != nil && *c.Jwt.AccessToken == originalValue {
 		c.Jwt.SetAccessToken(newValue)
 	}
+
+	if c.Users.AccessToken != nil && *c.Users.AccessToken == originalValue {
+		c.Users.SetAccessToken(newValue)
+	}
 }
 
 func (c *ConfigManager) GetBroadcasts() *magicbellprojectclientconfig.Config {
@@ -85,4 +93,7 @@ func (c *ConfigManager) GetIntegrations() *magicbellprojectclientconfig.Config {
 }
 func (c *ConfigManager) GetJwt() *magicbellprojectclientconfig.Config {
 	return &c.Jwt
+}
+func (c *ConfigManager) GetUsers() *magicbellprojectclientconfig.Config {
+	return &c.Users
 }

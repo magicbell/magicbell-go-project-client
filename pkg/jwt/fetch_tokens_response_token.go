@@ -127,6 +127,7 @@ func (f *FetchTokensResponseToken) SetNameNil() {
 	f.touched["Name"] = true
 	f.Name = nil
 }
+
 func (f FetchTokensResponseToken) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -161,4 +162,12 @@ func (f FetchTokensResponseToken) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (f FetchTokensResponseToken) String() string {
+	jsonData, err := json.MarshalIndent(f, "", "  ")
+	if err != nil {
+		return "error converting struct: FetchTokensResponseToken to string"
+	}
+	return string(jsonData)
 }

@@ -14,10 +14,15 @@ type EventsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewEventsService(manager *configmanager.ConfigManager) *EventsService {
+func NewEventsService() *EventsService {
 	return &EventsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(magicbellprojectclientconfig.Config{}),
 	}
+}
+
+func (api *EventsService) WithConfigManager(manager *configmanager.ConfigManager) *EventsService {
+	api.manager = manager
+	return api
 }
 
 func (api *EventsService) getConfig() *magicbellprojectclientconfig.Config {

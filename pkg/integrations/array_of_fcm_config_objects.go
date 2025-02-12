@@ -56,6 +56,7 @@ func (a *ArrayOfFcmConfigObjects) SetLinksNil() {
 	a.touched["Links"] = true
 	a.Links = nil
 }
+
 func (a ArrayOfFcmConfigObjects) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -72,4 +73,12 @@ func (a ArrayOfFcmConfigObjects) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a ArrayOfFcmConfigObjects) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: ArrayOfFcmConfigObjects to string"
+	}
+	return string(jsonData)
 }

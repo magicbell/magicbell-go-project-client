@@ -79,6 +79,7 @@ func (m *MailgunConfigObject) SetNameNil() {
 	m.touched["Name"] = true
 	m.Name = nil
 }
+
 func (m MailgunConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (m MailgunConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (m MailgunConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(m, "", "  ")
+	if err != nil {
+		return "error converting struct: MailgunConfigObject to string"
+	}
+	return string(jsonData)
 }

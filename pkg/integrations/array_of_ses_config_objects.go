@@ -56,6 +56,7 @@ func (a *ArrayOfSesConfigObjects) SetLinksNil() {
 	a.touched["Links"] = true
 	a.Links = nil
 }
+
 func (a ArrayOfSesConfigObjects) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -72,4 +73,12 @@ func (a ArrayOfSesConfigObjects) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (a ArrayOfSesConfigObjects) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: ArrayOfSesConfigObjects to string"
+	}
+	return string(jsonData)
 }

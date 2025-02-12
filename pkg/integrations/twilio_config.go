@@ -132,6 +132,7 @@ func (t *TwilioConfig) SetRegionNil() {
 	t.touched["Region"] = true
 	t.Region = nil
 }
+
 func (t TwilioConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -166,6 +167,14 @@ func (t TwilioConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (t TwilioConfig) String() string {
+	jsonData, err := json.MarshalIndent(t, "", "  ")
+	if err != nil {
+		return "error converting struct: TwilioConfig to string"
+	}
+	return string(jsonData)
 }
 
 // The region to use for Twilio, defaults to 'us1'

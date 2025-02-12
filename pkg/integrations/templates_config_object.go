@@ -79,6 +79,7 @@ func (t *TemplatesConfigObject) SetNameNil() {
 	t.touched["Name"] = true
 	t.Name = nil
 }
+
 func (t TemplatesConfigObject) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -101,4 +102,12 @@ func (t TemplatesConfigObject) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (t TemplatesConfigObject) String() string {
+	jsonData, err := json.MarshalIndent(t, "", "  ")
+	if err != nil {
+		return "error converting struct: TemplatesConfigObject to string"
+	}
+	return string(jsonData)
 }

@@ -1,9 +1,17 @@
 package channels
 
+type GetDeliveryconfigRequestParams struct {
+	Key *string `explode:"true" serializationStyle:"form" queryParam:"key"`
+}
+
+func (params *GetDeliveryconfigRequestParams) SetKey(key string) {
+	params.Key = &key
+}
+
 type GetMobilePushApnsUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *GetMobilePushApnsUserTokensRequestParams) SetPageSize(pageSize int64) {
@@ -17,9 +25,9 @@ func (params *GetMobilePushApnsUserTokensRequestParams) SetPageBefore(pageBefore
 }
 
 type GetMobilePushExpoUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *GetMobilePushExpoUserTokensRequestParams) SetPageSize(pageSize int64) {
@@ -33,9 +41,9 @@ func (params *GetMobilePushExpoUserTokensRequestParams) SetPageBefore(pageBefore
 }
 
 type GetMobilePushFcmUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *GetMobilePushFcmUserTokensRequestParams) SetPageSize(pageSize int64) {
@@ -49,9 +57,9 @@ func (params *GetMobilePushFcmUserTokensRequestParams) SetPageBefore(pageBefore 
 }
 
 type GetSlackUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *GetSlackUserTokensRequestParams) SetPageSize(pageSize int64) {
@@ -65,9 +73,9 @@ func (params *GetSlackUserTokensRequestParams) SetPageBefore(pageBefore string) 
 }
 
 type GetTeamsUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *GetTeamsUserTokensRequestParams) SetPageSize(pageSize int64) {
@@ -81,9 +89,9 @@ func (params *GetTeamsUserTokensRequestParams) SetPageBefore(pageBefore string) 
 }
 
 type GetWebPushUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	PageSize   *int64  `explode:"true" serializationStyle:"form" queryParam:"page[size]"`
+	PageAfter  *string `explode:"true" serializationStyle:"form" queryParam:"page[after]"`
+	PageBefore *string `explode:"true" serializationStyle:"form" queryParam:"page[before]"`
 }
 
 func (params *GetWebPushUserTokensRequestParams) SetPageSize(pageSize int64) {

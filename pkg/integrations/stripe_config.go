@@ -32,6 +32,7 @@ func (s *StripeConfig) SetWebhookSigningSecretNil() {
 	s.touched["WebhookSigningSecret"] = true
 	s.WebhookSigningSecret = nil
 }
+
 func (s StripeConfig) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -42,4 +43,12 @@ func (s StripeConfig) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (s StripeConfig) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: StripeConfig to string"
+	}
+	return string(jsonData)
 }

@@ -14,10 +14,15 @@ type ChannelsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewChannelsService(manager *configmanager.ConfigManager) *ChannelsService {
+func NewChannelsService() *ChannelsService {
 	return &ChannelsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(magicbellprojectclientconfig.Config{}),
 	}
+}
+
+func (api *ChannelsService) WithConfigManager(manager *configmanager.ConfigManager) *ChannelsService {
+	api.manager = manager
+	return api
 }
 
 func (api *ChannelsService) getConfig() *magicbellprojectclientconfig.Config {
@@ -39,54 +44,33 @@ func (api *ChannelsService) SetAccessToken(accessToken string) {
 	config.SetAccessToken(accessToken)
 }
 
-func (api *ChannelsService) GetProjectDeliveryconfig(ctx context.Context) (*shared.MagicbellProjectClientResponse[ProjectDeliveryConfig], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetDeliveryconfig(ctx context.Context, params GetDeliveryconfigRequestParams) (*shared.MagicbellProjectClientResponse[CategoryDeliveryConfig], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("GET").
 		WithPath("/channels/deliveryconfig").
 		WithConfig(config).
+		WithOptions(params).
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ProjectDeliveryConfig](config)
+	client := restClient.NewRestClient[CategoryDeliveryConfig](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ProjectDeliveryConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[CategoryDeliveryConfig](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ProjectDeliveryConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[CategoryDeliveryConfig](resp), nil
 }
 
-func (api *ChannelsService) SaveProjectDeliveryconfig(ctx context.Context, projectDeliveryConfig ProjectDeliveryConfig) (*shared.MagicbellProjectClientResponse[ProjectDeliveryConfig], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) SaveDeliveryconfig(ctx context.Context, categoryDeliveryConfig CategoryDeliveryConfig) (*shared.MagicbellProjectClientResponse[CategoryDeliveryConfig], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/channels/deliveryconfig").
-		WithConfig(config).
-		WithBody(projectDeliveryConfig).
-		AddHeader("CONTENT-TYPE", "application/json").
-		WithContentType(httptransport.ContentTypeJson).
-		WithResponseContentType(httptransport.ContentTypeJson).
-		Build()
-
-	client := restClient.NewRestClient[ProjectDeliveryConfig](config)
-	resp, err := client.Call(*request)
-	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ProjectDeliveryConfig](err)
-	}
-
-	return shared.NewMagicbellProjectClientResponse[ProjectDeliveryConfig](resp), nil
-}
-
-func (api *ChannelsService) SaveCategoriesDeliveryconfig(ctx context.Context, categoryDeliveryConfig CategoryDeliveryConfig) (*shared.MagicbellProjectClientResponse[CategoryDeliveryConfig], *shared.MagicbellProjectClientError) {
-	config := *api.getConfig()
-
-	request := httptransport.NewRequestBuilder().WithContext(ctx).
-		WithMethod("POST").
-		WithPath("/channels/deliveryconfig/categories").
 		WithConfig(config).
 		WithBody(categoryDeliveryConfig).
 		AddHeader("CONTENT-TYPE", "application/json").
@@ -104,7 +88,7 @@ func (api *ChannelsService) SaveCategoriesDeliveryconfig(ctx context.Context, ca
 }
 
 // Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
-func (api *ChannelsService) GetMobilePushApnsUserTokens(ctx context.Context, userId string, params GetMobilePushApnsUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfMetadataApnsTokens], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetMobilePushApnsUserTokens(ctx context.Context, userId string, params GetMobilePushApnsUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfApnsTokenResponses], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -117,17 +101,17 @@ func (api *ChannelsService) GetMobilePushApnsUserTokens(ctx context.Context, use
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfMetadataApnsTokens](config)
+	client := restClient.NewRestClient[ArrayOfApnsTokenResponses](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfMetadataApnsTokens](err)
+		return nil, shared.NewMagicbellProjectClientError[ArrayOfApnsTokenResponses](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfMetadataApnsTokens](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ArrayOfApnsTokenResponses](resp), nil
 }
 
 // Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
-func (api *ChannelsService) GetMobilePushApnsUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[MetadataApnsToken], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetMobilePushApnsUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[ApnsTokenResponse], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -140,13 +124,13 @@ func (api *ChannelsService) GetMobilePushApnsUserToken(ctx context.Context, user
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[MetadataApnsToken](config)
+	client := restClient.NewRestClient[ApnsTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[MetadataApnsToken](err)
+		return nil, shared.NewMagicbellProjectClientError[ApnsTokenResponse](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[MetadataApnsToken](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ApnsTokenResponse](resp), nil
 }
 
 // Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
@@ -173,7 +157,7 @@ func (api *ChannelsService) DiscardMobilePushApnsUserToken(ctx context.Context, 
 }
 
 // Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
-func (api *ChannelsService) GetMobilePushExpoUserTokens(ctx context.Context, userId string, params GetMobilePushExpoUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfMetadataExpoTokens], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetMobilePushExpoUserTokens(ctx context.Context, userId string, params GetMobilePushExpoUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfExpoTokenResponses], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -186,17 +170,17 @@ func (api *ChannelsService) GetMobilePushExpoUserTokens(ctx context.Context, use
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfMetadataExpoTokens](config)
+	client := restClient.NewRestClient[ArrayOfExpoTokenResponses](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfMetadataExpoTokens](err)
+		return nil, shared.NewMagicbellProjectClientError[ArrayOfExpoTokenResponses](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfMetadataExpoTokens](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ArrayOfExpoTokenResponses](resp), nil
 }
 
 // Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
-func (api *ChannelsService) GetMobilePushExpoUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[MetadataExpoToken], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetMobilePushExpoUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[ExpoTokenResponse], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -209,13 +193,13 @@ func (api *ChannelsService) GetMobilePushExpoUserToken(ctx context.Context, user
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[MetadataExpoToken](config)
+	client := restClient.NewRestClient[ExpoTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[MetadataExpoToken](err)
+		return nil, shared.NewMagicbellProjectClientError[ExpoTokenResponse](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[MetadataExpoToken](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ExpoTokenResponse](resp), nil
 }
 
 // Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
@@ -242,7 +226,7 @@ func (api *ChannelsService) DiscardMobilePushExpoUserToken(ctx context.Context, 
 }
 
 // Lists all mobile_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
-func (api *ChannelsService) GetMobilePushFcmUserTokens(ctx context.Context, userId string, params GetMobilePushFcmUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfMetadataFcmTokens], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetMobilePushFcmUserTokens(ctx context.Context, userId string, params GetMobilePushFcmUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfFcmTokenResponses], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -255,17 +239,17 @@ func (api *ChannelsService) GetMobilePushFcmUserTokens(ctx context.Context, user
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfMetadataFcmTokens](config)
+	client := restClient.NewRestClient[ArrayOfFcmTokenResponses](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfMetadataFcmTokens](err)
+		return nil, shared.NewMagicbellProjectClientError[ArrayOfFcmTokenResponses](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfMetadataFcmTokens](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ArrayOfFcmTokenResponses](resp), nil
 }
 
 // Retrieves a specific mobile_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
-func (api *ChannelsService) GetMobilePushFcmUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[MetadataFcmToken], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetMobilePushFcmUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[FcmTokenResponse], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -278,13 +262,13 @@ func (api *ChannelsService) GetMobilePushFcmUserToken(ctx context.Context, userI
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[MetadataFcmToken](config)
+	client := restClient.NewRestClient[FcmTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[MetadataFcmToken](err)
+		return nil, shared.NewMagicbellProjectClientError[FcmTokenResponse](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[MetadataFcmToken](resp), nil
+	return shared.NewMagicbellProjectClientResponse[FcmTokenResponse](resp), nil
 }
 
 // Revokes a specific user's mobile_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
@@ -311,7 +295,7 @@ func (api *ChannelsService) DiscardMobilePushFcmUserToken(ctx context.Context, u
 }
 
 // Lists all slack tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
-func (api *ChannelsService) GetSlackUserTokens(ctx context.Context, userId string, params GetSlackUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfMetadataSlackTokens], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetSlackUserTokens(ctx context.Context, userId string, params GetSlackUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfSlackTokenResponses], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -324,17 +308,17 @@ func (api *ChannelsService) GetSlackUserTokens(ctx context.Context, userId strin
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfMetadataSlackTokens](config)
+	client := restClient.NewRestClient[ArrayOfSlackTokenResponses](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfMetadataSlackTokens](err)
+		return nil, shared.NewMagicbellProjectClientError[ArrayOfSlackTokenResponses](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfMetadataSlackTokens](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ArrayOfSlackTokenResponses](resp), nil
 }
 
 // Retrieves a specific slack token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
-func (api *ChannelsService) GetSlackUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[MetadataSlackToken], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetSlackUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[SlackTokenResponse], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -347,13 +331,13 @@ func (api *ChannelsService) GetSlackUserToken(ctx context.Context, userId string
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[MetadataSlackToken](config)
+	client := restClient.NewRestClient[SlackTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[MetadataSlackToken](err)
+		return nil, shared.NewMagicbellProjectClientError[SlackTokenResponse](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[MetadataSlackToken](resp), nil
+	return shared.NewMagicbellProjectClientResponse[SlackTokenResponse](resp), nil
 }
 
 // Revokes a specific user's slack token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
@@ -380,7 +364,7 @@ func (api *ChannelsService) DiscardSlackUserToken(ctx context.Context, userId st
 }
 
 // Lists all teams tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
-func (api *ChannelsService) GetTeamsUserTokens(ctx context.Context, userId string, params GetTeamsUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfMetadataTeamsTokens], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetTeamsUserTokens(ctx context.Context, userId string, params GetTeamsUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfTeamsTokenResponses], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -393,17 +377,17 @@ func (api *ChannelsService) GetTeamsUserTokens(ctx context.Context, userId strin
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfMetadataTeamsTokens](config)
+	client := restClient.NewRestClient[ArrayOfTeamsTokenResponses](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfMetadataTeamsTokens](err)
+		return nil, shared.NewMagicbellProjectClientError[ArrayOfTeamsTokenResponses](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfMetadataTeamsTokens](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ArrayOfTeamsTokenResponses](resp), nil
 }
 
 // Retrieves a specific teams token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
-func (api *ChannelsService) GetTeamsUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[MetadataTeamsToken], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetTeamsUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[TeamsTokenResponse], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -416,13 +400,13 @@ func (api *ChannelsService) GetTeamsUserToken(ctx context.Context, userId string
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[MetadataTeamsToken](config)
+	client := restClient.NewRestClient[TeamsTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[MetadataTeamsToken](err)
+		return nil, shared.NewMagicbellProjectClientError[TeamsTokenResponse](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[MetadataTeamsToken](resp), nil
+	return shared.NewMagicbellProjectClientResponse[TeamsTokenResponse](resp), nil
 }
 
 // Revokes a specific user's teams token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.
@@ -449,7 +433,7 @@ func (api *ChannelsService) DiscardTeamsUserToken(ctx context.Context, userId st
 }
 
 // Lists all web_push tokens associated with a specific user. This endpoint is available to project administrators and returns a paginated list of tokens, including both active and revoked tokens.
-func (api *ChannelsService) GetWebPushUserTokens(ctx context.Context, userId string, params GetWebPushUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfMetadataWebPushTokens], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetWebPushUserTokens(ctx context.Context, userId string, params GetWebPushUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfWebPushTokenResponses], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -462,17 +446,17 @@ func (api *ChannelsService) GetWebPushUserTokens(ctx context.Context, userId str
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfMetadataWebPushTokens](config)
+	client := restClient.NewRestClient[ArrayOfWebPushTokenResponses](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfMetadataWebPushTokens](err)
+		return nil, shared.NewMagicbellProjectClientError[ArrayOfWebPushTokenResponses](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfMetadataWebPushTokens](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ArrayOfWebPushTokenResponses](resp), nil
 }
 
 // Retrieves a specific web_push token by its ID for a given user. This endpoint is available to project administrators and requires project-level authentication. Use this to inspect token details including its status, creation date, and associated metadata.
-func (api *ChannelsService) GetWebPushUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[MetadataWebPushToken], *shared.MagicbellProjectClientError) {
+func (api *ChannelsService) GetWebPushUserToken(ctx context.Context, userId string, tokenId string) (*shared.MagicbellProjectClientResponse[WebPushTokenResponse], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -485,13 +469,13 @@ func (api *ChannelsService) GetWebPushUserToken(ctx context.Context, userId stri
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[MetadataWebPushToken](config)
+	client := restClient.NewRestClient[WebPushTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[MetadataWebPushToken](err)
+		return nil, shared.NewMagicbellProjectClientError[WebPushTokenResponse](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[MetadataWebPushToken](resp), nil
+	return shared.NewMagicbellProjectClientResponse[WebPushTokenResponse](resp), nil
 }
 
 // Revokes a specific user's web_push token. This endpoint is available to project administrators and permanently invalidates the specified token. Once revoked, the token can no longer be used to access channel features. This action cannot be undone.

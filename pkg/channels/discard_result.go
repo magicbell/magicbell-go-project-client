@@ -55,6 +55,7 @@ func (d *DiscardResult) SetIdNil() {
 	d.touched["Id"] = true
 	d.Id = nil
 }
+
 func (d DiscardResult) MarshalJSON() ([]byte, error) {
 	data := make(map[string]any)
 
@@ -71,4 +72,12 @@ func (d DiscardResult) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(data)
+}
+
+func (d DiscardResult) String() string {
+	jsonData, err := json.MarshalIndent(d, "", "  ")
+	if err != nil {
+		return "error converting struct: DiscardResult to string"
+	}
+	return string(jsonData)
 }
