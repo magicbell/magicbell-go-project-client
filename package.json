@@ -3,6 +3,9 @@
   "version": "0.1.1",
   "private": true,
   "type": "module",
+  "docs": {
+    "name": "Go Project Client"
+  },
   "scripts": {
     "changeset": "./scripts/changeset.sh",
     "changeset:postversion": "tsx scripts/update-version.ts",
