@@ -2,11 +2,26 @@ package channels
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type ExpoToken struct {
-	DeviceToken *string `json:"device_token,omitempty" required:"true" minLength:"1"`
-	touched     map[string]bool
+	CreatedAt   *string                `json:"created_at,omitempty" required:"true"`
+	DeviceToken *string                `json:"device_token,omitempty" required:"true" minLength:"1"`
+	DiscardedAt *util.Nullable[string] `json:"discarded_at,omitempty"`
+	Id          *string                `json:"id,omitempty" required:"true"`
+	UpdatedAt   *util.Nullable[string] `json:"updated_at,omitempty"`
+}
+
+func (e *ExpoToken) GetCreatedAt() *string {
+	if e == nil {
+		return nil
+	}
+	return e.CreatedAt
+}
+
+func (e *ExpoToken) SetCreatedAt(createdAt string) {
+	e.CreatedAt = &createdAt
 }
 
 func (e *ExpoToken) GetDeviceToken() *string {
@@ -17,28 +32,54 @@ func (e *ExpoToken) GetDeviceToken() *string {
 }
 
 func (e *ExpoToken) SetDeviceToken(deviceToken string) {
-	if e.touched == nil {
-		e.touched = map[string]bool{}
-	}
-	e.touched["DeviceToken"] = true
 	e.DeviceToken = &deviceToken
 }
 
-func (e *ExpoToken) SetDeviceTokenNil() {
-	if e.touched == nil {
-		e.touched = map[string]bool{}
+func (e *ExpoToken) GetDiscardedAt() *util.Nullable[string] {
+	if e == nil {
+		return nil
 	}
-	e.touched["DeviceToken"] = true
-	e.DeviceToken = nil
+	return e.DiscardedAt
 }
-func (e ExpoToken) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if e.touched["DeviceToken"] && e.DeviceToken == nil {
-		data["device_token"] = nil
-	} else if e.DeviceToken != nil {
-		data["device_token"] = e.DeviceToken
+func (e *ExpoToken) SetDiscardedAt(discardedAt util.Nullable[string]) {
+	e.DiscardedAt = &discardedAt
+}
+
+func (e *ExpoToken) SetDiscardedAtNull() {
+	e.DiscardedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (e *ExpoToken) GetId() *string {
+	if e == nil {
+		return nil
 	}
+	return e.Id
+}
 
-	return json.Marshal(data)
+func (e *ExpoToken) SetId(id string) {
+	e.Id = &id
+}
+
+func (e *ExpoToken) GetUpdatedAt() *util.Nullable[string] {
+	if e == nil {
+		return nil
+	}
+	return e.UpdatedAt
+}
+
+func (e *ExpoToken) SetUpdatedAt(updatedAt util.Nullable[string]) {
+	e.UpdatedAt = &updatedAt
+}
+
+func (e *ExpoToken) SetUpdatedAtNull() {
+	e.UpdatedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (e ExpoToken) String() string {
+	jsonData, err := json.MarshalIndent(e, "", "  ")
+	if err != nil {
+		return "error converting struct: ExpoToken to string"
+	}
+	return string(jsonData)
 }

@@ -14,10 +14,15 @@ type BroadcastsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewBroadcastsService(manager *configmanager.ConfigManager) *BroadcastsService {
+func NewBroadcastsService() *BroadcastsService {
 	return &BroadcastsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(magicbellprojectclientconfig.Config{}),
 	}
+}
+
+func (api *BroadcastsService) WithConfigManager(manager *configmanager.ConfigManager) *BroadcastsService {
+	api.manager = manager
+	return api
 }
 
 func (api *BroadcastsService) getConfig() *magicbellprojectclientconfig.Config {
@@ -40,7 +45,7 @@ func (api *BroadcastsService) SetAccessToken(accessToken string) {
 }
 
 // Retrieves a paginated list of broadcasts for the project. Returns basic information about each broadcast including its creation time and status.
-func (api *BroadcastsService) ListBroadcasts(ctx context.Context, params ListBroadcastsRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfBroadcasts], *shared.MagicbellProjectClientError) {
+func (api *BroadcastsService) ListBroadcasts(ctx context.Context, params ListBroadcastsRequestParams) (*shared.MagicbellProjectClientResponse[BroadcastCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -52,16 +57,16 @@ func (api *BroadcastsService) ListBroadcasts(ctx context.Context, params ListBro
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfBroadcasts](config)
+	client := restClient.NewRestClient[BroadcastCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfBroadcasts](err)
+		return nil, shared.NewMagicbellProjectClientError[BroadcastCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfBroadcasts](resp), nil
+	return shared.NewMagicbellProjectClientResponse[BroadcastCollection](resp), nil
 }
 
-// Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project. Only administrators can create broadcasts.
+// Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project.
 func (api *BroadcastsService) CreateBroadcast(ctx context.Context, broadcast Broadcast) (*shared.MagicbellProjectClientResponse[Broadcast], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 

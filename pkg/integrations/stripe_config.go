@@ -1,45 +1,50 @@
 package integrations
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type StripeConfig struct {
-	// The signing secret to verify incoming requests from Stripe
-	WebhookSigningSecret *string `json:"webhook_signing_secret,omitempty" required:"true" maxLength:"100" minLength:"1"`
-	touched              map[string]bool
+	Config *StripeConfigPayload `json:"config,omitempty" required:"true"`
+	Id     *string              `json:"id,omitempty" required:"true"`
+	Name   *string              `json:"name,omitempty" required:"true"`
 }
 
-func (s *StripeConfig) GetWebhookSigningSecret() *string {
+func (s *StripeConfig) GetConfig() *StripeConfigPayload {
 	if s == nil {
 		return nil
 	}
-	return s.WebhookSigningSecret
+	return s.Config
 }
 
-func (s *StripeConfig) SetWebhookSigningSecret(webhookSigningSecret string) {
-	if s.touched == nil {
-		s.touched = map[string]bool{}
-	}
-	s.touched["WebhookSigningSecret"] = true
-	s.WebhookSigningSecret = &webhookSigningSecret
+func (s *StripeConfig) SetConfig(config StripeConfigPayload) {
+	s.Config = &config
 }
 
-func (s *StripeConfig) SetWebhookSigningSecretNil() {
-	if s.touched == nil {
-		s.touched = map[string]bool{}
+func (s *StripeConfig) GetId() *string {
+	if s == nil {
+		return nil
 	}
-	s.touched["WebhookSigningSecret"] = true
-	s.WebhookSigningSecret = nil
+	return s.Id
 }
-func (s StripeConfig) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if s.touched["WebhookSigningSecret"] && s.WebhookSigningSecret == nil {
-		data["webhook_signing_secret"] = nil
-	} else if s.WebhookSigningSecret != nil {
-		data["webhook_signing_secret"] = s.WebhookSigningSecret
+func (s *StripeConfig) SetId(id string) {
+	s.Id = &id
+}
+
+func (s *StripeConfig) GetName() *string {
+	if s == nil {
+		return nil
 	}
+	return s.Name
+}
 
-	return json.Marshal(data)
+func (s *StripeConfig) SetName(name string) {
+	s.Name = &name
+}
+
+func (s StripeConfig) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: StripeConfig to string"
+	}
+	return string(jsonData)
 }

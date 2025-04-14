@@ -2,12 +2,54 @@ package channels
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type SlackToken struct {
-	Oauth   *Oauth             `json:"oauth,omitempty"`
+	CreatedAt   *string                `json:"created_at,omitempty" required:"true"`
+	DiscardedAt *util.Nullable[string] `json:"discarded_at,omitempty"`
+	Id          *string                `json:"id,omitempty" required:"true"`
+	Oauth       *Oauth                 `json:"oauth,omitempty"`
+	UpdatedAt   *util.Nullable[string] `json:"updated_at,omitempty"`
+	// Obtained directly from the incoming_webhook object in the installation response from the Slack API.
 	Webhook *SlackTokenWebhook `json:"webhook,omitempty"`
-	touched map[string]bool
+}
+
+func (s *SlackToken) GetCreatedAt() *string {
+	if s == nil {
+		return nil
+	}
+	return s.CreatedAt
+}
+
+func (s *SlackToken) SetCreatedAt(createdAt string) {
+	s.CreatedAt = &createdAt
+}
+
+func (s *SlackToken) GetDiscardedAt() *util.Nullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.DiscardedAt
+}
+
+func (s *SlackToken) SetDiscardedAt(discardedAt util.Nullable[string]) {
+	s.DiscardedAt = &discardedAt
+}
+
+func (s *SlackToken) SetDiscardedAtNull() {
+	s.DiscardedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (s *SlackToken) GetId() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Id
+}
+
+func (s *SlackToken) SetId(id string) {
+	s.Id = &id
 }
 
 func (s *SlackToken) GetOauth() *Oauth {
@@ -18,19 +60,22 @@ func (s *SlackToken) GetOauth() *Oauth {
 }
 
 func (s *SlackToken) SetOauth(oauth Oauth) {
-	if s.touched == nil {
-		s.touched = map[string]bool{}
-	}
-	s.touched["Oauth"] = true
 	s.Oauth = &oauth
 }
 
-func (s *SlackToken) SetOauthNil() {
-	if s.touched == nil {
-		s.touched = map[string]bool{}
+func (s *SlackToken) GetUpdatedAt() *util.Nullable[string] {
+	if s == nil {
+		return nil
 	}
-	s.touched["Oauth"] = true
-	s.Oauth = nil
+	return s.UpdatedAt
+}
+
+func (s *SlackToken) SetUpdatedAt(updatedAt util.Nullable[string]) {
+	s.UpdatedAt = &updatedAt
+}
+
+func (s *SlackToken) SetUpdatedAtNull() {
+	s.UpdatedAt = &util.Nullable[string]{IsNull: true}
 }
 
 func (s *SlackToken) GetWebhook() *SlackTokenWebhook {
@@ -41,43 +86,21 @@ func (s *SlackToken) GetWebhook() *SlackTokenWebhook {
 }
 
 func (s *SlackToken) SetWebhook(webhook SlackTokenWebhook) {
-	if s.touched == nil {
-		s.touched = map[string]bool{}
-	}
-	s.touched["Webhook"] = true
 	s.Webhook = &webhook
 }
 
-func (s *SlackToken) SetWebhookNil() {
-	if s.touched == nil {
-		s.touched = map[string]bool{}
+func (s SlackToken) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: SlackToken to string"
 	}
-	s.touched["Webhook"] = true
-	s.Webhook = nil
-}
-func (s SlackToken) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if s.touched["Oauth"] && s.Oauth == nil {
-		data["oauth"] = nil
-	} else if s.Oauth != nil {
-		data["oauth"] = s.Oauth
-	}
-
-	if s.touched["Webhook"] && s.Webhook == nil {
-		data["webhook"] = nil
-	} else if s.Webhook != nil {
-		data["webhook"] = s.Webhook
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }
 
 type Oauth struct {
 	ChannelId      *string `json:"channel_id,omitempty" required:"true"`
 	InstallationId *string `json:"installation_id,omitempty" required:"true"`
 	Scope          *string `json:"scope,omitempty"`
-	touched        map[string]bool
 }
 
 func (o *Oauth) GetChannelId() *string {
@@ -88,19 +111,7 @@ func (o *Oauth) GetChannelId() *string {
 }
 
 func (o *Oauth) SetChannelId(channelId string) {
-	if o.touched == nil {
-		o.touched = map[string]bool{}
-	}
-	o.touched["ChannelId"] = true
 	o.ChannelId = &channelId
-}
-
-func (o *Oauth) SetChannelIdNil() {
-	if o.touched == nil {
-		o.touched = map[string]bool{}
-	}
-	o.touched["ChannelId"] = true
-	o.ChannelId = nil
 }
 
 func (o *Oauth) GetInstallationId() *string {
@@ -111,19 +122,7 @@ func (o *Oauth) GetInstallationId() *string {
 }
 
 func (o *Oauth) SetInstallationId(installationId string) {
-	if o.touched == nil {
-		o.touched = map[string]bool{}
-	}
-	o.touched["InstallationId"] = true
 	o.InstallationId = &installationId
-}
-
-func (o *Oauth) SetInstallationIdNil() {
-	if o.touched == nil {
-		o.touched = map[string]bool{}
-	}
-	o.touched["InstallationId"] = true
-	o.InstallationId = nil
 }
 
 func (o *Oauth) GetScope() *string {
@@ -134,47 +133,20 @@ func (o *Oauth) GetScope() *string {
 }
 
 func (o *Oauth) SetScope(scope string) {
-	if o.touched == nil {
-		o.touched = map[string]bool{}
-	}
-	o.touched["Scope"] = true
 	o.Scope = &scope
 }
 
-func (o *Oauth) SetScopeNil() {
-	if o.touched == nil {
-		o.touched = map[string]bool{}
+func (o Oauth) String() string {
+	jsonData, err := json.MarshalIndent(o, "", "  ")
+	if err != nil {
+		return "error converting struct: Oauth to string"
 	}
-	o.touched["Scope"] = true
-	o.Scope = nil
-}
-func (o Oauth) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if o.touched["ChannelId"] && o.ChannelId == nil {
-		data["channel_id"] = nil
-	} else if o.ChannelId != nil {
-		data["channel_id"] = o.ChannelId
-	}
-
-	if o.touched["InstallationId"] && o.InstallationId == nil {
-		data["installation_id"] = nil
-	} else if o.InstallationId != nil {
-		data["installation_id"] = o.InstallationId
-	}
-
-	if o.touched["Scope"] && o.Scope == nil {
-		data["scope"] = nil
-	} else if o.Scope != nil {
-		data["scope"] = o.Scope
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }
 
+// Obtained directly from the incoming_webhook object in the installation response from the Slack API.
 type SlackTokenWebhook struct {
-	Url     *string `json:"url,omitempty" required:"true" minLength:"1"`
-	touched map[string]bool
+	Url *string `json:"url,omitempty" required:"true" minLength:"1"`
 }
 
 func (s *SlackTokenWebhook) GetUrl() *string {
@@ -185,28 +157,13 @@ func (s *SlackTokenWebhook) GetUrl() *string {
 }
 
 func (s *SlackTokenWebhook) SetUrl(url string) {
-	if s.touched == nil {
-		s.touched = map[string]bool{}
-	}
-	s.touched["Url"] = true
 	s.Url = &url
 }
 
-func (s *SlackTokenWebhook) SetUrlNil() {
-	if s.touched == nil {
-		s.touched = map[string]bool{}
+func (s SlackTokenWebhook) String() string {
+	jsonData, err := json.MarshalIndent(s, "", "  ")
+	if err != nil {
+		return "error converting struct: SlackTokenWebhook to string"
 	}
-	s.touched["Url"] = true
-	s.Url = nil
-}
-func (s SlackTokenWebhook) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if s.touched["Url"] && s.Url == nil {
-		data["url"] = nil
-	} else if s.Url != nil {
-		data["url"] = s.Url
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }

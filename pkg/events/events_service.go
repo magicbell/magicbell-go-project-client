@@ -14,10 +14,15 @@ type EventsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewEventsService(manager *configmanager.ConfigManager) *EventsService {
+func NewEventsService() *EventsService {
 	return &EventsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(magicbellprojectclientconfig.Config{}),
 	}
+}
+
+func (api *EventsService) WithConfigManager(manager *configmanager.ConfigManager) *EventsService {
+	api.manager = manager
+	return api
 }
 
 func (api *EventsService) getConfig() *magicbellprojectclientconfig.Config {
@@ -40,7 +45,7 @@ func (api *EventsService) SetAccessToken(accessToken string) {
 }
 
 // Retrieves a paginated list of events for the project.
-func (api *EventsService) GetEvents(ctx context.Context, params GetEventsRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfEvents], *shared.MagicbellProjectClientError) {
+func (api *EventsService) ListEvents(ctx context.Context, params ListEventsRequestParams) (*shared.MagicbellProjectClientResponse[EventCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -52,11 +57,33 @@ func (api *EventsService) GetEvents(ctx context.Context, params GetEventsRequest
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfEvents](config)
+	client := restClient.NewRestClient[EventCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfEvents](err)
+		return nil, shared.NewMagicbellProjectClientError[EventCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfEvents](resp), nil
+	return shared.NewMagicbellProjectClientResponse[EventCollection](resp), nil
+}
+
+// Retrieves a project event by its ID.
+func (api *EventsService) GetEvent(ctx context.Context, id string) (*shared.MagicbellProjectClientResponse[Event], *shared.MagicbellProjectClientError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/events/{id}").
+		WithConfig(config).
+		AddPathParam("id", id).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[Event](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewMagicbellProjectClientError[Event](err)
+	}
+
+	return shared.NewMagicbellProjectClientResponse[Event](resp), nil
 }

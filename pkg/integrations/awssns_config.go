@@ -1,45 +1,50 @@
 package integrations
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type AwssnsConfig struct {
-	// The signing certificate from AWS SNS
-	WebhookSigningSecret *string `json:"webhook_signing_secret,omitempty" required:"true" minLength:"1"`
-	touched              map[string]bool
+	Config *AwssnsConfigPayload `json:"config,omitempty" required:"true"`
+	Id     *string              `json:"id,omitempty" required:"true"`
+	Name   *string              `json:"name,omitempty" required:"true"`
 }
 
-func (a *AwssnsConfig) GetWebhookSigningSecret() *string {
+func (a *AwssnsConfig) GetConfig() *AwssnsConfigPayload {
 	if a == nil {
 		return nil
 	}
-	return a.WebhookSigningSecret
+	return a.Config
 }
 
-func (a *AwssnsConfig) SetWebhookSigningSecret(webhookSigningSecret string) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["WebhookSigningSecret"] = true
-	a.WebhookSigningSecret = &webhookSigningSecret
+func (a *AwssnsConfig) SetConfig(config AwssnsConfigPayload) {
+	a.Config = &config
 }
 
-func (a *AwssnsConfig) SetWebhookSigningSecretNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
+func (a *AwssnsConfig) GetId() *string {
+	if a == nil {
+		return nil
 	}
-	a.touched["WebhookSigningSecret"] = true
-	a.WebhookSigningSecret = nil
+	return a.Id
 }
-func (a AwssnsConfig) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if a.touched["WebhookSigningSecret"] && a.WebhookSigningSecret == nil {
-		data["webhook_signing_secret"] = nil
-	} else if a.WebhookSigningSecret != nil {
-		data["webhook_signing_secret"] = a.WebhookSigningSecret
+func (a *AwssnsConfig) SetId(id string) {
+	a.Id = &id
+}
+
+func (a *AwssnsConfig) GetName() *string {
+	if a == nil {
+		return nil
 	}
+	return a.Name
+}
 
-	return json.Marshal(data)
+func (a *AwssnsConfig) SetName(name string) {
+	a.Name = &name
+}
+
+func (a AwssnsConfig) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: AwssnsConfig to string"
+	}
+	return string(jsonData)
 }

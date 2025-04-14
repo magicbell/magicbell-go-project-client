@@ -1,17 +1,17 @@
 package integrations
 
 type ListIntegrationsRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *ListIntegrationsRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *ListIntegrationsRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *ListIntegrationsRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *ListIntegrationsRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *ListIntegrationsRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *ListIntegrationsRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }

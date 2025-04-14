@@ -4,9 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/magicbell/magicbell-go-project-client/pkg/broadcasts"
 	"github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
 	"github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
+
+	"github.com/magicbell/magicbell-go-project-client/pkg/broadcasts"
 )
 
 func main() {

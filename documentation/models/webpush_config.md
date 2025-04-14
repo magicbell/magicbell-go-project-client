@@ -2,7 +2,8 @@
 
 **Properties**
 
-| Name       | Type   | Required | Description |
-| :--------- | :----- | :------- | :---------- |
-| PrivateKey | string | ✅       |             |
-| PublicKey  | string | ✅       |             |
+| Name   | Type                              | Required | Description |
+| :----- | :-------------------------------- | :------- | :---------- |
+| Config | integrations.WebpushConfigPayload | ✅       |             |
+| Id     | string                            | ✅       |             |
+| Name   | string                            | ✅       |             |

@@ -1,33 +1,33 @@
 package jwt
 
 type FetchProjectTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *FetchProjectTokensRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *FetchProjectTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *FetchProjectTokensRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *FetchProjectTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *FetchProjectTokensRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *FetchProjectTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }
 
 type FetchUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *FetchUserTokensRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *FetchUserTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *FetchUserTokensRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *FetchUserTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *FetchUserTokensRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *FetchUserTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }

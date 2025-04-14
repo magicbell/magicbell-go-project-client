@@ -8,27 +8,49 @@ import (
 	"github.com/magicbell/magicbell-go-project-client/pkg/integrations"
 	"github.com/magicbell/magicbell-go-project-client/pkg/jwt"
 	"github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
+	"github.com/magicbell/magicbell-go-project-client/pkg/notifications"
+	"github.com/magicbell/magicbell-go-project-client/pkg/users"
 	"time"
 )
 
 type MagicbellProjectClient struct {
-	Broadcasts   *broadcasts.BroadcastsService
-	Channels     *channels.ChannelsService
-	Events       *events.EventsService
-	Integrations *integrations.IntegrationsService
-	Jwt          *jwt.JwtService
-	manager      *configmanager.ConfigManager
+	Broadcasts    *broadcasts.BroadcastsService
+	Channels      *channels.ChannelsService
+	Events        *events.EventsService
+	Integrations  *integrations.IntegrationsService
+	Jwt           *jwt.JwtService
+	Notifications *notifications.NotificationsService
+	Users         *users.UsersService
+	manager       *configmanager.ConfigManager
 }
 
 func NewMagicbellProjectClient(config magicbellprojectclientconfig.Config) *MagicbellProjectClient {
+	broadcasts := broadcasts.NewBroadcastsService()
+	channels := channels.NewChannelsService()
+	events := events.NewEventsService()
+	integrations := integrations.NewIntegrationsService()
+	jwt := jwt.NewJwtService()
+	notifications := notifications.NewNotificationsService()
+	users := users.NewUsersService()
+
 	manager := configmanager.NewConfigManager(config)
+	broadcasts.WithConfigManager(manager)
+	channels.WithConfigManager(manager)
+	events.WithConfigManager(manager)
+	integrations.WithConfigManager(manager)
+	jwt.WithConfigManager(manager)
+	notifications.WithConfigManager(manager)
+	users.WithConfigManager(manager)
+
 	return &MagicbellProjectClient{
-		Broadcasts:   broadcasts.NewBroadcastsService(manager),
-		Channels:     channels.NewChannelsService(manager),
-		Events:       events.NewEventsService(manager),
-		Integrations: integrations.NewIntegrationsService(manager),
-		Jwt:          jwt.NewJwtService(manager),
-		manager:      manager,
+		Broadcasts:    broadcasts,
+		Channels:      channels,
+		Events:        events,
+		Integrations:  integrations,
+		Jwt:           jwt,
+		Notifications: notifications,
+		Users:         users,
+		manager:       manager,
 	}
 }
 

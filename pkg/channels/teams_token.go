@@ -2,11 +2,67 @@ package channels
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type TeamsToken struct {
-	Webhook *TeamsTokenWebhook `json:"webhook,omitempty"`
-	touched map[string]bool
+	CreatedAt   *string                `json:"created_at,omitempty" required:"true"`
+	DiscardedAt *util.Nullable[string] `json:"discarded_at,omitempty"`
+	Id          *string                `json:"id,omitempty" required:"true"`
+	UpdatedAt   *util.Nullable[string] `json:"updated_at,omitempty"`
+	Webhook     *TeamsTokenWebhook     `json:"webhook,omitempty"`
+}
+
+func (t *TeamsToken) GetCreatedAt() *string {
+	if t == nil {
+		return nil
+	}
+	return t.CreatedAt
+}
+
+func (t *TeamsToken) SetCreatedAt(createdAt string) {
+	t.CreatedAt = &createdAt
+}
+
+func (t *TeamsToken) GetDiscardedAt() *util.Nullable[string] {
+	if t == nil {
+		return nil
+	}
+	return t.DiscardedAt
+}
+
+func (t *TeamsToken) SetDiscardedAt(discardedAt util.Nullable[string]) {
+	t.DiscardedAt = &discardedAt
+}
+
+func (t *TeamsToken) SetDiscardedAtNull() {
+	t.DiscardedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (t *TeamsToken) GetId() *string {
+	if t == nil {
+		return nil
+	}
+	return t.Id
+}
+
+func (t *TeamsToken) SetId(id string) {
+	t.Id = &id
+}
+
+func (t *TeamsToken) GetUpdatedAt() *util.Nullable[string] {
+	if t == nil {
+		return nil
+	}
+	return t.UpdatedAt
+}
+
+func (t *TeamsToken) SetUpdatedAt(updatedAt util.Nullable[string]) {
+	t.UpdatedAt = &updatedAt
+}
+
+func (t *TeamsToken) SetUpdatedAtNull() {
+	t.UpdatedAt = &util.Nullable[string]{IsNull: true}
 }
 
 func (t *TeamsToken) GetWebhook() *TeamsTokenWebhook {
@@ -17,35 +73,19 @@ func (t *TeamsToken) GetWebhook() *TeamsTokenWebhook {
 }
 
 func (t *TeamsToken) SetWebhook(webhook TeamsTokenWebhook) {
-	if t.touched == nil {
-		t.touched = map[string]bool{}
-	}
-	t.touched["Webhook"] = true
 	t.Webhook = &webhook
 }
 
-func (t *TeamsToken) SetWebhookNil() {
-	if t.touched == nil {
-		t.touched = map[string]bool{}
+func (t TeamsToken) String() string {
+	jsonData, err := json.MarshalIndent(t, "", "  ")
+	if err != nil {
+		return "error converting struct: TeamsToken to string"
 	}
-	t.touched["Webhook"] = true
-	t.Webhook = nil
-}
-func (t TeamsToken) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if t.touched["Webhook"] && t.Webhook == nil {
-		data["webhook"] = nil
-	} else if t.Webhook != nil {
-		data["webhook"] = t.Webhook
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }
 
 type TeamsTokenWebhook struct {
-	Url     *string `json:"url,omitempty"`
-	touched map[string]bool
+	Url *string `json:"url,omitempty"`
 }
 
 func (t *TeamsTokenWebhook) GetUrl() *string {
@@ -56,28 +96,13 @@ func (t *TeamsTokenWebhook) GetUrl() *string {
 }
 
 func (t *TeamsTokenWebhook) SetUrl(url string) {
-	if t.touched == nil {
-		t.touched = map[string]bool{}
-	}
-	t.touched["Url"] = true
 	t.Url = &url
 }
 
-func (t *TeamsTokenWebhook) SetUrlNil() {
-	if t.touched == nil {
-		t.touched = map[string]bool{}
+func (t TeamsTokenWebhook) String() string {
+	jsonData, err := json.MarshalIndent(t, "", "  ")
+	if err != nil {
+		return "error converting struct: TeamsTokenWebhook to string"
 	}
-	t.touched["Url"] = true
-	t.Url = nil
-}
-func (t TeamsTokenWebhook) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if t.touched["Url"] && t.Url == nil {
-		data["url"] = nil
-	} else if t.Url != nil {
-		data["url"] = t.Url
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }

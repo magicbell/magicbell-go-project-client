@@ -2,12 +2,27 @@ package channels
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type FcmToken struct {
+	CreatedAt      *string                 `json:"created_at,omitempty" required:"true"`
 	DeviceToken    *string                 `json:"device_token,omitempty" required:"true" minLength:"64"`
+	DiscardedAt    *util.Nullable[string]  `json:"discarded_at,omitempty"`
+	Id             *string                 `json:"id,omitempty" required:"true"`
 	InstallationId *FcmTokenInstallationId `json:"installation_id,omitempty"`
-	touched        map[string]bool
+	UpdatedAt      *util.Nullable[string]  `json:"updated_at,omitempty"`
+}
+
+func (f *FcmToken) GetCreatedAt() *string {
+	if f == nil {
+		return nil
+	}
+	return f.CreatedAt
+}
+
+func (f *FcmToken) SetCreatedAt(createdAt string) {
+	f.CreatedAt = &createdAt
 }
 
 func (f *FcmToken) GetDeviceToken() *string {
@@ -18,19 +33,33 @@ func (f *FcmToken) GetDeviceToken() *string {
 }
 
 func (f *FcmToken) SetDeviceToken(deviceToken string) {
-	if f.touched == nil {
-		f.touched = map[string]bool{}
-	}
-	f.touched["DeviceToken"] = true
 	f.DeviceToken = &deviceToken
 }
 
-func (f *FcmToken) SetDeviceTokenNil() {
-	if f.touched == nil {
-		f.touched = map[string]bool{}
+func (f *FcmToken) GetDiscardedAt() *util.Nullable[string] {
+	if f == nil {
+		return nil
 	}
-	f.touched["DeviceToken"] = true
-	f.DeviceToken = nil
+	return f.DiscardedAt
+}
+
+func (f *FcmToken) SetDiscardedAt(discardedAt util.Nullable[string]) {
+	f.DiscardedAt = &discardedAt
+}
+
+func (f *FcmToken) SetDiscardedAtNull() {
+	f.DiscardedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (f *FcmToken) GetId() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Id
+}
+
+func (f *FcmToken) SetId(id string) {
+	f.Id = &id
 }
 
 func (f *FcmToken) GetInstallationId() *FcmTokenInstallationId {
@@ -41,36 +70,30 @@ func (f *FcmToken) GetInstallationId() *FcmTokenInstallationId {
 }
 
 func (f *FcmToken) SetInstallationId(installationId FcmTokenInstallationId) {
-	if f.touched == nil {
-		f.touched = map[string]bool{}
-	}
-	f.touched["InstallationId"] = true
 	f.InstallationId = &installationId
 }
 
-func (f *FcmToken) SetInstallationIdNil() {
-	if f.touched == nil {
-		f.touched = map[string]bool{}
+func (f *FcmToken) GetUpdatedAt() *util.Nullable[string] {
+	if f == nil {
+		return nil
 	}
-	f.touched["InstallationId"] = true
-	f.InstallationId = nil
+	return f.UpdatedAt
 }
-func (f FcmToken) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if f.touched["DeviceToken"] && f.DeviceToken == nil {
-		data["device_token"] = nil
-	} else if f.DeviceToken != nil {
-		data["device_token"] = f.DeviceToken
+func (f *FcmToken) SetUpdatedAt(updatedAt util.Nullable[string]) {
+	f.UpdatedAt = &updatedAt
+}
+
+func (f *FcmToken) SetUpdatedAtNull() {
+	f.UpdatedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (f FcmToken) String() string {
+	jsonData, err := json.MarshalIndent(f, "", "  ")
+	if err != nil {
+		return "error converting struct: FcmToken to string"
 	}
-
-	if f.touched["InstallationId"] && f.InstallationId == nil {
-		data["installation_id"] = nil
-	} else if f.InstallationId != nil {
-		data["installation_id"] = f.InstallationId
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }
 
 type FcmTokenInstallationId string

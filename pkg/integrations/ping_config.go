@@ -1,45 +1,50 @@
 package integrations
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type PingConfig struct {
-	// URL to ping
-	Url     *string `json:"url,omitempty" required:"true" maxLength:"100" minLength:"1"`
-	touched map[string]bool
+	Config *PingConfigPayload `json:"config,omitempty" required:"true"`
+	Id     *string            `json:"id,omitempty" required:"true"`
+	Name   *string            `json:"name,omitempty" required:"true"`
 }
 
-func (p *PingConfig) GetUrl() *string {
+func (p *PingConfig) GetConfig() *PingConfigPayload {
 	if p == nil {
 		return nil
 	}
-	return p.Url
+	return p.Config
 }
 
-func (p *PingConfig) SetUrl(url string) {
-	if p.touched == nil {
-		p.touched = map[string]bool{}
-	}
-	p.touched["Url"] = true
-	p.Url = &url
+func (p *PingConfig) SetConfig(config PingConfigPayload) {
+	p.Config = &config
 }
 
-func (p *PingConfig) SetUrlNil() {
-	if p.touched == nil {
-		p.touched = map[string]bool{}
+func (p *PingConfig) GetId() *string {
+	if p == nil {
+		return nil
 	}
-	p.touched["Url"] = true
-	p.Url = nil
+	return p.Id
 }
-func (p PingConfig) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if p.touched["Url"] && p.Url == nil {
-		data["url"] = nil
-	} else if p.Url != nil {
-		data["url"] = p.Url
+func (p *PingConfig) SetId(id string) {
+	p.Id = &id
+}
+
+func (p *PingConfig) GetName() *string {
+	if p == nil {
+		return nil
 	}
+	return p.Name
+}
 
-	return json.Marshal(data)
+func (p *PingConfig) SetName(name string) {
+	p.Name = &name
+}
+
+func (p PingConfig) String() string {
+	jsonData, err := json.MarshalIndent(p, "", "  ")
+	if err != nil {
+		return "error converting struct: PingConfig to string"
+	}
+	return string(jsonData)
 }

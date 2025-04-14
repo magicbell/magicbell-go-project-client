@@ -27,7 +27,7 @@ Retrieves a list of all active project-level JWT tokens. Returns a paginated lis
 
 **Return Type**
 
-`ArrayOfFetchTokensResponseTokens`
+`AccessTokenCollection`
 
 **Example Usage Code Snippet**
 
@@ -37,6 +37,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+
   "github.com/magicbell/magicbell-go-project-client/pkg/jwt"
 )
 
@@ -44,8 +45,9 @@ config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
 
-params := jwt.FetchProjectTokensRequestParams{}
+params := jwt.FetchProjectTokensRequestParams{
 
+}
 
 response, err := client.Jwt.FetchProjectTokens(context.Background(), params)
 if err != nil {
@@ -71,7 +73,7 @@ Creates a new project-level JWT token. These tokens provide project-wide access 
 
 **Return Type**
 
-`AccessToken`
+`CreateTokenResponse`
 
 **Example Usage Code Snippet**
 
@@ -81,6 +83,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+  "github.com/magicbell/magicbell-go-project-client/pkg/util"
   "github.com/magicbell/magicbell-go-project-client/pkg/jwt"
 )
 
@@ -88,9 +91,10 @@ config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
 
-request := jwt.CreateProjectTokenRequest{}
-request.SetExpiry(int64(123))
-request.SetName("Name")
+request := jwt.CreateProjectTokenRequest{
+  Expiry: util.ToPointer(util.Nullable[int64]{ Value: int64(123) }),
+  Name: util.ToPointer("Name"),
+}
 
 response, err := client.Jwt.CreateProjectJwt(context.Background(), request)
 if err != nil {
@@ -126,6 +130,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+
 )
 
 config := magicbellprojectclientconfig.NewConfig()
@@ -155,7 +160,7 @@ Issues a new user-specific JWT token. These tokens are scoped to individual user
 
 **Return Type**
 
-`AccessToken`
+`CreateTokenResponse`
 
 **Example Usage Code Snippet**
 
@@ -165,6 +170,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+  "github.com/magicbell/magicbell-go-project-client/pkg/util"
   "github.com/magicbell/magicbell-go-project-client/pkg/jwt"
 )
 
@@ -172,11 +178,12 @@ config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
 
-request := jwt.CreateUserTokenRequest{}
-request.SetEmail("Email")
-request.SetExpiry(int64(123))
-request.SetExternalId("ExternalId")
-request.SetName("Name")
+request := jwt.CreateUserTokenRequest{
+  Email: util.ToPointer(util.Nullable[string]{ Value: "Email" }),
+  Expiry: util.ToPointer(util.Nullable[int64]{ Value: int64(123) }),
+  ExternalId: util.ToPointer(util.Nullable[string]{ Value: "ExternalId" }),
+  Name: util.ToPointer(util.Nullable[string]{ Value: "Name" }),
+}
 
 response, err := client.Jwt.CreateUserJwt(context.Background(), request)
 if err != nil {
@@ -212,6 +219,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+
 )
 
 config := magicbellprojectclientconfig.NewConfig()
@@ -242,7 +250,7 @@ Lists all JWT tokens associated with a specific user. Returns token metadata inc
 
 **Return Type**
 
-`ArrayOfFetchTokensResponseTokens`
+`AccessTokenCollection`
 
 **Example Usage Code Snippet**
 
@@ -252,6 +260,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+
   "github.com/magicbell/magicbell-go-project-client/pkg/jwt"
 )
 
@@ -259,8 +268,9 @@ config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
 
-params := jwt.FetchUserTokensRequestParams{}
+params := jwt.FetchUserTokensRequestParams{
 
+}
 
 response, err := client.Jwt.FetchUserTokens(context.Background(), "userId", params)
 if err != nil {

@@ -2,9 +2,13 @@
 
 **Properties**
 
-| Name    | Type                       | Required | Description |
-| :------ | :------------------------- | :------- | :---------- |
-| Webhook | channels.TeamsTokenWebhook | ❌       |             |
+| Name        | Type                       | Required | Description |
+| :---------- | :------------------------- | :------- | :---------- |
+| CreatedAt   | string                     | ✅       |             |
+| Id          | string                     | ✅       |             |
+| DiscardedAt | string                     | ❌       |             |
+| UpdatedAt   | string                     | ❌       |             |
+| Webhook     | channels.TeamsTokenWebhook | ❌       |             |
 
 # TeamsTokenWebhook
 

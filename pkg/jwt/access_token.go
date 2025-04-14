@@ -2,14 +2,15 @@ package jwt
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type AccessToken struct {
-	CreatedAt *string `json:"created_at,omitempty" required:"true"`
-	ExpiresAt *string `json:"expires_at,omitempty"`
-	Token     *string `json:"token,omitempty" required:"true"`
-	TokenId   *string `json:"token_id,omitempty" required:"true"`
-	touched   map[string]bool
+	CreatedAt   *string                `json:"created_at,omitempty" required:"true"`
+	DiscardedAt *util.Nullable[string] `json:"discarded_at,omitempty"`
+	ExpiresAt   *string                `json:"expires_at,omitempty"`
+	Id          *string                `json:"id,omitempty"`
+	Name        *util.Nullable[string] `json:"name,omitempty"`
 }
 
 func (a *AccessToken) GetCreatedAt() *string {
@@ -20,19 +21,22 @@ func (a *AccessToken) GetCreatedAt() *string {
 }
 
 func (a *AccessToken) SetCreatedAt(createdAt string) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["CreatedAt"] = true
 	a.CreatedAt = &createdAt
 }
 
-func (a *AccessToken) SetCreatedAtNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
+func (a *AccessToken) GetDiscardedAt() *util.Nullable[string] {
+	if a == nil {
+		return nil
 	}
-	a.touched["CreatedAt"] = true
-	a.CreatedAt = nil
+	return a.DiscardedAt
+}
+
+func (a *AccessToken) SetDiscardedAt(discardedAt util.Nullable[string]) {
+	a.DiscardedAt = &discardedAt
+}
+
+func (a *AccessToken) SetDiscardedAtNull() {
+	a.DiscardedAt = &util.Nullable[string]{IsNull: true}
 }
 
 func (a *AccessToken) GetExpiresAt() *string {
@@ -43,92 +47,39 @@ func (a *AccessToken) GetExpiresAt() *string {
 }
 
 func (a *AccessToken) SetExpiresAt(expiresAt string) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["ExpiresAt"] = true
 	a.ExpiresAt = &expiresAt
 }
 
-func (a *AccessToken) SetExpiresAtNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["ExpiresAt"] = true
-	a.ExpiresAt = nil
-}
-
-func (a *AccessToken) GetToken() *string {
+func (a *AccessToken) GetId() *string {
 	if a == nil {
 		return nil
 	}
-	return a.Token
+	return a.Id
 }
 
-func (a *AccessToken) SetToken(token string) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Token"] = true
-	a.Token = &token
+func (a *AccessToken) SetId(id string) {
+	a.Id = &id
 }
 
-func (a *AccessToken) SetTokenNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Token"] = true
-	a.Token = nil
-}
-
-func (a *AccessToken) GetTokenId() *string {
+func (a *AccessToken) GetName() *util.Nullable[string] {
 	if a == nil {
 		return nil
 	}
-	return a.TokenId
+	return a.Name
 }
 
-func (a *AccessToken) SetTokenId(tokenId string) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["TokenId"] = true
-	a.TokenId = &tokenId
+func (a *AccessToken) SetName(name util.Nullable[string]) {
+	a.Name = &name
 }
 
-func (a *AccessToken) SetTokenIdNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["TokenId"] = true
-	a.TokenId = nil
+func (a *AccessToken) SetNameNull() {
+	a.Name = &util.Nullable[string]{IsNull: true}
 }
-func (a AccessToken) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if a.touched["CreatedAt"] && a.CreatedAt == nil {
-		data["created_at"] = nil
-	} else if a.CreatedAt != nil {
-		data["created_at"] = a.CreatedAt
+func (a AccessToken) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: AccessToken to string"
 	}
-
-	if a.touched["ExpiresAt"] && a.ExpiresAt == nil {
-		data["expires_at"] = nil
-	} else if a.ExpiresAt != nil {
-		data["expires_at"] = a.ExpiresAt
-	}
-
-	if a.touched["Token"] && a.Token == nil {
-		data["token"] = nil
-	} else if a.Token != nil {
-		data["token"] = a.Token
-	}
-
-	if a.touched["TokenId"] && a.TokenId == nil {
-		data["token_id"] = nil
-	} else if a.TokenId != nil {
-		data["token_id"] = a.TokenId
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }
