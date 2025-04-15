@@ -1,6 +1,8 @@
 package shared
 
 import (
+	"encoding/json"
+
 	"github.com/magicbell/magicbell-go-project-client/internal/clients/rest/httptransport"
 )
 
@@ -22,4 +24,16 @@ func NewMagicbellProjectClientResponse[T any](resp *httptransport.Response[T]) *
 			Headers:    resp.Headers,
 		},
 	}
+}
+
+func (r *MagicbellProjectClientResponse[T]) GetData() T {
+	return r.Data
+}
+
+func (r MagicbellProjectClientResponse[T]) String() string {
+	jsonData, err := json.MarshalIndent(r, "", "  ")
+	if err != nil {
+		return "error converting struct: MagicbellProjectClientResponse to string"
+	}
+	return string(jsonData)
 }

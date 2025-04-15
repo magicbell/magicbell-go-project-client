@@ -2,137 +2,84 @@ package jwt
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type CreateUserTokenRequest struct {
 	// The user's email.
-	Email *string `json:"email,omitempty" maxLength:"255"`
+	Email *util.Nullable[string] `json:"email,omitempty" maxLength:"255"`
 	// The duration for which the token is valid (in seconds)
-	Expiry *int64 `json:"expiry,omitempty" min:"1"`
+	Expiry *util.Nullable[int64] `json:"expiry,omitempty" min:"1"`
 	// A unique string that MagicBell can utilize to identify the user uniquely. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable.
-	ExternalId *string `json:"external_id,omitempty" maxLength:"255"`
+	ExternalId *util.Nullable[string] `json:"external_id,omitempty" maxLength:"255"`
 	// The name of the token.
-	Name    *string `json:"name,omitempty" maxLength:"255"`
-	touched map[string]bool
+	Name *util.Nullable[string] `json:"name,omitempty" maxLength:"255"`
 }
 
-func (c *CreateUserTokenRequest) GetEmail() *string {
+func (c *CreateUserTokenRequest) GetEmail() *util.Nullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.Email
 }
 
-func (c *CreateUserTokenRequest) SetEmail(email string) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Email"] = true
+func (c *CreateUserTokenRequest) SetEmail(email util.Nullable[string]) {
 	c.Email = &email
 }
 
-func (c *CreateUserTokenRequest) SetEmailNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Email"] = true
-	c.Email = nil
+func (c *CreateUserTokenRequest) SetEmailNull() {
+	c.Email = &util.Nullable[string]{IsNull: true}
 }
 
-func (c *CreateUserTokenRequest) GetExpiry() *int64 {
+func (c *CreateUserTokenRequest) GetExpiry() *util.Nullable[int64] {
 	if c == nil {
 		return nil
 	}
 	return c.Expiry
 }
 
-func (c *CreateUserTokenRequest) SetExpiry(expiry int64) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Expiry"] = true
+func (c *CreateUserTokenRequest) SetExpiry(expiry util.Nullable[int64]) {
 	c.Expiry = &expiry
 }
 
-func (c *CreateUserTokenRequest) SetExpiryNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Expiry"] = true
-	c.Expiry = nil
+func (c *CreateUserTokenRequest) SetExpiryNull() {
+	c.Expiry = &util.Nullable[int64]{IsNull: true}
 }
 
-func (c *CreateUserTokenRequest) GetExternalId() *string {
+func (c *CreateUserTokenRequest) GetExternalId() *util.Nullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.ExternalId
 }
 
-func (c *CreateUserTokenRequest) SetExternalId(externalId string) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["ExternalId"] = true
+func (c *CreateUserTokenRequest) SetExternalId(externalId util.Nullable[string]) {
 	c.ExternalId = &externalId
 }
 
-func (c *CreateUserTokenRequest) SetExternalIdNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["ExternalId"] = true
-	c.ExternalId = nil
+func (c *CreateUserTokenRequest) SetExternalIdNull() {
+	c.ExternalId = &util.Nullable[string]{IsNull: true}
 }
 
-func (c *CreateUserTokenRequest) GetName() *string {
+func (c *CreateUserTokenRequest) GetName() *util.Nullable[string] {
 	if c == nil {
 		return nil
 	}
 	return c.Name
 }
 
-func (c *CreateUserTokenRequest) SetName(name string) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Name"] = true
+func (c *CreateUserTokenRequest) SetName(name util.Nullable[string]) {
 	c.Name = &name
 }
 
-func (c *CreateUserTokenRequest) SetNameNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Name"] = true
-	c.Name = nil
+func (c *CreateUserTokenRequest) SetNameNull() {
+	c.Name = &util.Nullable[string]{IsNull: true}
 }
-func (c CreateUserTokenRequest) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if c.touched["Email"] && c.Email == nil {
-		data["email"] = nil
-	} else if c.Email != nil {
-		data["email"] = c.Email
+func (c CreateUserTokenRequest) String() string {
+	jsonData, err := json.MarshalIndent(c, "", "  ")
+	if err != nil {
+		return "error converting struct: CreateUserTokenRequest to string"
 	}
-
-	if c.touched["Expiry"] && c.Expiry == nil {
-		data["expiry"] = nil
-	} else if c.Expiry != nil {
-		data["expiry"] = c.Expiry
-	}
-
-	if c.touched["ExternalId"] && c.ExternalId == nil {
-		data["external_id"] = nil
-	} else if c.ExternalId != nil {
-		data["external_id"] = c.ExternalId
-	}
-
-	if c.touched["Name"] && c.Name == nil {
-		data["name"] = nil
-	} else if c.Name != nil {
-		data["name"] = c.Name
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }

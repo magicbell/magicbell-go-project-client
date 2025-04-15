@@ -1,97 +1,121 @@
 package channels
 
-type GetMobilePushApnsUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+type GetDeliveryconfigRequestParams struct {
+	Key *string `explode:"true" serializationStyle:"form" queryParam:"key"`
 }
 
-func (params *GetMobilePushApnsUserTokensRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *GetDeliveryconfigRequestParams) SetKey(key string) {
+	params.Key = &key
 }
-func (params *GetMobilePushApnsUserTokensRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+
+type GetInAppInboxUserTokensRequestParams struct {
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
-func (params *GetMobilePushApnsUserTokensRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+
+func (params *GetInAppInboxUserTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
+}
+func (params *GetInAppInboxUserTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
+}
+func (params *GetInAppInboxUserTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
+}
+
+type GetMobilePushApnsUserTokensRequestParams struct {
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
+}
+
+func (params *GetMobilePushApnsUserTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
+}
+func (params *GetMobilePushApnsUserTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
+}
+func (params *GetMobilePushApnsUserTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }
 
 type GetMobilePushExpoUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *GetMobilePushExpoUserTokensRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *GetMobilePushExpoUserTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *GetMobilePushExpoUserTokensRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *GetMobilePushExpoUserTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *GetMobilePushExpoUserTokensRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *GetMobilePushExpoUserTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }
 
 type GetMobilePushFcmUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *GetMobilePushFcmUserTokensRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *GetMobilePushFcmUserTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *GetMobilePushFcmUserTokensRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *GetMobilePushFcmUserTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *GetMobilePushFcmUserTokensRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *GetMobilePushFcmUserTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }
 
 type GetSlackUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *GetSlackUserTokensRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *GetSlackUserTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *GetSlackUserTokensRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *GetSlackUserTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *GetSlackUserTokensRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *GetSlackUserTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }
 
 type GetTeamsUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *GetTeamsUserTokensRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *GetTeamsUserTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *GetTeamsUserTokensRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *GetTeamsUserTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *GetTeamsUserTokensRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *GetTeamsUserTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }
 
 type GetWebPushUserTokensRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *GetWebPushUserTokensRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *GetWebPushUserTokensRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *GetWebPushUserTokensRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *GetWebPushUserTokensRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *GetWebPushUserTokensRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *GetWebPushUserTokensRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }

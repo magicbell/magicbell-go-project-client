@@ -2,15 +2,19 @@ package channels
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type ApnsToken struct {
 	// (Optional) The bundle identifier of the application that is registering this token. Use this field to override the default identifier specified in the projects APNs integration.
-	AppId       *string `json:"app_id,omitempty" pattern:"^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$"`
-	DeviceToken *string `json:"device_token,omitempty" required:"true" minLength:"64"`
+	AppId       *string                `json:"app_id,omitempty" pattern:"^[a-zA-Z0-9]+(.[a-zA-Z0-9]+)*$"`
+	CreatedAt   *string                `json:"created_at,omitempty" required:"true"`
+	DeviceToken *string                `json:"device_token,omitempty" required:"true" minLength:"64"`
+	DiscardedAt *util.Nullable[string] `json:"discarded_at,omitempty"`
+	Id          *string                `json:"id,omitempty" required:"true"`
 	// (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.
 	InstallationId *ApnsTokenInstallationId `json:"installation_id,omitempty"`
-	touched        map[string]bool
+	UpdatedAt      *util.Nullable[string]   `json:"updated_at,omitempty"`
 }
 
 func (a *ApnsToken) GetAppId() *string {
@@ -21,19 +25,18 @@ func (a *ApnsToken) GetAppId() *string {
 }
 
 func (a *ApnsToken) SetAppId(appId string) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["AppId"] = true
 	a.AppId = &appId
 }
 
-func (a *ApnsToken) SetAppIdNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
+func (a *ApnsToken) GetCreatedAt() *string {
+	if a == nil {
+		return nil
 	}
-	a.touched["AppId"] = true
-	a.AppId = nil
+	return a.CreatedAt
+}
+
+func (a *ApnsToken) SetCreatedAt(createdAt string) {
+	a.CreatedAt = &createdAt
 }
 
 func (a *ApnsToken) GetDeviceToken() *string {
@@ -44,19 +47,33 @@ func (a *ApnsToken) GetDeviceToken() *string {
 }
 
 func (a *ApnsToken) SetDeviceToken(deviceToken string) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["DeviceToken"] = true
 	a.DeviceToken = &deviceToken
 }
 
-func (a *ApnsToken) SetDeviceTokenNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
+func (a *ApnsToken) GetDiscardedAt() *util.Nullable[string] {
+	if a == nil {
+		return nil
 	}
-	a.touched["DeviceToken"] = true
-	a.DeviceToken = nil
+	return a.DiscardedAt
+}
+
+func (a *ApnsToken) SetDiscardedAt(discardedAt util.Nullable[string]) {
+	a.DiscardedAt = &discardedAt
+}
+
+func (a *ApnsToken) SetDiscardedAtNull() {
+	a.DiscardedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (a *ApnsToken) GetId() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Id
+}
+
+func (a *ApnsToken) SetId(id string) {
+	a.Id = &id
 }
 
 func (a *ApnsToken) GetInstallationId() *ApnsTokenInstallationId {
@@ -67,42 +84,30 @@ func (a *ApnsToken) GetInstallationId() *ApnsTokenInstallationId {
 }
 
 func (a *ApnsToken) SetInstallationId(installationId ApnsTokenInstallationId) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["InstallationId"] = true
 	a.InstallationId = &installationId
 }
 
-func (a *ApnsToken) SetInstallationIdNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
+func (a *ApnsToken) GetUpdatedAt() *util.Nullable[string] {
+	if a == nil {
+		return nil
 	}
-	a.touched["InstallationId"] = true
-	a.InstallationId = nil
+	return a.UpdatedAt
 }
-func (a ApnsToken) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if a.touched["AppId"] && a.AppId == nil {
-		data["app_id"] = nil
-	} else if a.AppId != nil {
-		data["app_id"] = a.AppId
+func (a *ApnsToken) SetUpdatedAt(updatedAt util.Nullable[string]) {
+	a.UpdatedAt = &updatedAt
+}
+
+func (a *ApnsToken) SetUpdatedAtNull() {
+	a.UpdatedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (a ApnsToken) String() string {
+	jsonData, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return "error converting struct: ApnsToken to string"
 	}
-
-	if a.touched["DeviceToken"] && a.DeviceToken == nil {
-		data["device_token"] = nil
-	} else if a.DeviceToken != nil {
-		data["device_token"] = a.DeviceToken
-	}
-
-	if a.touched["InstallationId"] && a.InstallationId == nil {
-		data["installation_id"] = nil
-	} else if a.InstallationId != nil {
-		data["installation_id"] = a.InstallationId
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }
 
 // (Optional) The APNs environment the token is registered for. If none is provided we assume the token is used in `production`.

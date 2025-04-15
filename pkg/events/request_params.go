@@ -1,17 +1,17 @@
 package events
 
-type GetEventsRequestParams struct {
-	PageSize   *int64  `queryParam:"page[size]"`
-	PageAfter  *string `queryParam:"page[after]"`
-	PageBefore *string `queryParam:"page[before]"`
+type ListEventsRequestParams struct {
+	Limit         *int64  `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	StartingAfter *string `explode:"true" serializationStyle:"form" queryParam:"starting_after"`
+	EndingBefore  *string `explode:"true" serializationStyle:"form" queryParam:"ending_before"`
 }
 
-func (params *GetEventsRequestParams) SetPageSize(pageSize int64) {
-	params.PageSize = &pageSize
+func (params *ListEventsRequestParams) SetLimit(limit int64) {
+	params.Limit = &limit
 }
-func (params *GetEventsRequestParams) SetPageAfter(pageAfter string) {
-	params.PageAfter = &pageAfter
+func (params *ListEventsRequestParams) SetStartingAfter(startingAfter string) {
+	params.StartingAfter = &startingAfter
 }
-func (params *GetEventsRequestParams) SetPageBefore(pageBefore string) {
-	params.PageBefore = &pageBefore
+func (params *ListEventsRequestParams) SetEndingBefore(endingBefore string) {
+	params.EndingBefore = &endingBefore
 }

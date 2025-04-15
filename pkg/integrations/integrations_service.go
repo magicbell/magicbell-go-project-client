@@ -14,10 +14,15 @@ type IntegrationsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewIntegrationsService(manager *configmanager.ConfigManager) *IntegrationsService {
+func NewIntegrationsService() *IntegrationsService {
 	return &IntegrationsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(magicbellprojectclientconfig.Config{}),
 	}
+}
+
+func (api *IntegrationsService) WithConfigManager(manager *configmanager.ConfigManager) *IntegrationsService {
+	api.manager = manager
+	return api
 }
 
 func (api *IntegrationsService) getConfig() *magicbellprojectclientconfig.Config {
@@ -40,7 +45,7 @@ func (api *IntegrationsService) SetAccessToken(accessToken string) {
 }
 
 // Lists all available and configured integrations for the project. Returns a summary of each integration including its type, status, and basic configuration information.
-func (api *IntegrationsService) ListIntegrations(ctx context.Context, params ListIntegrationsRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfIntegrationObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) ListIntegrations(ctx context.Context, params ListIntegrationsRequestParams) (*shared.MagicbellProjectClientResponse[IntegrationConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -52,17 +57,17 @@ func (api *IntegrationsService) ListIntegrations(ctx context.Context, params Lis
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfIntegrationObjects](config)
+	client := restClient.NewRestClient[IntegrationConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfIntegrationObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[IntegrationConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfIntegrationObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[IntegrationConfigCollection](resp), nil
 }
 
 // Retrieves the current apns integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetApnsIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfApnsConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetApnsIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ApnsConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -73,36 +78,36 @@ func (api *IntegrationsService) GetApnsIntegration(ctx context.Context) (*shared
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfApnsConfigObjects](config)
+	client := restClient.NewRestClient[ApnsConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfApnsConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[ApnsConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfApnsConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ApnsConfigCollection](resp), nil
 }
 
 // Creates or updates a apns integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveApnsIntegration(ctx context.Context, apnsConfig ApnsConfig) (*shared.MagicbellProjectClientResponse[ApnsConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveApnsIntegration(ctx context.Context, apnsConfigPayload ApnsConfigPayload) (*shared.MagicbellProjectClientResponse[ApnsConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/apns").
 		WithConfig(config).
-		WithBody(apnsConfig).
+		WithBody(apnsConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ApnsConfig](config)
+	client := restClient.NewRestClient[ApnsConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ApnsConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[ApnsConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ApnsConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ApnsConfigPayload](resp), nil
 }
 
 // Removes a apns integration configuration from the project. This will disable the integration's functionality within the project.
@@ -149,7 +154,7 @@ func (api *IntegrationsService) DeleteApnsIntegrationById(ctx context.Context, i
 }
 
 // Retrieves the current awssns integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetAwssnsIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfAwssnsConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetAwssnsIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[AwssnsConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -160,36 +165,36 @@ func (api *IntegrationsService) GetAwssnsIntegration(ctx context.Context) (*shar
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfAwssnsConfigObjects](config)
+	client := restClient.NewRestClient[AwssnsConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfAwssnsConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[AwssnsConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfAwssnsConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[AwssnsConfigCollection](resp), nil
 }
 
 // Creates or updates a awssns integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveAwssnsIntegration(ctx context.Context, awssnsConfig AwssnsConfig) (*shared.MagicbellProjectClientResponse[AwssnsConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveAwssnsIntegration(ctx context.Context, awssnsConfigPayload AwssnsConfigPayload) (*shared.MagicbellProjectClientResponse[AwssnsConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/awssns").
 		WithConfig(config).
-		WithBody(awssnsConfig).
+		WithBody(awssnsConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[AwssnsConfig](config)
+	client := restClient.NewRestClient[AwssnsConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[AwssnsConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[AwssnsConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[AwssnsConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[AwssnsConfigPayload](resp), nil
 }
 
 // Removes a awssns integration configuration from the project. This will disable the integration's functionality within the project.
@@ -235,8 +240,95 @@ func (api *IntegrationsService) DeleteAwssnsIntegrationById(ctx context.Context,
 	return shared.NewMagicbellProjectClientResponse[any](resp), nil
 }
 
+// Retrieves the current eventsource integration configurations for a specific integration type in the project. Returns configuration details and status information.
+func (api *IntegrationsService) GetEventsourceIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[EventSourceConfigCollection], *shared.MagicbellProjectClientError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/integrations/eventsource").
+		WithConfig(config).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[EventSourceConfigCollection](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewMagicbellProjectClientError[EventSourceConfigCollection](err)
+	}
+
+	return shared.NewMagicbellProjectClientResponse[EventSourceConfigCollection](resp), nil
+}
+
+// Creates or updates a eventsource integration for the project. Only administrators can configure integrations.
+func (api *IntegrationsService) SaveEventsourceIntegration(ctx context.Context, eventSourceConfigPayload EventSourceConfigPayload) (*shared.MagicbellProjectClientResponse[EventSourceConfigPayload], *shared.MagicbellProjectClientError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("PUT").
+		WithPath("/integrations/eventsource").
+		WithConfig(config).
+		WithBody(eventSourceConfigPayload).
+		AddHeader("CONTENT-TYPE", "application/json").
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[EventSourceConfigPayload](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewMagicbellProjectClientError[EventSourceConfigPayload](err)
+	}
+
+	return shared.NewMagicbellProjectClientResponse[EventSourceConfigPayload](resp), nil
+}
+
+// Removes a eventsource integration configuration from the project. This will disable the integration's functionality within the project.
+func (api *IntegrationsService) DeleteEventsourceIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[any], *shared.MagicbellProjectClientError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("DELETE").
+		WithPath("/integrations/eventsource").
+		WithConfig(config).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[any](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewMagicbellProjectClientError[any](err)
+	}
+
+	return shared.NewMagicbellProjectClientResponse[any](resp), nil
+}
+
+// Removes a specific eventsource integration instance by ID from the project.
+func (api *IntegrationsService) DeleteEventsourceIntegrationById(ctx context.Context, id string) (*shared.MagicbellProjectClientResponse[any], *shared.MagicbellProjectClientError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("DELETE").
+		WithPath("/integrations/eventsource/{id}").
+		WithConfig(config).
+		AddPathParam("id", id).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[any](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewMagicbellProjectClientError[any](err)
+	}
+
+	return shared.NewMagicbellProjectClientResponse[any](resp), nil
+}
+
 // Retrieves the current expo integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetExpoIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfExpoConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetExpoIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ExpoConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -247,36 +339,36 @@ func (api *IntegrationsService) GetExpoIntegration(ctx context.Context) (*shared
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfExpoConfigObjects](config)
+	client := restClient.NewRestClient[ExpoConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfExpoConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[ExpoConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfExpoConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ExpoConfigCollection](resp), nil
 }
 
 // Creates or updates a expo integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveExpoIntegration(ctx context.Context, expoConfig ExpoConfig) (*shared.MagicbellProjectClientResponse[ExpoConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveExpoIntegration(ctx context.Context, expoConfigPayload ExpoConfigPayload) (*shared.MagicbellProjectClientResponse[ExpoConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/expo").
 		WithConfig(config).
-		WithBody(expoConfig).
+		WithBody(expoConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ExpoConfig](config)
+	client := restClient.NewRestClient[ExpoConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ExpoConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[ExpoConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ExpoConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[ExpoConfigPayload](resp), nil
 }
 
 // Removes a expo integration configuration from the project. This will disable the integration's functionality within the project.
@@ -323,7 +415,7 @@ func (api *IntegrationsService) DeleteExpoIntegrationById(ctx context.Context, i
 }
 
 // Retrieves the current fcm integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetFcmIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfFcmConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetFcmIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[FcmConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -334,36 +426,36 @@ func (api *IntegrationsService) GetFcmIntegration(ctx context.Context) (*shared.
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfFcmConfigObjects](config)
+	client := restClient.NewRestClient[FcmConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfFcmConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[FcmConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfFcmConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[FcmConfigCollection](resp), nil
 }
 
 // Creates or updates a fcm integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveFcmIntegration(ctx context.Context, fcmConfig FcmConfig) (*shared.MagicbellProjectClientResponse[FcmConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveFcmIntegration(ctx context.Context, fcmConfigPayload FcmConfigPayload) (*shared.MagicbellProjectClientResponse[FcmConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/fcm").
 		WithConfig(config).
-		WithBody(fcmConfig).
+		WithBody(fcmConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[FcmConfig](config)
+	client := restClient.NewRestClient[FcmConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[FcmConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[FcmConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[FcmConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[FcmConfigPayload](resp), nil
 }
 
 // Removes a fcm integration configuration from the project. This will disable the integration's functionality within the project.
@@ -410,7 +502,7 @@ func (api *IntegrationsService) DeleteFcmIntegrationById(ctx context.Context, id
 }
 
 // Retrieves the current github integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetGithubIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfGithubConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetGithubIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[GithubConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -421,36 +513,36 @@ func (api *IntegrationsService) GetGithubIntegration(ctx context.Context) (*shar
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfGithubConfigObjects](config)
+	client := restClient.NewRestClient[GithubConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfGithubConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[GithubConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfGithubConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[GithubConfigCollection](resp), nil
 }
 
 // Creates or updates a github integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveGithubIntegration(ctx context.Context, githubConfig GithubConfig) (*shared.MagicbellProjectClientResponse[GithubConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveGithubIntegration(ctx context.Context, githubConfigPayload GithubConfigPayload) (*shared.MagicbellProjectClientResponse[GithubConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/github").
 		WithConfig(config).
-		WithBody(githubConfig).
+		WithBody(githubConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[GithubConfig](config)
+	client := restClient.NewRestClient[GithubConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[GithubConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[GithubConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[GithubConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[GithubConfigPayload](resp), nil
 }
 
 // Removes a github integration configuration from the project. This will disable the integration's functionality within the project.
@@ -497,7 +589,7 @@ func (api *IntegrationsService) DeleteGithubIntegrationById(ctx context.Context,
 }
 
 // Retrieves the current inbox integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetInboxIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfInboxConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetInboxIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[InboxConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -508,36 +600,36 @@ func (api *IntegrationsService) GetInboxIntegration(ctx context.Context) (*share
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfInboxConfigObjects](config)
+	client := restClient.NewRestClient[InboxConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfInboxConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[InboxConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfInboxConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[InboxConfigCollection](resp), nil
 }
 
 // Creates or updates a inbox integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveInboxIntegration(ctx context.Context, inboxConfig InboxConfig) (*shared.MagicbellProjectClientResponse[InboxConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveInboxIntegration(ctx context.Context, inboxConfigPayload InboxConfigPayload) (*shared.MagicbellProjectClientResponse[InboxConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/inbox").
 		WithConfig(config).
-		WithBody(inboxConfig).
+		WithBody(inboxConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[InboxConfig](config)
+	client := restClient.NewRestClient[InboxConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[InboxConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[InboxConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[InboxConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[InboxConfigPayload](resp), nil
 }
 
 // Removes a inbox integration configuration from the project. This will disable the integration's functionality within the project.
@@ -584,7 +676,7 @@ func (api *IntegrationsService) DeleteInboxIntegrationById(ctx context.Context, 
 }
 
 // Retrieves the current mailgun integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetMailgunIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfMailgunConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetMailgunIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[MailgunConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -595,36 +687,36 @@ func (api *IntegrationsService) GetMailgunIntegration(ctx context.Context) (*sha
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfMailgunConfigObjects](config)
+	client := restClient.NewRestClient[MailgunConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfMailgunConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[MailgunConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfMailgunConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[MailgunConfigCollection](resp), nil
 }
 
 // Creates or updates a mailgun integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveMailgunIntegration(ctx context.Context, mailgunConfig MailgunConfig) (*shared.MagicbellProjectClientResponse[MailgunConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveMailgunIntegration(ctx context.Context, mailgunConfigPayload MailgunConfigPayload) (*shared.MagicbellProjectClientResponse[MailgunConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/mailgun").
 		WithConfig(config).
-		WithBody(mailgunConfig).
+		WithBody(mailgunConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[MailgunConfig](config)
+	client := restClient.NewRestClient[MailgunConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[MailgunConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[MailgunConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[MailgunConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[MailgunConfigPayload](resp), nil
 }
 
 // Removes a mailgun integration configuration from the project. This will disable the integration's functionality within the project.
@@ -671,7 +763,7 @@ func (api *IntegrationsService) DeleteMailgunIntegrationById(ctx context.Context
 }
 
 // Retrieves the current ping_email integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetPingEmailIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfPingConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetPingEmailIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[PingConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -682,36 +774,36 @@ func (api *IntegrationsService) GetPingEmailIntegration(ctx context.Context) (*s
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfPingConfigObjects](config)
+	client := restClient.NewRestClient[PingConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfPingConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[PingConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfPingConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[PingConfigCollection](resp), nil
 }
 
 // Creates or updates a ping_email integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SavePingEmailIntegration(ctx context.Context, pingConfig PingConfig) (*shared.MagicbellProjectClientResponse[PingConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SavePingEmailIntegration(ctx context.Context, pingConfigPayload PingConfigPayload) (*shared.MagicbellProjectClientResponse[PingConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/ping_email").
 		WithConfig(config).
-		WithBody(pingConfig).
+		WithBody(pingConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[PingConfig](config)
+	client := restClient.NewRestClient[PingConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[PingConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[PingConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[PingConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[PingConfigPayload](resp), nil
 }
 
 // Removes a ping_email integration configuration from the project. This will disable the integration's functionality within the project.
@@ -758,7 +850,7 @@ func (api *IntegrationsService) DeletePingEmailIntegrationById(ctx context.Conte
 }
 
 // Retrieves the current sendgrid integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetSendgridIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfSendgridConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetSendgridIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[SendgridConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -769,36 +861,36 @@ func (api *IntegrationsService) GetSendgridIntegration(ctx context.Context) (*sh
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfSendgridConfigObjects](config)
+	client := restClient.NewRestClient[SendgridConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfSendgridConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[SendgridConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfSendgridConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[SendgridConfigCollection](resp), nil
 }
 
 // Creates or updates a sendgrid integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveSendgridIntegration(ctx context.Context, sendgridConfig SendgridConfig) (*shared.MagicbellProjectClientResponse[SendgridConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveSendgridIntegration(ctx context.Context, sendgridConfigPayload SendgridConfigPayload) (*shared.MagicbellProjectClientResponse[SendgridConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/sendgrid").
 		WithConfig(config).
-		WithBody(sendgridConfig).
+		WithBody(sendgridConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[SendgridConfig](config)
+	client := restClient.NewRestClient[SendgridConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[SendgridConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[SendgridConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[SendgridConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[SendgridConfigPayload](resp), nil
 }
 
 // Removes a sendgrid integration configuration from the project. This will disable the integration's functionality within the project.
@@ -845,7 +937,7 @@ func (api *IntegrationsService) DeleteSendgridIntegrationById(ctx context.Contex
 }
 
 // Retrieves the current ses integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetSesIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfSesConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetSesIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[SesConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -856,36 +948,36 @@ func (api *IntegrationsService) GetSesIntegration(ctx context.Context) (*shared.
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfSesConfigObjects](config)
+	client := restClient.NewRestClient[SesConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfSesConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[SesConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfSesConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[SesConfigCollection](resp), nil
 }
 
 // Creates or updates a ses integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveSesIntegration(ctx context.Context, sesConfig SesConfig) (*shared.MagicbellProjectClientResponse[SesConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveSesIntegration(ctx context.Context, sesConfigPayload SesConfigPayload) (*shared.MagicbellProjectClientResponse[SesConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/ses").
 		WithConfig(config).
-		WithBody(sesConfig).
+		WithBody(sesConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[SesConfig](config)
+	client := restClient.NewRestClient[SesConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[SesConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[SesConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[SesConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[SesConfigPayload](resp), nil
 }
 
 // Removes a ses integration configuration from the project. This will disable the integration's functionality within the project.
@@ -932,7 +1024,7 @@ func (api *IntegrationsService) DeleteSesIntegrationById(ctx context.Context, id
 }
 
 // Retrieves the current slack integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetSlackIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfSlackConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetSlackIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[SlackConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -943,36 +1035,36 @@ func (api *IntegrationsService) GetSlackIntegration(ctx context.Context) (*share
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfSlackConfigObjects](config)
+	client := restClient.NewRestClient[SlackConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfSlackConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[SlackConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfSlackConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[SlackConfigCollection](resp), nil
 }
 
 // Creates or updates a slack integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveSlackIntegration(ctx context.Context, slackConfig SlackConfig) (*shared.MagicbellProjectClientResponse[SlackConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveSlackIntegration(ctx context.Context, slackConfigPayload SlackConfigPayload) (*shared.MagicbellProjectClientResponse[SlackConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/slack").
 		WithConfig(config).
-		WithBody(slackConfig).
+		WithBody(slackConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[SlackConfig](config)
+	client := restClient.NewRestClient[SlackConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[SlackConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[SlackConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[SlackConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[SlackConfigPayload](resp), nil
 }
 
 // Removes a slack integration configuration from the project. This will disable the integration's functionality within the project.
@@ -1019,7 +1111,7 @@ func (api *IntegrationsService) DeleteSlackIntegrationById(ctx context.Context, 
 }
 
 // Retrieves the current stripe integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetStripeIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfStripeConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetStripeIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[StripeConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -1030,36 +1122,36 @@ func (api *IntegrationsService) GetStripeIntegration(ctx context.Context) (*shar
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfStripeConfigObjects](config)
+	client := restClient.NewRestClient[StripeConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfStripeConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[StripeConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfStripeConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[StripeConfigCollection](resp), nil
 }
 
 // Creates or updates a stripe integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveStripeIntegration(ctx context.Context, stripeConfig StripeConfig) (*shared.MagicbellProjectClientResponse[StripeConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveStripeIntegration(ctx context.Context, stripeConfigPayload StripeConfigPayload) (*shared.MagicbellProjectClientResponse[StripeConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/stripe").
 		WithConfig(config).
-		WithBody(stripeConfig).
+		WithBody(stripeConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[StripeConfig](config)
+	client := restClient.NewRestClient[StripeConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[StripeConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[StripeConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[StripeConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[StripeConfigPayload](resp), nil
 }
 
 // Removes a stripe integration configuration from the project. This will disable the integration's functionality within the project.
@@ -1106,7 +1198,7 @@ func (api *IntegrationsService) DeleteStripeIntegrationById(ctx context.Context,
 }
 
 // Retrieves the current templates integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetTemplatesIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfTemplatesConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetTemplatesIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[TemplatesConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -1117,13 +1209,13 @@ func (api *IntegrationsService) GetTemplatesIntegration(ctx context.Context) (*s
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfTemplatesConfigObjects](config)
+	client := restClient.NewRestClient[TemplatesConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfTemplatesConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[TemplatesConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfTemplatesConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[TemplatesConfigCollection](resp), nil
 }
 
 // Creates or updates a templates integration for the project. Only administrators can configure integrations.
@@ -1192,7 +1284,7 @@ func (api *IntegrationsService) DeleteTemplatesIntegrationById(ctx context.Conte
 }
 
 // Retrieves the current twilio integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetTwilioIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfTwilioConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetTwilioIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[TwilioConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -1203,36 +1295,36 @@ func (api *IntegrationsService) GetTwilioIntegration(ctx context.Context) (*shar
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfTwilioConfigObjects](config)
+	client := restClient.NewRestClient[TwilioConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfTwilioConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[TwilioConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfTwilioConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[TwilioConfigCollection](resp), nil
 }
 
 // Creates or updates a twilio integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveTwilioIntegration(ctx context.Context, twilioConfig TwilioConfig) (*shared.MagicbellProjectClientResponse[TwilioConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveTwilioIntegration(ctx context.Context, twilioConfigPayload TwilioConfigPayload) (*shared.MagicbellProjectClientResponse[TwilioConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/twilio").
 		WithConfig(config).
-		WithBody(twilioConfig).
+		WithBody(twilioConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[TwilioConfig](config)
+	client := restClient.NewRestClient[TwilioConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[TwilioConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[TwilioConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[TwilioConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[TwilioConfigPayload](resp), nil
 }
 
 // Removes a twilio integration configuration from the project. This will disable the integration's functionality within the project.
@@ -1279,7 +1371,7 @@ func (api *IntegrationsService) DeleteTwilioIntegrationById(ctx context.Context,
 }
 
 // Retrieves the current web_push integration configurations for a specific integration type in the project. Returns configuration details and status information.
-func (api *IntegrationsService) GetWebPushIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[ArrayOfWebpushConfigObjects], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) GetWebPushIntegration(ctx context.Context) (*shared.MagicbellProjectClientResponse[WebpushConfigCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -1290,36 +1382,36 @@ func (api *IntegrationsService) GetWebPushIntegration(ctx context.Context) (*sha
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfWebpushConfigObjects](config)
+	client := restClient.NewRestClient[WebpushConfigCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfWebpushConfigObjects](err)
+		return nil, shared.NewMagicbellProjectClientError[WebpushConfigCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfWebpushConfigObjects](resp), nil
+	return shared.NewMagicbellProjectClientResponse[WebpushConfigCollection](resp), nil
 }
 
 // Creates or updates a web_push integration for the project. Only administrators can configure integrations.
-func (api *IntegrationsService) SaveWebPushIntegration(ctx context.Context, webpushConfig WebpushConfig) (*shared.MagicbellProjectClientResponse[WebpushConfig], *shared.MagicbellProjectClientError) {
+func (api *IntegrationsService) SaveWebPushIntegration(ctx context.Context, webpushConfigPayload WebpushConfigPayload) (*shared.MagicbellProjectClientResponse[WebpushConfigPayload], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
 		WithMethod("PUT").
 		WithPath("/integrations/web_push").
 		WithConfig(config).
-		WithBody(webpushConfig).
+		WithBody(webpushConfigPayload).
 		AddHeader("CONTENT-TYPE", "application/json").
 		WithContentType(httptransport.ContentTypeJson).
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[WebpushConfig](config)
+	client := restClient.NewRestClient[WebpushConfigPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[WebpushConfig](err)
+		return nil, shared.NewMagicbellProjectClientError[WebpushConfigPayload](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[WebpushConfig](resp), nil
+	return shared.NewMagicbellProjectClientResponse[WebpushConfigPayload](resp), nil
 }
 
 // Removes a web_push integration configuration from the project. This will disable the integration's functionality within the project.

@@ -2,11 +2,11 @@
 
 A list of all methods in the `BroadcastsService` service. Click on the method name to view detailed information about that method.
 
-| Methods                             | Description                                                                                                                                                                           |
-| :---------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [ListBroadcasts](#listbroadcasts)   | Retrieves a paginated list of broadcasts for the project. Returns basic information about each broadcast including its creation time and status.                                      |
-| [CreateBroadcast](#createbroadcast) | Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project. Only administrators can create broadcasts. |
-| [FetchBroadcast](#fetchbroadcast)   | Retrieves detailed information about a specific broadcast by its ID. Includes the broadcast's configuration and current status.                                                       |
+| Methods                             | Description                                                                                                                                      |
+| :---------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| [ListBroadcasts](#listbroadcasts)   | Retrieves a paginated list of broadcasts for the project. Returns basic information about each broadcast including its creation time and status. |
+| [CreateBroadcast](#createbroadcast) | Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project.       |
+| [FetchBroadcast](#fetchbroadcast)   | Retrieves detailed information about a specific broadcast by its ID. Includes the broadcast's configuration and current status.                  |
 
 ## ListBroadcasts
 
@@ -24,7 +24,7 @@ Retrieves a paginated list of broadcasts for the project. Returns basic informat
 
 **Return Type**
 
-`ArrayOfBroadcasts`
+`BroadcastCollection`
 
 **Example Usage Code Snippet**
 
@@ -34,6 +34,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+
   "github.com/magicbell/magicbell-go-project-client/pkg/broadcasts"
 )
 
@@ -41,8 +42,9 @@ config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
 
-params := broadcasts.ListBroadcastsRequestParams{}
+params := broadcasts.ListBroadcastsRequestParams{
 
+}
 
 response, err := client.Broadcasts.ListBroadcasts(context.Background(), params)
 if err != nil {
@@ -54,7 +56,7 @@ fmt.Println(response)
 
 ## CreateBroadcast
 
-Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project. Only administrators can create broadcasts.
+Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project.
 
 - HTTP Method: `POST`
 - Endpoint: `/broadcasts`
@@ -78,6 +80,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+  "github.com/magicbell/magicbell-go-project-client/pkg/util"
   "github.com/magicbell/magicbell-go-project-client/pkg/broadcasts"
 )
 
@@ -85,91 +88,104 @@ config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
 
-email := broadcasts.Email{}
-email.SetActionUrl("ActionUrl")
-email.SetContent("Content")
-email.SetTitle("Title")
+email := broadcasts.Email{
+  ActionUrl: util.ToPointer(util.Nullable[string]{ Value: "ActionUrl" }),
+  Content: util.ToPointer("Content"),
+  Title: util.ToPointer("Title"),
+}
 
 
-inApp := broadcasts.InApp{}
-inApp.SetActionUrl("ActionUrl")
-inApp.SetContent("Content")
-inApp.SetTitle("Title")
+inApp := broadcasts.InApp{
+  ActionUrl: util.ToPointer(util.Nullable[string]{ Value: "ActionUrl" }),
+  Content: util.ToPointer("Content"),
+  Title: util.ToPointer("Title"),
+}
 
 
-mobilePush := broadcasts.MobilePush{}
-mobilePush.SetActionUrl("ActionUrl")
-mobilePush.SetContent("Content")
-mobilePush.SetTitle("Title")
+mobilePush := broadcasts.MobilePush{
+  ActionUrl: util.ToPointer(util.Nullable[string]{ Value: "ActionUrl" }),
+  Content: util.ToPointer("Content"),
+  Title: util.ToPointer("Title"),
+}
 
 
-slack := broadcasts.Slack{}
-slack.SetActionUrl("ActionUrl")
-slack.SetContent("Content")
-slack.SetTitle("Title")
+slack := broadcasts.Slack{
+  ActionUrl: util.ToPointer(util.Nullable[string]{ Value: "ActionUrl" }),
+  Content: util.ToPointer("Content"),
+  Title: util.ToPointer("Title"),
+}
 
 
-sms := broadcasts.Sms{}
-sms.SetActionUrl("ActionUrl")
-sms.SetContent("Content")
-sms.SetTitle("Title")
+sms := broadcasts.Sms{
+  ActionUrl: util.ToPointer(util.Nullable[string]{ Value: "ActionUrl" }),
+  Content: util.ToPointer("Content"),
+  Title: util.ToPointer("Title"),
+}
 
 
-webPush := broadcasts.WebPush{}
-webPush.SetActionUrl("ActionUrl")
-webPush.SetContent("Content")
-webPush.SetTitle("Title")
+webPush := broadcasts.WebPush{
+  ActionUrl: util.ToPointer(util.Nullable[string]{ Value: "ActionUrl" }),
+  Content: util.ToPointer("Content"),
+  Title: util.ToPointer("Title"),
+}
 
-overridesChannels := broadcasts.OverridesChannels{}
-overridesChannels.SetEmail(email)
-overridesChannels.SetInApp(inApp)
-overridesChannels.SetMobilePush(mobilePush)
-overridesChannels.SetSlack(slack)
-overridesChannels.SetSms(sms)
-overridesChannels.SetWebPush(webPush)
-
-
-providers := broadcasts.Providers{}
-providers.SetAmazonSes("string")
-providers.SetAndroid("string")
-providers.SetIos("string")
-providers.SetMailgun("string")
-providers.SetPostmark("string")
-providers.SetSendgrid("string")
-providers.SetSlack("string")
-
-overrides := broadcasts.Overrides{}
-overrides.SetChannels(overridesChannels)
-overrides.SetProviders(providers)
+overridesChannels := broadcasts.OverridesChannels{
+  Email: &email,
+  InApp: &inApp,
+  MobilePush: &mobilePush,
+  Slack: &slack,
+  Sms: &sms,
+  WebPush: &webPush,
+}
 
 
-errors := broadcasts.Errors{}
-errors.SetMessage("Message")
+providers := broadcasts.Providers{
+  AmazonSes: []byte{},
+  Android: []byte{},
+  Ios: []byte{},
+  Mailgun: []byte{},
+  Postmark: []byte{},
+  Sendgrid: []byte{},
+  Slack: []byte{},
+}
+
+overrides := broadcasts.Overrides{
+  Channels: &overridesChannels,
+  Providers: &providers,
+}
+
+
+errors := broadcasts.Errors{
+  Message: util.ToPointer("Message"),
+}
 
 statusStatus := broadcasts.STATUS_STATUS_ENQUEUED
 
 
-summary := broadcasts.Summary{}
-summary.SetFailures(int64(123))
-summary.SetTotal(int64(123))
+summary := broadcasts.Summary{
+  Failures: util.ToPointer(int64(123)),
+  Total: util.ToPointer(int64(123)),
+}
 
-broadcastStatus := broadcasts.BroadcastStatus{}
-broadcastStatus.SetErrors([]broadcasts.Errors{errors})
-broadcastStatus.SetStatus(statusStatus)
-broadcastStatus.SetSummary(summary)
+broadcastStatus := broadcasts.BroadcastStatus{
+  Errors: []broadcasts.Errors{errors},
+  Status: &statusStatus,
+  Summary: &summary,
+}
 
-request := broadcasts.Broadcast{}
-request.SetActionUrl("ActionUrl")
-request.SetCategory("Category")
-request.SetContent("Content")
-request.SetCreatedAt("CreatedAt")
-request.SetCustomAttributes("string")
-request.SetId("Id")
-request.SetOverrides(overrides)
-request.SetRecipients([]any{})
-request.SetStatus(broadcastStatus)
-request.SetTitle("Title")
-request.SetTopic("Topic")
+request := broadcasts.Broadcast{
+  ActionUrl: util.ToPointer(util.Nullable[string]{ Value: "ActionUrl" }),
+  Category: util.ToPointer(util.Nullable[string]{ Value: "Category" }),
+  Content: util.ToPointer(util.Nullable[string]{ Value: "Content" }),
+  CreatedAt: util.ToPointer("CreatedAt"),
+  CustomAttributes: []byte{},
+  Id: util.ToPointer("Id"),
+  Overrides: &overrides,
+  Recipients: []any{},
+  Status: &broadcastStatus,
+  Title: util.ToPointer("Title"),
+  Topic: util.ToPointer(util.Nullable[string]{ Value: "Topic" }),
+}
 
 response, err := client.Broadcasts.CreateBroadcast(context.Background(), request)
 if err != nil {
@@ -205,6 +221,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+
 )
 
 config := magicbellprojectclientconfig.NewConfig()

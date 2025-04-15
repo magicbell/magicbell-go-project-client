@@ -11,7 +11,7 @@ Welcome to the MagicbellProjectClient SDK documentation. This guide will help yo
 
 ## About the API
 
-OpenAPI 3.0.3 Specification for MagicBell API.
+OpenAPI 3.1.0 Specification for MagicBell API.
 
 ## Table of Contents
 
@@ -76,13 +76,15 @@ The SDK provides various services to interact with the API.
 <details> 
 <summary>Below is a list of all available services with links to their detailed documentation:</summary>
 
-| Name                                                                  |
-| :-------------------------------------------------------------------- |
-| [BroadcastsService](documentation/services/broadcasts_service.md)     |
-| [ChannelsService](documentation/services/channels_service.md)         |
-| [EventsService](documentation/services/events_service.md)             |
-| [IntegrationsService](documentation/services/integrations_service.md) |
-| [JwtService](documentation/services/jwt_service.md)                   |
+| Name                                                                    |
+| :---------------------------------------------------------------------- |
+| [BroadcastsService](documentation/services/broadcasts_service.md)       |
+| [ChannelsService](documentation/services/channels_service.md)           |
+| [EventsService](documentation/services/events_service.md)               |
+| [IntegrationsService](documentation/services/integrations_service.md)   |
+| [JwtService](documentation/services/jwt_service.md)                     |
+| [NotificationsService](documentation/services/notifications_service.md) |
+| [UsersService](documentation/services/users_service.md)                 |
 
 </details>
 
@@ -132,87 +134,88 @@ The SDK includes several models that represent the data structures used in API r
 <details> 
 <summary>Below is a list of all available models with links to their detailed documentation:</summary>
 
-| Name                                                                                              | Description |
-| :------------------------------------------------------------------------------------------------ | :---------- |
-| [ArrayOfBroadcasts](documentation/models/array_of_broadcasts.md)                                  |             |
-| [Broadcast](documentation/models/broadcast.md)                                                    |             |
-| [ProjectDeliveryConfig](documentation/models/project_delivery_config.md)                          |             |
-| [CategoryDeliveryConfig](documentation/models/category_delivery_config.md)                        |             |
-| [ArrayOfMetadataApnsTokens](documentation/models/array_of_metadata_apns_tokens.md)                |             |
-| [MetadataApnsToken](documentation/models/metadata_apns_token.md)                                  |             |
-| [DiscardResult](documentation/models/discard_result.md)                                           |             |
-| [ArrayOfMetadataExpoTokens](documentation/models/array_of_metadata_expo_tokens.md)                |             |
-| [MetadataExpoToken](documentation/models/metadata_expo_token.md)                                  |             |
-| [ArrayOfMetadataFcmTokens](documentation/models/array_of_metadata_fcm_tokens.md)                  |             |
-| [MetadataFcmToken](documentation/models/metadata_fcm_token.md)                                    |             |
-| [ArrayOfMetadataSlackTokens](documentation/models/array_of_metadata_slack_tokens.md)              |             |
-| [MetadataSlackToken](documentation/models/metadata_slack_token.md)                                |             |
-| [ArrayOfMetadataTeamsTokens](documentation/models/array_of_metadata_teams_tokens.md)              |             |
-| [MetadataTeamsToken](documentation/models/metadata_teams_token.md)                                |             |
-| [ArrayOfMetadataWebPushTokens](documentation/models/array_of_metadata_web_push_tokens.md)         |             |
-| [MetadataWebPushToken](documentation/models/metadata_web_push_token.md)                           |             |
-| [ArrayOfEvents](documentation/models/array_of_events.md)                                          |             |
-| [ArrayOfIntegrationObjects](documentation/models/array_of_integration_objects.md)                 |             |
-| [ArrayOfApnsConfigObjects](documentation/models/array_of_apns_config_objects.md)                  |             |
-| [ApnsConfig](documentation/models/apns_config.md)                                                 |             |
-| [ArrayOfAwssnsConfigObjects](documentation/models/array_of_awssns_config_objects.md)              |             |
-| [AwssnsConfig](documentation/models/awssns_config.md)                                             |             |
-| [ArrayOfExpoConfigObjects](documentation/models/array_of_expo_config_objects.md)                  |             |
-| [ExpoConfig](documentation/models/expo_config.md)                                                 |             |
-| [ArrayOfFcmConfigObjects](documentation/models/array_of_fcm_config_objects.md)                    |             |
-| [FcmConfig](documentation/models/fcm_config.md)                                                   |             |
-| [ArrayOfGithubConfigObjects](documentation/models/array_of_github_config_objects.md)              |             |
-| [GithubConfig](documentation/models/github_config.md)                                             |             |
-| [ArrayOfInboxConfigObjects](documentation/models/array_of_inbox_config_objects.md)                |             |
-| [InboxConfig](documentation/models/inbox_config.md)                                               |             |
-| [ArrayOfMailgunConfigObjects](documentation/models/array_of_mailgun_config_objects.md)            |             |
-| [MailgunConfig](documentation/models/mailgun_config.md)                                           |             |
-| [ArrayOfPingConfigObjects](documentation/models/array_of_ping_config_objects.md)                  |             |
-| [PingConfig](documentation/models/ping_config.md)                                                 |             |
-| [ArrayOfSendgridConfigObjects](documentation/models/array_of_sendgrid_config_objects.md)          |             |
-| [SendgridConfig](documentation/models/sendgrid_config.md)                                         |             |
-| [ArrayOfSesConfigObjects](documentation/models/array_of_ses_config_objects.md)                    |             |
-| [SesConfig](documentation/models/ses_config.md)                                                   |             |
-| [ArrayOfSlackConfigObjects](documentation/models/array_of_slack_config_objects.md)                |             |
-| [SlackConfig](documentation/models/slack_config.md)                                               |             |
-| [ArrayOfStripeConfigObjects](documentation/models/array_of_stripe_config_objects.md)              |             |
-| [StripeConfig](documentation/models/stripe_config.md)                                             |             |
-| [ArrayOfTemplatesConfigObjects](documentation/models/array_of_templates_config_objects.md)        |             |
-| [ArrayOfTwilioConfigObjects](documentation/models/array_of_twilio_config_objects.md)              |             |
-| [TwilioConfig](documentation/models/twilio_config.md)                                             |             |
-| [ArrayOfWebpushConfigObjects](documentation/models/array_of_webpush_config_objects.md)            |             |
-| [WebpushConfig](documentation/models/webpush_config.md)                                           |             |
-| [ArrayOfFetchTokensResponseTokens](documentation/models/array_of_fetch_tokens_response_tokens.md) |             |
-| [CreateProjectTokenRequest](documentation/models/create_project_token_request.md)                 |             |
-| [AccessToken](documentation/models/access_token.md)                                               |             |
-| [DiscardTokenResponse](documentation/models/discard_token_response.md)                            |             |
-| [CreateUserTokenRequest](documentation/models/create_user_token_request.md)                       |             |
-| [Links](documentation/models/links.md)                                                            |             |
-| [ApnsToken](documentation/models/apns_token.md)                                                   |             |
-| [TokenMetadata](documentation/models/token_metadata.md)                                           |             |
-| [ExpoToken](documentation/models/expo_token.md)                                                   |             |
-| [FcmToken](documentation/models/fcm_token.md)                                                     |             |
-| [SlackToken](documentation/models/slack_token.md)                                                 |             |
-| [TeamsToken](documentation/models/teams_token.md)                                                 |             |
-| [WebPushToken](documentation/models/web_push_token.md)                                            |             |
-| [Event](documentation/models/event.md)                                                            |             |
-| [IntegrationObject](documentation/models/integration_object.md)                                   |             |
-| [ApnsConfigObject](documentation/models/apns_config_object.md)                                    |             |
-| [AwssnsConfigObject](documentation/models/awssns_config_object.md)                                |             |
-| [ExpoConfigObject](documentation/models/expo_config_object.md)                                    |             |
-| [FcmConfigObject](documentation/models/fcm_config_object.md)                                      |             |
-| [GithubConfigObject](documentation/models/github_config_object.md)                                |             |
-| [InboxConfigObject](documentation/models/inbox_config_object.md)                                  |             |
-| [MailgunConfigObject](documentation/models/mailgun_config_object.md)                              |             |
-| [PingConfigObject](documentation/models/ping_config_object.md)                                    |             |
-| [SendgridConfigObject](documentation/models/sendgrid_config_object.md)                            |             |
-| [SesConfigObject](documentation/models/ses_config_object.md)                                      |             |
-| [SlackConfigObject](documentation/models/slack_config_object.md)                                  |             |
-| [StripeConfigObject](documentation/models/stripe_config_object.md)                                |             |
-| [TemplatesConfigObject](documentation/models/templates_config_object.md)                          |             |
-| [TwilioConfigObject](documentation/models/twilio_config_object.md)                                |             |
-| [WebpushConfigObject](documentation/models/webpush_config_object.md)                              |             |
-| [FetchTokensResponseToken](documentation/models/fetch_tokens_response_token.md)                   |             |
+| Name                                                                                    | Description |
+| :-------------------------------------------------------------------------------------- | :---------- |
+| [BroadcastCollection](documentation/models/broadcast_collection.md)                     |             |
+| [Broadcast](documentation/models/broadcast.md)                                          |             |
+| [CategoryDeliveryConfig](documentation/models/category_delivery_config.md)              |             |
+| [InboxTokenResponseCollection](documentation/models/inbox_token_response_collection.md) |             |
+| [InboxTokenResponse](documentation/models/inbox_token_response.md)                      |             |
+| [DiscardResult](documentation/models/discard_result.md)                                 |             |
+| [ApnsTokenCollection](documentation/models/apns_token_collection.md)                    |             |
+| [ApnsToken](documentation/models/apns_token.md)                                         |             |
+| [ExpoTokenCollection](documentation/models/expo_token_collection.md)                    |             |
+| [ExpoToken](documentation/models/expo_token.md)                                         |             |
+| [FcmTokenCollection](documentation/models/fcm_token_collection.md)                      |             |
+| [FcmToken](documentation/models/fcm_token.md)                                           |             |
+| [SlackTokenCollection](documentation/models/slack_token_collection.md)                  |             |
+| [SlackToken](documentation/models/slack_token.md)                                       |             |
+| [TeamsTokenCollection](documentation/models/teams_token_collection.md)                  |             |
+| [TeamsToken](documentation/models/teams_token.md)                                       |             |
+| [WebPushTokenCollection](documentation/models/web_push_token_collection.md)             |             |
+| [WebPushToken](documentation/models/web_push_token.md)                                  |             |
+| [EventCollection](documentation/models/event_collection.md)                             |             |
+| [Event](documentation/models/event.md)                                                  |             |
+| [IntegrationConfigCollection](documentation/models/integration_config_collection.md)    |             |
+| [ApnsConfigCollection](documentation/models/apns_config_collection.md)                  |             |
+| [ApnsConfigPayload](documentation/models/apns_config_payload.md)                        |             |
+| [AwssnsConfigCollection](documentation/models/awssns_config_collection.md)              |             |
+| [AwssnsConfigPayload](documentation/models/awssns_config_payload.md)                    |             |
+| [EventSourceConfigCollection](documentation/models/event_source_config_collection.md)   |             |
+| [EventSourceConfigPayload](documentation/models/event_source_config_payload.md)         |             |
+| [ExpoConfigCollection](documentation/models/expo_config_collection.md)                  |             |
+| [ExpoConfigPayload](documentation/models/expo_config_payload.md)                        |             |
+| [FcmConfigCollection](documentation/models/fcm_config_collection.md)                    |             |
+| [FcmConfigPayload](documentation/models/fcm_config_payload.md)                          |             |
+| [GithubConfigCollection](documentation/models/github_config_collection.md)              |             |
+| [GithubConfigPayload](documentation/models/github_config_payload.md)                    |             |
+| [InboxConfigCollection](documentation/models/inbox_config_collection.md)                |             |
+| [InboxConfigPayload](documentation/models/inbox_config_payload.md)                      |             |
+| [MailgunConfigCollection](documentation/models/mailgun_config_collection.md)            |             |
+| [MailgunConfigPayload](documentation/models/mailgun_config_payload.md)                  |             |
+| [PingConfigCollection](documentation/models/ping_config_collection.md)                  |             |
+| [PingConfigPayload](documentation/models/ping_config_payload.md)                        |             |
+| [SendgridConfigCollection](documentation/models/sendgrid_config_collection.md)          |             |
+| [SendgridConfigPayload](documentation/models/sendgrid_config_payload.md)                |             |
+| [SesConfigCollection](documentation/models/ses_config_collection.md)                    |             |
+| [SesConfigPayload](documentation/models/ses_config_payload.md)                          |             |
+| [SlackConfigCollection](documentation/models/slack_config_collection.md)                |             |
+| [SlackConfigPayload](documentation/models/slack_config_payload.md)                      |             |
+| [StripeConfigCollection](documentation/models/stripe_config_collection.md)              |             |
+| [StripeConfigPayload](documentation/models/stripe_config_payload.md)                    |             |
+| [TemplatesConfigCollection](documentation/models/templates_config_collection.md)        |             |
+| [TwilioConfigCollection](documentation/models/twilio_config_collection.md)              |             |
+| [TwilioConfigPayload](documentation/models/twilio_config_payload.md)                    |             |
+| [WebpushConfigCollection](documentation/models/webpush_config_collection.md)            |             |
+| [WebpushConfigPayload](documentation/models/webpush_config_payload.md)                  |             |
+| [AccessTokenCollection](documentation/models/access_token_collection.md)                |             |
+| [CreateProjectTokenRequest](documentation/models/create_project_token_request.md)       |             |
+| [CreateTokenResponse](documentation/models/create_token_response.md)                    |             |
+| [DiscardTokenResponse](documentation/models/discard_token_response.md)                  |             |
+| [CreateUserTokenRequest](documentation/models/create_user_token_request.md)             |             |
+| [DeliveryPlanCollection](documentation/models/delivery_plan_collection.md)              |             |
+| [UserCollection](documentation/models/user_collection.md)                               |             |
+| [User](documentation/models/user.md)                                                    |             |
+| [Links](documentation/models/links.md)                                                  |             |
+| [IntegrationConfig](documentation/models/integration_config.md)                         |             |
+| [ApnsConfig](documentation/models/apns_config.md)                                       |             |
+| [AwssnsConfig](documentation/models/awssns_config.md)                                   |             |
+| [EventSourceConfig](documentation/models/event_source_config.md)                        |             |
+| [ExpoConfig](documentation/models/expo_config.md)                                       |             |
+| [FcmConfig](documentation/models/fcm_config.md)                                         |             |
+| [GithubConfig](documentation/models/github_config.md)                                   |             |
+| [InboxConfig](documentation/models/inbox_config.md)                                     |             |
+| [MailgunConfig](documentation/models/mailgun_config.md)                                 |             |
+| [PingConfig](documentation/models/ping_config.md)                                       |             |
+| [SendgridConfig](documentation/models/sendgrid_config.md)                               |             |
+| [SesConfig](documentation/models/ses_config.md)                                         |             |
+| [SlackConfig](documentation/models/slack_config.md)                                     |             |
+| [StripeConfig](documentation/models/stripe_config.md)                                   |             |
+| [TemplatesConfig](documentation/models/templates_config.md)                             |             |
+| [TwilioConfig](documentation/models/twilio_config.md)                                   |             |
+| [WebpushConfig](documentation/models/webpush_config.md)                                 |             |
+| [AccessToken](documentation/models/access_token.md)                                     |             |
+| [DeliveryPlan](documentation/models/delivery_plan.md)                                   |             |
 
 </details>
 

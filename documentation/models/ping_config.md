@@ -2,6 +2,8 @@
 
 **Properties**
 
-| Name | Type   | Required | Description |
-| :--- | :----- | :------- | :---------- |
-| Url  | string | ✅       | URL to ping |
+| Name   | Type                           | Required | Description |
+| :----- | :----------------------------- | :------- | :---------- |
+| Config | integrations.PingConfigPayload | ✅       |             |
+| Id     | string                         | ✅       |             |
+| Name   | string                         | ✅       |             |

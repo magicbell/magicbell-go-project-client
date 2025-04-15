@@ -2,11 +2,12 @@
 
 A list of all methods in the `EventsService` service. Click on the method name to view detailed information about that method.
 
-| Methods                 | Description                                           |
-| :---------------------- | :---------------------------------------------------- |
-| [GetEvents](#getevents) | Retrieves a paginated list of events for the project. |
+| Methods                   | Description                                           |
+| :------------------------ | :---------------------------------------------------- |
+| [ListEvents](#listevents) | Retrieves a paginated list of events for the project. |
+| [GetEvent](#getevent)     | Retrieves a project event by its ID.                  |
 
-## GetEvents
+## ListEvents
 
 Retrieves a paginated list of events for the project.
 
@@ -15,14 +16,14 @@ Retrieves a paginated list of events for the project.
 
 **Parameters**
 
-| Name   | Type                   | Required | Description                   |
-| :----- | :--------------------- | :------- | :---------------------------- |
-| ctx    | Context                | ✅       | Default go language context   |
-| params | GetEventsRequestParams | ✅       | Additional request parameters |
+| Name   | Type                    | Required | Description                   |
+| :----- | :---------------------- | :------- | :---------------------------- |
+| ctx    | Context                 | ✅       | Default go language context   |
+| params | ListEventsRequestParams | ✅       | Additional request parameters |
 
 **Return Type**
 
-`ArrayOfEvents`
+`EventCollection`
 
 **Example Usage Code Snippet**
 
@@ -32,6 +33,7 @@ import (
   "encoding/json"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
   "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+
   "github.com/magicbell/magicbell-go-project-client/pkg/events"
 )
 
@@ -39,10 +41,51 @@ config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
 
-params := events.GetEventsRequestParams{}
+params := events.ListEventsRequestParams{
 
+}
 
-response, err := client.Events.GetEvents(context.Background(), params)
+response, err := client.Events.ListEvents(context.Background(), params)
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## GetEvent
+
+Retrieves a project event by its ID.
+
+- HTTP Method: `GET`
+- Endpoint: `/events/{id}`
+
+**Parameters**
+
+| Name | Type    | Required | Description                 |
+| :--- | :------ | :------- | :-------------------------- |
+| ctx  | Context | ✅       | Default go language context |
+| id   | string  | ✅       |                             |
+
+**Return Type**
+
+`Event`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclientconfig"
+  "github.com/magicbell/magicbell-go-project-client/pkg/magicbellprojectclient"
+
+)
+
+config := magicbellprojectclientconfig.NewConfig()
+client := magicbellprojectclient.NewMagicbellProjectClient(config)
+
+response, err := client.Events.GetEvent(context.Background(), "id")
 if err != nil {
   panic(err)
 }

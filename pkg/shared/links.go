@@ -2,13 +2,13 @@ package shared
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type Links struct {
-	First   *string `json:"first,omitempty"`
-	Next    *string `json:"next,omitempty"`
-	Prev    *string `json:"prev,omitempty"`
-	touched map[string]bool
+	First *string                `json:"first,omitempty"`
+	Next  *util.Nullable[string] `json:"next,omitempty"`
+	Prev  *util.Nullable[string] `json:"prev,omitempty"`
 }
 
 func (l *Links) GetFirst() *string {
@@ -19,86 +19,43 @@ func (l *Links) GetFirst() *string {
 }
 
 func (l *Links) SetFirst(first string) {
-	if l.touched == nil {
-		l.touched = map[string]bool{}
-	}
-	l.touched["First"] = true
 	l.First = &first
 }
 
-func (l *Links) SetFirstNil() {
-	if l.touched == nil {
-		l.touched = map[string]bool{}
-	}
-	l.touched["First"] = true
-	l.First = nil
-}
-
-func (l *Links) GetNext() *string {
+func (l *Links) GetNext() *util.Nullable[string] {
 	if l == nil {
 		return nil
 	}
 	return l.Next
 }
 
-func (l *Links) SetNext(next string) {
-	if l.touched == nil {
-		l.touched = map[string]bool{}
-	}
-	l.touched["Next"] = true
+func (l *Links) SetNext(next util.Nullable[string]) {
 	l.Next = &next
 }
 
-func (l *Links) SetNextNil() {
-	if l.touched == nil {
-		l.touched = map[string]bool{}
-	}
-	l.touched["Next"] = true
-	l.Next = nil
+func (l *Links) SetNextNull() {
+	l.Next = &util.Nullable[string]{IsNull: true}
 }
 
-func (l *Links) GetPrev() *string {
+func (l *Links) GetPrev() *util.Nullable[string] {
 	if l == nil {
 		return nil
 	}
 	return l.Prev
 }
 
-func (l *Links) SetPrev(prev string) {
-	if l.touched == nil {
-		l.touched = map[string]bool{}
-	}
-	l.touched["Prev"] = true
+func (l *Links) SetPrev(prev util.Nullable[string]) {
 	l.Prev = &prev
 }
 
-func (l *Links) SetPrevNil() {
-	if l.touched == nil {
-		l.touched = map[string]bool{}
-	}
-	l.touched["Prev"] = true
-	l.Prev = nil
+func (l *Links) SetPrevNull() {
+	l.Prev = &util.Nullable[string]{IsNull: true}
 }
-func (l Links) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if l.touched["First"] && l.First == nil {
-		data["first"] = nil
-	} else if l.First != nil {
-		data["first"] = l.First
+func (l Links) String() string {
+	jsonData, err := json.MarshalIndent(l, "", "  ")
+	if err != nil {
+		return "error converting struct: Links to string"
 	}
-
-	if l.touched["Next"] && l.Next == nil {
-		data["next"] = nil
-	} else if l.Next != nil {
-		data["next"] = l.Next
-	}
-
-	if l.touched["Prev"] && l.Prev == nil {
-		data["prev"] = nil
-	} else if l.Prev != nil {
-		data["prev"] = l.Prev
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }

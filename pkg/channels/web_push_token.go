@@ -2,12 +2,44 @@ package channels
 
 import (
 	"encoding/json"
+	"github.com/magicbell/magicbell-go-project-client/pkg/util"
 )
 
 type WebPushToken struct {
+	CreatedAt   *string                `json:"created_at,omitempty" required:"true"`
+	DiscardedAt *util.Nullable[string] `json:"discarded_at,omitempty"`
+	// The push subscription URL obtained from PushSubscription.endpoint after calling registration.pushManager.subscribe(). This is the unique URL for this device that push messages will be sent to.
 	Endpoint *string `json:"endpoint,omitempty" required:"true"`
-	Keys     *Keys   `json:"keys,omitempty" required:"true"`
-	touched  map[string]bool
+	Id       *string `json:"id,omitempty" required:"true"`
+	// The encryption keys from the PushSubscription.getKey() method, needed to encrypt push messages for this subscription.
+	Keys      *Keys                  `json:"keys,omitempty" required:"true"`
+	UpdatedAt *util.Nullable[string] `json:"updated_at,omitempty"`
+}
+
+func (w *WebPushToken) GetCreatedAt() *string {
+	if w == nil {
+		return nil
+	}
+	return w.CreatedAt
+}
+
+func (w *WebPushToken) SetCreatedAt(createdAt string) {
+	w.CreatedAt = &createdAt
+}
+
+func (w *WebPushToken) GetDiscardedAt() *util.Nullable[string] {
+	if w == nil {
+		return nil
+	}
+	return w.DiscardedAt
+}
+
+func (w *WebPushToken) SetDiscardedAt(discardedAt util.Nullable[string]) {
+	w.DiscardedAt = &discardedAt
+}
+
+func (w *WebPushToken) SetDiscardedAtNull() {
+	w.DiscardedAt = &util.Nullable[string]{IsNull: true}
 }
 
 func (w *WebPushToken) GetEndpoint() *string {
@@ -18,19 +50,18 @@ func (w *WebPushToken) GetEndpoint() *string {
 }
 
 func (w *WebPushToken) SetEndpoint(endpoint string) {
-	if w.touched == nil {
-		w.touched = map[string]bool{}
-	}
-	w.touched["Endpoint"] = true
 	w.Endpoint = &endpoint
 }
 
-func (w *WebPushToken) SetEndpointNil() {
-	if w.touched == nil {
-		w.touched = map[string]bool{}
+func (w *WebPushToken) GetId() *string {
+	if w == nil {
+		return nil
 	}
-	w.touched["Endpoint"] = true
-	w.Endpoint = nil
+	return w.Id
+}
+
+func (w *WebPushToken) SetId(id string) {
+	w.Id = &id
 }
 
 func (w *WebPushToken) GetKeys() *Keys {
@@ -41,42 +72,38 @@ func (w *WebPushToken) GetKeys() *Keys {
 }
 
 func (w *WebPushToken) SetKeys(keys Keys) {
-	if w.touched == nil {
-		w.touched = map[string]bool{}
-	}
-	w.touched["Keys"] = true
 	w.Keys = &keys
 }
 
-func (w *WebPushToken) SetKeysNil() {
-	if w.touched == nil {
-		w.touched = map[string]bool{}
+func (w *WebPushToken) GetUpdatedAt() *util.Nullable[string] {
+	if w == nil {
+		return nil
 	}
-	w.touched["Keys"] = true
-	w.Keys = nil
-}
-func (w WebPushToken) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if w.touched["Endpoint"] && w.Endpoint == nil {
-		data["endpoint"] = nil
-	} else if w.Endpoint != nil {
-		data["endpoint"] = w.Endpoint
-	}
-
-	if w.touched["Keys"] && w.Keys == nil {
-		data["keys"] = nil
-	} else if w.Keys != nil {
-		data["keys"] = w.Keys
-	}
-
-	return json.Marshal(data)
+	return w.UpdatedAt
 }
 
+func (w *WebPushToken) SetUpdatedAt(updatedAt util.Nullable[string]) {
+	w.UpdatedAt = &updatedAt
+}
+
+func (w *WebPushToken) SetUpdatedAtNull() {
+	w.UpdatedAt = &util.Nullable[string]{IsNull: true}
+}
+
+func (w WebPushToken) String() string {
+	jsonData, err := json.MarshalIndent(w, "", "  ")
+	if err != nil {
+		return "error converting struct: WebPushToken to string"
+	}
+	return string(jsonData)
+}
+
+// The encryption keys from the PushSubscription.getKey() method, needed to encrypt push messages for this subscription.
 type Keys struct {
-	Auth    *string `json:"auth,omitempty" required:"true"`
-	P256dh  *string `json:"p256dh,omitempty" required:"true"`
-	touched map[string]bool
+	// The authentication secret obtained from PushSubscription.getKey('auth'). Used to encrypt push messages for this subscription.
+	Auth *string `json:"auth,omitempty" required:"true"`
+	// The P-256 ECDH public key obtained from PushSubscription.getKey('p256dh'). Used to encrypt push messages for this subscription.
+	P256dh *string `json:"p256dh,omitempty" required:"true"`
 }
 
 func (k *Keys) GetAuth() *string {
@@ -87,19 +114,7 @@ func (k *Keys) GetAuth() *string {
 }
 
 func (k *Keys) SetAuth(auth string) {
-	if k.touched == nil {
-		k.touched = map[string]bool{}
-	}
-	k.touched["Auth"] = true
 	k.Auth = &auth
-}
-
-func (k *Keys) SetAuthNil() {
-	if k.touched == nil {
-		k.touched = map[string]bool{}
-	}
-	k.touched["Auth"] = true
-	k.Auth = nil
 }
 
 func (k *Keys) GetP256dh() *string {
@@ -110,34 +125,13 @@ func (k *Keys) GetP256dh() *string {
 }
 
 func (k *Keys) SetP256dh(p256dh string) {
-	if k.touched == nil {
-		k.touched = map[string]bool{}
-	}
-	k.touched["P256dh"] = true
 	k.P256dh = &p256dh
 }
 
-func (k *Keys) SetP256dhNil() {
-	if k.touched == nil {
-		k.touched = map[string]bool{}
+func (k Keys) String() string {
+	jsonData, err := json.MarshalIndent(k, "", "  ")
+	if err != nil {
+		return "error converting struct: Keys to string"
 	}
-	k.touched["P256dh"] = true
-	k.P256dh = nil
-}
-func (k Keys) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if k.touched["Auth"] && k.Auth == nil {
-		data["auth"] = nil
-	} else if k.Auth != nil {
-		data["auth"] = k.Auth
-	}
-
-	if k.touched["P256dh"] && k.P256dh == nil {
-		data["p256dh"] = nil
-	} else if k.P256dh != nil {
-		data["p256dh"] = k.P256dh
-	}
-
-	return json.Marshal(data)
+	return string(jsonData)
 }

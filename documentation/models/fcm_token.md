@@ -4,8 +4,12 @@
 
 | Name           | Type                            | Required | Description |
 | :------------- | :------------------------------ | :------- | :---------- |
+| CreatedAt      | string                          | ✅       |             |
 | DeviceToken    | string                          | ✅       |             |
+| Id             | string                          | ✅       |             |
+| DiscardedAt    | string                          | ❌       |             |
 | InstallationId | channels.FcmTokenInstallationId | ❌       |             |
+| UpdatedAt      | string                          | ❌       |             |
 
 # FcmTokenInstallationId
 

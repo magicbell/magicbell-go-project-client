@@ -14,10 +14,15 @@ type JwtService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewJwtService(manager *configmanager.ConfigManager) *JwtService {
+func NewJwtService() *JwtService {
 	return &JwtService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(magicbellprojectclientconfig.Config{}),
 	}
+}
+
+func (api *JwtService) WithConfigManager(manager *configmanager.ConfigManager) *JwtService {
+	api.manager = manager
+	return api
 }
 
 func (api *JwtService) getConfig() *magicbellprojectclientconfig.Config {
@@ -40,7 +45,7 @@ func (api *JwtService) SetAccessToken(accessToken string) {
 }
 
 // Retrieves a list of all active project-level JWT tokens. Returns a paginated list showing token metadata including creation date, last used date, and expiration time. For security reasons, the actual token values are not included in the response.
-func (api *JwtService) FetchProjectTokens(ctx context.Context, params FetchProjectTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfFetchTokensResponseTokens], *shared.MagicbellProjectClientError) {
+func (api *JwtService) FetchProjectTokens(ctx context.Context, params FetchProjectTokensRequestParams) (*shared.MagicbellProjectClientResponse[AccessTokenCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -52,17 +57,17 @@ func (api *JwtService) FetchProjectTokens(ctx context.Context, params FetchProje
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfFetchTokensResponseTokens](config)
+	client := restClient.NewRestClient[AccessTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfFetchTokensResponseTokens](err)
+		return nil, shared.NewMagicbellProjectClientError[AccessTokenCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfFetchTokensResponseTokens](resp), nil
+	return shared.NewMagicbellProjectClientResponse[AccessTokenCollection](resp), nil
 }
 
 // Creates a new project-level JWT token. These tokens provide project-wide access and should be carefully managed. Only administrators can create project tokens. The returned token should be securely stored as it cannot be retrieved again after creation.
-func (api *JwtService) CreateProjectJwt(ctx context.Context, createProjectTokenRequest CreateProjectTokenRequest) (*shared.MagicbellProjectClientResponse[AccessToken], *shared.MagicbellProjectClientError) {
+func (api *JwtService) CreateProjectJwt(ctx context.Context, createProjectTokenRequest CreateProjectTokenRequest) (*shared.MagicbellProjectClientResponse[CreateTokenResponse], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -75,13 +80,13 @@ func (api *JwtService) CreateProjectJwt(ctx context.Context, createProjectTokenR
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[AccessToken](config)
+	client := restClient.NewRestClient[CreateTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[AccessToken](err)
+		return nil, shared.NewMagicbellProjectClientError[CreateTokenResponse](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[AccessToken](resp), nil
+	return shared.NewMagicbellProjectClientResponse[CreateTokenResponse](resp), nil
 }
 
 // Immediately revokes a project-level JWT token. Once revoked, any requests using this token will be rejected. This action is immediate and cannot be undone. Active sessions using this token will be terminated.
@@ -107,7 +112,7 @@ func (api *JwtService) DiscardProjectJwt(ctx context.Context, tokenId string) (*
 }
 
 // Issues a new user-specific JWT token. These tokens are scoped to individual user permissions and access levels. Only administrators can create user tokens. The token is returned only once at creation time and cannot be retrieved later.
-func (api *JwtService) CreateUserJwt(ctx context.Context, createUserTokenRequest CreateUserTokenRequest) (*shared.MagicbellProjectClientResponse[AccessToken], *shared.MagicbellProjectClientError) {
+func (api *JwtService) CreateUserJwt(ctx context.Context, createUserTokenRequest CreateUserTokenRequest) (*shared.MagicbellProjectClientResponse[CreateTokenResponse], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -120,13 +125,13 @@ func (api *JwtService) CreateUserJwt(ctx context.Context, createUserTokenRequest
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[AccessToken](config)
+	client := restClient.NewRestClient[CreateTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[AccessToken](err)
+		return nil, shared.NewMagicbellProjectClientError[CreateTokenResponse](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[AccessToken](resp), nil
+	return shared.NewMagicbellProjectClientResponse[CreateTokenResponse](resp), nil
 }
 
 // Revokes a specific user's JWT token. This immediately invalidates the token and terminates any active sessions using it. This action cannot be undone. Administrators should use this to revoke access when needed for security purposes.
@@ -152,7 +157,7 @@ func (api *JwtService) DiscardUserJwt(ctx context.Context, tokenId string) (*sha
 }
 
 // Lists all JWT tokens associated with a specific user. Returns token metadata including creation time, last access time, and expiration date. Administrators can use this to audit user token usage and manage active sessions. Token values are not included in the response for security reasons.
-func (api *JwtService) FetchUserTokens(ctx context.Context, userId string, params FetchUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[ArrayOfFetchTokensResponseTokens], *shared.MagicbellProjectClientError) {
+func (api *JwtService) FetchUserTokens(ctx context.Context, userId string, params FetchUserTokensRequestParams) (*shared.MagicbellProjectClientResponse[AccessTokenCollection], *shared.MagicbellProjectClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -165,11 +170,11 @@ func (api *JwtService) FetchUserTokens(ctx context.Context, userId string, param
 		WithResponseContentType(httptransport.ContentTypeJson).
 		Build()
 
-	client := restClient.NewRestClient[ArrayOfFetchTokensResponseTokens](config)
+	client := restClient.NewRestClient[AccessTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewMagicbellProjectClientError[ArrayOfFetchTokensResponseTokens](err)
+		return nil, shared.NewMagicbellProjectClientError[AccessTokenCollection](err)
 	}
 
-	return shared.NewMagicbellProjectClientResponse[ArrayOfFetchTokensResponseTokens](resp), nil
+	return shared.NewMagicbellProjectClientResponse[AccessTokenCollection](resp), nil
 }

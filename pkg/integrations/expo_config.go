@@ -1,44 +1,50 @@
 package integrations
 
-import (
-	"encoding/json"
-)
+import "encoding/json"
 
 type ExpoConfig struct {
-	AccessToken *string `json:"access_token,omitempty" required:"true" minLength:"1"`
-	touched     map[string]bool
+	Config *ExpoConfigPayload `json:"config,omitempty" required:"true"`
+	Id     *string            `json:"id,omitempty" required:"true"`
+	Name   *string            `json:"name,omitempty" required:"true"`
 }
 
-func (e *ExpoConfig) GetAccessToken() *string {
+func (e *ExpoConfig) GetConfig() *ExpoConfigPayload {
 	if e == nil {
 		return nil
 	}
-	return e.AccessToken
+	return e.Config
 }
 
-func (e *ExpoConfig) SetAccessToken(accessToken string) {
-	if e.touched == nil {
-		e.touched = map[string]bool{}
-	}
-	e.touched["AccessToken"] = true
-	e.AccessToken = &accessToken
+func (e *ExpoConfig) SetConfig(config ExpoConfigPayload) {
+	e.Config = &config
 }
 
-func (e *ExpoConfig) SetAccessTokenNil() {
-	if e.touched == nil {
-		e.touched = map[string]bool{}
+func (e *ExpoConfig) GetId() *string {
+	if e == nil {
+		return nil
 	}
-	e.touched["AccessToken"] = true
-	e.AccessToken = nil
+	return e.Id
 }
-func (e ExpoConfig) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
 
-	if e.touched["AccessToken"] && e.AccessToken == nil {
-		data["access_token"] = nil
-	} else if e.AccessToken != nil {
-		data["access_token"] = e.AccessToken
+func (e *ExpoConfig) SetId(id string) {
+	e.Id = &id
+}
+
+func (e *ExpoConfig) GetName() *string {
+	if e == nil {
+		return nil
 	}
+	return e.Name
+}
 
-	return json.Marshal(data)
+func (e *ExpoConfig) SetName(name string) {
+	e.Name = &name
+}
+
+func (e ExpoConfig) String() string {
+	jsonData, err := json.MarshalIndent(e, "", "  ")
+	if err != nil {
+		return "error converting struct: ExpoConfig to string"
+	}
+	return string(jsonData)
 }
