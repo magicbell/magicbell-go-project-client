@@ -87,16 +87,16 @@ client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
 
 request := users.User{
-  CreatedAt: util.ToPointer("CreatedAt"),
+  CreatedAt: util.ToPointer(util.Nullable[string]{ Value: "CreatedAt" }),
   CustomAttributes: []byte{},
-  Email: util.ToPointer("Email"),
-  ExternalId: util.ToPointer("ExternalId"),
-  FirstName: util.ToPointer("FirstName"),
+  Email: util.ToPointer(util.Nullable[string]{ Value: "Email" }),
+  ExternalId: util.ToPointer(util.Nullable[string]{ Value: "ExternalId" }),
+  FirstName: util.ToPointer(util.Nullable[string]{ Value: "FirstName" }),
   Id: util.ToPointer("Id"),
-  LastName: util.ToPointer("LastName"),
-  LastNotifiedAt: util.ToPointer("LastNotifiedAt"),
-  LastSeenAt: util.ToPointer("LastSeenAt"),
-  UpdatedAt: util.ToPointer("UpdatedAt"),
+  LastName: util.ToPointer(util.Nullable[string]{ Value: "LastName" }),
+  LastNotifiedAt: util.ToPointer(util.Nullable[string]{ Value: "LastNotifiedAt" }),
+  LastSeenAt: util.ToPointer(util.Nullable[string]{ Value: "LastSeenAt" }),
+  UpdatedAt: util.ToPointer(util.Nullable[string]{ Value: "UpdatedAt" }),
 }
 
 response, err := client.Users.CreateUser(context.Background(), request)
