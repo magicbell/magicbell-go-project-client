@@ -11,7 +11,6 @@ type DeliveryPlan struct {
 	Id             *string                `json:"id,omitempty"`
 	NextStep       *int64                 `json:"next_step,omitempty"`
 	NotificationId *string                `json:"notification_id,omitempty"`
-	ScheduledAt    *string                `json:"scheduled_at,omitempty"`
 	StartedAt      *util.Nullable[string] `json:"started_at,omitempty"`
 	Status         *string                `json:"status,omitempty"`
 	Topic          *util.Nullable[string] `json:"topic,omitempty"`
@@ -79,17 +78,6 @@ func (d *DeliveryPlan) GetNotificationId() *string {
 
 func (d *DeliveryPlan) SetNotificationId(notificationId string) {
 	d.NotificationId = &notificationId
-}
-
-func (d *DeliveryPlan) GetScheduledAt() *string {
-	if d == nil {
-		return nil
-	}
-	return d.ScheduledAt
-}
-
-func (d *DeliveryPlan) SetScheduledAt(scheduledAt string) {
-	d.ScheduledAt = &scheduledAt
 }
 
 func (d *DeliveryPlan) GetStartedAt() *util.Nullable[string] {
