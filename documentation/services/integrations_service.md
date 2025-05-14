@@ -1475,11 +1475,18 @@ import (
 config := magicbellprojectclientconfig.NewConfig()
 client := magicbellprojectclient.NewMagicbellProjectClient(config)
 
+
+mailgunConfigPayloadFrom := integrations.MailgunConfigPayloadFrom{
+  Email: util.ToPointer("Email"),
+  Name: util.ToPointer(util.Nullable[string]{ Value: "Name" }),
+}
+
 region := integrations.REGION_US
 
 request := integrations.MailgunConfigPayload{
   ApiKey: util.ToPointer("ApiKey"),
   Domain: util.ToPointer("Domain"),
+  From: &mailgunConfigPayloadFrom,
   Region: &region,
 }
 
