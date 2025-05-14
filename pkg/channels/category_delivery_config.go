@@ -8,7 +8,7 @@ import (
 type CategoryDeliveryConfig struct {
 	Channels []CategoryDeliveryConfigChannels `json:"channels,omitempty" required:"true"`
 	Disabled *bool                            `json:"disabled,omitempty"`
-	Key      *string                          `json:"key,omitempty" required:"true" minLength:"3" pattern:"^[A-Za-z0-9_\.\-:]+$"`
+	Key      *string                          `json:"key,omitempty" required:"true" minLength:"3" pattern:"^[A-Za-z0-9_.\-:/]+$"`
 }
 
 func (c *CategoryDeliveryConfig) GetChannels() []CategoryDeliveryConfigChannels {
