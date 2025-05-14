@@ -4,6 +4,7 @@
   "apiName": "magicbell-api",
   "languages": ["go"],
   "auth": ["bearer"],
+  "docs": ["snippets"],
   "customizations": {
     "devContainer": false,
     "generateEnv": false,
@@ -23,6 +24,11 @@
       "enabled": true,
       "maxAttempts": 3,
       "retryDelay": 150
+    },
+    "documentation": {
+      "snippets": {
+        "format": "json"
+      }
     }
   },
   "languageOptions": {
