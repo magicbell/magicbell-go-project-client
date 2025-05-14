@@ -1,4 +1,4 @@
-# MagicbellProjectClient Go SDK 0.1.1
+# MagicbellProjectClient Go SDK 0.2.0
 
 Welcome to the MagicbellProjectClient SDK documentation. This guide will help you get started with integrating and using the MagicbellProjectClient SDK in your project.
 
@@ -7,7 +7,7 @@ Welcome to the MagicbellProjectClient SDK documentation. This guide will help yo
 ## Versions
 
 - API version: `2.0.0`
-- SDK version: `0.1.1`
+- SDK version: `0.2.0`
 
 ## About the API
 
