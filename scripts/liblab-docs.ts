@@ -26,3 +26,6 @@ md.mapLinks(readmeAst, rewriteHref);
 md.insertFrontMatter(readmeAst, { title: pkg.docs?.name || pkg.name });
 
 await md.write(readmeAst, path.join(outdir, 'index.mdx'));
+
+// copy snippets
+await fs.copyFile(path.join(root, 'documentation/snippets/snippets.json'), path.join(outdir, 'snippets.json'));
