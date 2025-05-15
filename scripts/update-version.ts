@@ -1,3 +1,4 @@
+#! /usr/bin/env node --experimental-strip-types
 import { replaceInFile } from "replace-in-file";
 
 import pkgJson from "../package.json";

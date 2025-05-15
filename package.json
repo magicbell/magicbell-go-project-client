@@ -1,23 +1,30 @@
 {
-  "name": "magicbell-go-project-client",
+  "name": "magicbell-go",
   "version": "0.2.0",
   "private": true,
   "type": "module",
   "docs": {
     "name": "Go Project Client"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/magicbell/magicbell-go.git"
+  },
   "scripts": {
     "changeset": "./scripts/changeset.sh",
-    "changeset:postversion": "tsx scripts/update-version.ts",
-    "codegen": "tsx scripts/liblab-gen.ts",
-    "build:docs": "tsx scripts/liblab-docs.ts"
+    "changeset:postversion": "./scripts/update-version.ts",
+    "build:docs": "./scripts/liblab-docs.ts",
+    "codegen": "run-s codegen:user-client codegen:project-client",
+    "codegen:project-client": "./scripts/liblab-gen.ts --spec https://www.magicbell.com/docs/api/openapi.project.json --target project-client",
+    "codegen:user-client": "./scripts/liblab-gen.ts --spec https://www.magicbell.com/docs/api/openapi.user.json --target user-client"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.10",
-    "@magicbell/codegen": "^0.3.0",
+    "@magicbell/codegen": "^0.4.0",
     "@types/node": "^22.10.2",
     "glob": "^11.0.0",
+    "npm-run-all2": "^8.0.1",
     "replace-in-file": "^8.3.0",
     "tsx": "^4.19.2",
     "url-join": "^5.0.0"
