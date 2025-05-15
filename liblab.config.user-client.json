@@ -1,23 +1,25 @@
 {
-  "sdkName": "magicbell-project-client",
-  "specFilePath": "https://site.magicbell.cloud/docs/api/openapi.project.json",
-  "apiName": "magicbell-api",
+  "sdkName": "UserClient",
+  "apiVersion": "2.0.0",
+  "apiName": "magicbell",
+  "specFilePath": "./openapi.user.json",
   "languages": ["go"],
   "auth": ["bearer"],
   "docs": ["snippets"],
   "customizations": {
-    "devContainer": false,
-    "generateEnv": false,
     "includeOptionalSnippetParameters": true,
     "authentication": {
       "access": {
         "prefix": "Bearer"
       }
     },
+    "devContainer": false,
+    "generateEnv": true,
     "inferServiceNames": false,
     "injectedModels": [],
     "license": {
-      "type": "MIT"
+      "type": "CUSTOM",
+      "url": "https://raw.githubusercontent.com/magicbell/magicbell-js/main/LICENSE"
     },
     "responseHeaders": false,
     "retry": {
@@ -33,9 +35,9 @@
   },
   "languageOptions": {
     "go": {
-      "githubRepoName": "magicbell-go-project-client",
-      "sdkVersion": "0.2.0",
-      "goModuleName": "github.com/magicbell/magicbell-go-project-client"
+      "githubRepoName": "magicbell-go",
+      "sdkVersion": "0.1.1",
+      "goModuleName": "github.com/magicbell/magicbell-go"
     }
   },
   "publishing": {

@@ -1,4 +1,4 @@
-module github.com/magicbell/magicbell-go-project-client
+module github.com/magicbell/magicbell-go
 
 
 go 1.18

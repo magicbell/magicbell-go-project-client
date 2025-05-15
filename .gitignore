@@ -1,7 +1,7 @@
 # Tooling
 node_modules/
 target
-
+output
 docs-dist
 
 # act
