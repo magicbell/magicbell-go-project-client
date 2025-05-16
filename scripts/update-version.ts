@@ -1,12 +1,12 @@
 #! /usr/bin/env -S node --experimental-strip-types
 import { replaceInFile } from "replace-in-file";
+import fs from 'node:fs/promises';
 
-import pkgJson from "../package.json";
-
+const pkgJson = JSON.parse(await fs.readFile('./package.json', 'utf-8'));
 const version = pkgJson.version;
 
 await replaceInFile({
-  files: ["liblab.config.json"],
+  files: ["liblab.config.*.json"],
   from: /"sdkVersion": "\d.\d.\d"/g,
   to: `"sdkVersion": "${version}"`,
 });
