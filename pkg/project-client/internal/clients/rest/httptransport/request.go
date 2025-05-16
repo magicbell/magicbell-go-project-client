@@ -12,7 +12,7 @@ import (
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/contenttypes"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/serialization"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/utils"
-	"github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
 )
 
 type paramMap struct {
@@ -29,12 +29,12 @@ type Request struct {
 	PathParams          map[string]string
 	Options             any
 	Body                any
-	Config              projectclientconfig.Config
+	Config              clientconfig.Config
 	ContentType         ContentType
 	ResponseContentType ContentType
 }
 
-func NewRequest(ctx context.Context, method string, path string, config projectclientconfig.Config) Request {
+func NewRequest(ctx context.Context, method string, path string, config clientconfig.Config) Request {
 	return Request{
 		Context:             ctx,
 		Method:              method,

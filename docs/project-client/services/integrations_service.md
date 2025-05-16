@@ -94,14 +94,14 @@ Lists all available and configured integrations for the project. Returns a summa
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := integrations.ListIntegrationsRequestParams{
@@ -139,13 +139,13 @@ Retrieves the current apns integration configurations for a specific integration
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetApnsIntegration(context.Background())
 if err != nil {
@@ -179,14 +179,14 @@ Creates or updates a apns integration for the project. Only administrators can c
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 badge := integrations.BADGE_UNREAD
 
@@ -232,13 +232,13 @@ Removes a apns integration configuration from the project. This will disable the
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteApnsIntegration(context.Background())
 if err != nil {
@@ -272,13 +272,13 @@ Removes a specific apns integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteApnsIntegrationById(context.Background(), "id")
 if err != nil {
@@ -311,13 +311,13 @@ Retrieves the current awssns integration configurations for a specific integrati
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetAwssnsIntegration(context.Background())
 if err != nil {
@@ -351,14 +351,14 @@ Creates or updates a awssns integration for the project. Only administrators can
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.AwssnsConfigPayload{
@@ -396,13 +396,13 @@ Removes a awssns integration configuration from the project. This will disable t
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteAwssnsIntegration(context.Background())
 if err != nil {
@@ -436,13 +436,13 @@ Removes a specific awssns integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteAwssnsIntegrationById(context.Background(), "id")
 if err != nil {
@@ -475,13 +475,13 @@ Retrieves the current eventsource integration configurations for a specific inte
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetEventsourceIntegration(context.Background())
 if err != nil {
@@ -515,14 +515,14 @@ Creates or updates a eventsource integration for the project. Only administrator
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.EventSourceConfigPayload{
@@ -560,13 +560,13 @@ Removes a eventsource integration configuration from the project. This will disa
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteEventsourceIntegration(context.Background())
 if err != nil {
@@ -600,13 +600,13 @@ Removes a specific eventsource integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteEventsourceIntegrationById(context.Background(), "id")
 if err != nil {
@@ -639,13 +639,13 @@ Retrieves the current expo integration configurations for a specific integration
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetExpoIntegration(context.Background())
 if err != nil {
@@ -679,14 +679,14 @@ Creates or updates a expo integration for the project. Only administrators can c
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.ExpoConfigPayload{
@@ -724,13 +724,13 @@ Removes a expo integration configuration from the project. This will disable the
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteExpoIntegration(context.Background())
 if err != nil {
@@ -764,13 +764,13 @@ Removes a specific expo integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteExpoIntegrationById(context.Background(), "id")
 if err != nil {
@@ -803,13 +803,13 @@ Retrieves the current fcm integration configurations for a specific integration 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetFcmIntegration(context.Background())
 if err != nil {
@@ -843,14 +843,14 @@ Creates or updates a fcm integration for the project. Only administrators can co
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 type_ := integrations.TYPE_SERVICE_ACCOUNT
 
@@ -899,13 +899,13 @@ Removes a fcm integration configuration from the project. This will disable the 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteFcmIntegration(context.Background())
 if err != nil {
@@ -939,13 +939,13 @@ Removes a specific fcm integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteFcmIntegrationById(context.Background(), "id")
 if err != nil {
@@ -978,13 +978,13 @@ Retrieves the current github integration configurations for a specific integrati
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetGithubIntegration(context.Background())
 if err != nil {
@@ -1018,14 +1018,14 @@ Creates or updates a github integration for the project. Only administrators can
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.GithubConfigPayload{
@@ -1063,13 +1063,13 @@ Removes a github integration configuration from the project. This will disable t
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteGithubIntegration(context.Background())
 if err != nil {
@@ -1103,13 +1103,13 @@ Removes a specific github integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteGithubIntegrationById(context.Background(), "id")
 if err != nil {
@@ -1142,13 +1142,13 @@ Retrieves the current inbox integration configurations for a specific integratio
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetInboxIntegration(context.Background())
 if err != nil {
@@ -1182,14 +1182,14 @@ Creates or updates a inbox integration for the project. Only administrators can 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 images := integrations.Images{
@@ -1347,13 +1347,13 @@ Removes a inbox integration configuration from the project. This will disable th
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteInboxIntegration(context.Background())
 if err != nil {
@@ -1387,13 +1387,13 @@ Removes a specific inbox integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteInboxIntegrationById(context.Background(), "id")
 if err != nil {
@@ -1426,13 +1426,13 @@ Retrieves the current mailgun integration configurations for a specific integrat
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetMailgunIntegration(context.Background())
 if err != nil {
@@ -1466,14 +1466,14 @@ Creates or updates a mailgun integration for the project. Only administrators ca
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 mailgunConfigPayloadFrom := integrations.MailgunConfigPayloadFrom{
@@ -1521,13 +1521,13 @@ Removes a mailgun integration configuration from the project. This will disable 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteMailgunIntegration(context.Background())
 if err != nil {
@@ -1561,13 +1561,13 @@ Removes a specific mailgun integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteMailgunIntegrationById(context.Background(), "id")
 if err != nil {
@@ -1600,13 +1600,13 @@ Retrieves the current ping_email integration configurations for a specific integ
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetPingEmailIntegration(context.Background())
 if err != nil {
@@ -1640,14 +1640,14 @@ Creates or updates a ping_email integration for the project. Only administrators
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.PingConfigPayload{
@@ -1685,13 +1685,13 @@ Removes a ping_email integration configuration from the project. This will disab
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeletePingEmailIntegration(context.Background())
 if err != nil {
@@ -1725,13 +1725,13 @@ Removes a specific ping_email integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeletePingEmailIntegrationById(context.Background(), "id")
 if err != nil {
@@ -1764,13 +1764,13 @@ Retrieves the current sendgrid integration configurations for a specific integra
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetSendgridIntegration(context.Background())
 if err != nil {
@@ -1804,14 +1804,14 @@ Creates or updates a sendgrid integration for the project. Only administrators c
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 sendgridConfigPayloadFrom := integrations.SendgridConfigPayloadFrom{
@@ -1862,13 +1862,13 @@ Removes a sendgrid integration configuration from the project. This will disable
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteSendgridIntegration(context.Background())
 if err != nil {
@@ -1902,13 +1902,13 @@ Removes a specific sendgrid integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteSendgridIntegrationById(context.Background(), "id")
 if err != nil {
@@ -1941,13 +1941,13 @@ Retrieves the current ses integration configurations for a specific integration 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetSesIntegration(context.Background())
 if err != nil {
@@ -1981,14 +1981,14 @@ Creates or updates a ses integration for the project. Only administrators can co
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 sesConfigPayloadFrom := integrations.SesConfigPayloadFrom{
@@ -2034,13 +2034,13 @@ Removes a ses integration configuration from the project. This will disable the 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteSesIntegration(context.Background())
 if err != nil {
@@ -2074,13 +2074,13 @@ Removes a specific ses integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteSesIntegrationById(context.Background(), "id")
 if err != nil {
@@ -2113,13 +2113,13 @@ Retrieves the current slack integration configurations for a specific integratio
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetSlackIntegration(context.Background())
 if err != nil {
@@ -2153,14 +2153,14 @@ Creates or updates a slack integration for the project. Only administrators can 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.SlackConfigPayload{
@@ -2201,13 +2201,13 @@ Removes a slack integration configuration from the project. This will disable th
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteSlackIntegration(context.Background())
 if err != nil {
@@ -2241,13 +2241,13 @@ Removes a specific slack integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteSlackIntegrationById(context.Background(), "id")
 if err != nil {
@@ -2280,13 +2280,13 @@ Retrieves the current stripe integration configurations for a specific integrati
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetStripeIntegration(context.Background())
 if err != nil {
@@ -2320,14 +2320,14 @@ Creates or updates a stripe integration for the project. Only administrators can
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.StripeConfigPayload{
@@ -2365,13 +2365,13 @@ Removes a stripe integration configuration from the project. This will disable t
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteStripeIntegration(context.Background())
 if err != nil {
@@ -2405,13 +2405,13 @@ Removes a specific stripe integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteStripeIntegrationById(context.Background(), "id")
 if err != nil {
@@ -2444,13 +2444,13 @@ Retrieves the current templates integration configurations for a specific integr
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetTemplatesIntegration(context.Background())
 if err != nil {
@@ -2484,13 +2484,13 @@ Creates or updates a templates integration for the project. Only administrators 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.SaveTemplatesIntegration(context.Background(), request)
 if err != nil {
@@ -2523,13 +2523,13 @@ Removes a templates integration configuration from the project. This will disabl
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteTemplatesIntegration(context.Background())
 if err != nil {
@@ -2563,13 +2563,13 @@ Removes a specific templates integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteTemplatesIntegrationById(context.Background(), "id")
 if err != nil {
@@ -2602,13 +2602,13 @@ Retrieves the current twilio integration configurations for a specific integrati
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetTwilioIntegration(context.Background())
 if err != nil {
@@ -2642,14 +2642,14 @@ Creates or updates a twilio integration for the project. Only administrators can
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.TwilioConfigPayload{
@@ -2690,13 +2690,13 @@ Removes a twilio integration configuration from the project. This will disable t
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteTwilioIntegration(context.Background())
 if err != nil {
@@ -2730,13 +2730,13 @@ Removes a specific twilio integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteTwilioIntegrationById(context.Background(), "id")
 if err != nil {
@@ -2769,13 +2769,13 @@ Retrieves the current web_push integration configurations for a specific integra
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.GetWebPushIntegration(context.Background())
 if err != nil {
@@ -2809,14 +2809,14 @@ Creates or updates a web_push integration for the project. Only administrators c
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/integrations"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.WebpushConfigPayload{
@@ -2855,13 +2855,13 @@ Removes a web_push integration configuration from the project. This will disable
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteWebPushIntegration(context.Background())
 if err != nil {
@@ -2895,13 +2895,13 @@ Removes a specific web_push integration instance by ID from the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.DeleteWebPushIntegrationById(context.Background(), "id")
 if err != nil {

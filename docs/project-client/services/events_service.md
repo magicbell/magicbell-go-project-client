@@ -31,14 +31,14 @@ Retrieves a paginated list of events for the project.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/project-client/events"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := events.ListEventsRequestParams{
@@ -77,13 +77,13 @@ Retrieves a project event by its ID.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Events.GetEvent(context.Background(), "id")
 if err != nil {

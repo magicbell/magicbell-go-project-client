@@ -4,28 +4,28 @@ import (
 	"github.com/magicbell/magicbell-go/pkg/user-client/internal/clients/rest/httptransport"
 )
 
-type UserClientError struct {
+type ClientError struct {
 	Err      error
 	Body     []byte
-	Metadata UserClientErrorMetadata
+	Metadata ClientErrorMetadata
 }
 
-type UserClientErrorMetadata struct {
+type ClientErrorMetadata struct {
 	Headers    map[string]string
 	StatusCode int
 }
 
-func NewUserClientError[T any](transportError *httptransport.ErrorResponse[T]) *UserClientError {
-	return &UserClientError{
+func NewClientError[T any](transportError *httptransport.ErrorResponse[T]) *ClientError {
+	return &ClientError{
 		Err:  transportError.GetError(),
 		Body: transportError.GetBody(),
-		Metadata: UserClientErrorMetadata{
+		Metadata: ClientErrorMetadata{
 			StatusCode: transportError.GetStatusCode(),
 			Headers:    transportError.GetHeaders(),
 		},
 	}
 }
 
-func (e *UserClientError) Error() string {
+func (e *ClientError) Error() string {
 	return e.Err.Error()
 }

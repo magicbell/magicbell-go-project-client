@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/magicbell/magicbell-go/pkg/user-client/userclient"
-	"github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/user-client/client"
+	"github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
 
 	"github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
@@ -16,8 +16,8 @@ import (
 func main() {
 	loadEnv()
 
-	config := userclientconfig.NewConfig()
-	client := userclient.NewUserClient(config)
+	config := clientconfig.NewConfig()
+	client := client.NewClient(config)
 
 	params := channels.GetInAppInboxTokensRequestParams{}
 

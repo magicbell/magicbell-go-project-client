@@ -1,21 +1,21 @@
 package configmanager
 
 import (
-	"github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
 	"time"
 )
 
 type ConfigManager struct {
-	Broadcasts    projectclientconfig.Config
-	Channels      projectclientconfig.Config
-	Events        projectclientconfig.Config
-	Integrations  projectclientconfig.Config
-	Jwt           projectclientconfig.Config
-	Notifications projectclientconfig.Config
-	Users         projectclientconfig.Config
+	Broadcasts    clientconfig.Config
+	Channels      clientconfig.Config
+	Events        clientconfig.Config
+	Integrations  clientconfig.Config
+	Jwt           clientconfig.Config
+	Notifications clientconfig.Config
+	Users         clientconfig.Config
 }
 
-func NewConfigManager(config projectclientconfig.Config) *ConfigManager {
+func NewConfigManager(config clientconfig.Config) *ConfigManager {
 	return &ConfigManager{
 		Broadcasts:    config,
 		Channels:      config,
@@ -88,24 +88,24 @@ func (c *ConfigManager) UpdateAccessToken(originalValue string, newValue string)
 	}
 }
 
-func (c *ConfigManager) GetBroadcasts() *projectclientconfig.Config {
+func (c *ConfigManager) GetBroadcasts() *clientconfig.Config {
 	return &c.Broadcasts
 }
-func (c *ConfigManager) GetChannels() *projectclientconfig.Config {
+func (c *ConfigManager) GetChannels() *clientconfig.Config {
 	return &c.Channels
 }
-func (c *ConfigManager) GetEvents() *projectclientconfig.Config {
+func (c *ConfigManager) GetEvents() *clientconfig.Config {
 	return &c.Events
 }
-func (c *ConfigManager) GetIntegrations() *projectclientconfig.Config {
+func (c *ConfigManager) GetIntegrations() *clientconfig.Config {
 	return &c.Integrations
 }
-func (c *ConfigManager) GetJwt() *projectclientconfig.Config {
+func (c *ConfigManager) GetJwt() *clientconfig.Config {
 	return &c.Jwt
 }
-func (c *ConfigManager) GetNotifications() *projectclientconfig.Config {
+func (c *ConfigManager) GetNotifications() *clientconfig.Config {
 	return &c.Notifications
 }
-func (c *ConfigManager) GetUsers() *projectclientconfig.Config {
+func (c *ConfigManager) GetUsers() *clientconfig.Config {
 	return &c.Users
 }

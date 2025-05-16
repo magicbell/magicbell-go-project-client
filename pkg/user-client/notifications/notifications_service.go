@@ -5,8 +5,8 @@ import (
 	restClient "github.com/magicbell/magicbell-go/pkg/user-client/internal/clients/rest"
 	"github.com/magicbell/magicbell-go/pkg/user-client/internal/clients/rest/httptransport"
 	"github.com/magicbell/magicbell-go/pkg/user-client/internal/configmanager"
+	"github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
 	"github.com/magicbell/magicbell-go/pkg/user-client/shared"
-	"github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
 	"time"
 )
 
@@ -16,7 +16,7 @@ type NotificationsService struct {
 
 func NewNotificationsService() *NotificationsService {
 	return &NotificationsService{
-		manager: configmanager.NewConfigManager(userclientconfig.Config{}),
+		manager: configmanager.NewConfigManager(clientconfig.Config{}),
 	}
 }
 
@@ -25,7 +25,7 @@ func (api *NotificationsService) WithConfigManager(manager *configmanager.Config
 	return api
 }
 
-func (api *NotificationsService) getConfig() *userclientconfig.Config {
+func (api *NotificationsService) getConfig() *clientconfig.Config {
 	return api.manager.GetNotifications()
 }
 
@@ -45,7 +45,7 @@ func (api *NotificationsService) SetAccessToken(accessToken string) {
 }
 
 // Lists all notifications for a user.
-func (api *NotificationsService) ListNotifications(ctx context.Context, params ListNotificationsRequestParams) (*shared.UserClientResponse[NotificationCollection], *shared.UserClientError) {
+func (api *NotificationsService) ListNotifications(ctx context.Context, params ListNotificationsRequestParams) (*shared.ClientResponse[NotificationCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -60,14 +60,14 @@ func (api *NotificationsService) ListNotifications(ctx context.Context, params L
 	client := restClient.NewRestClient[NotificationCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[NotificationCollection](err)
+		return nil, shared.NewClientError[NotificationCollection](err)
 	}
 
-	return shared.NewUserClientResponse[NotificationCollection](resp), nil
+	return shared.NewClientResponse[NotificationCollection](resp), nil
 }
 
 // Archives a notification.
-func (api *NotificationsService) ArchiveNotification(ctx context.Context, notificationId string) (*shared.UserClientResponse[any], *shared.UserClientError) {
+func (api *NotificationsService) ArchiveNotification(ctx context.Context, notificationId string) (*shared.ClientResponse[any], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -82,14 +82,14 @@ func (api *NotificationsService) ArchiveNotification(ctx context.Context, notifi
 	client := restClient.NewRestClient[any](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[any](err)
+		return nil, shared.NewClientError[any](err)
 	}
 
-	return shared.NewUserClientResponse[any](resp), nil
+	return shared.NewClientResponse[any](resp), nil
 }
 
 // Marks a notification as read.
-func (api *NotificationsService) MarkNotificationRead(ctx context.Context, notificationId string) (*shared.UserClientResponse[any], *shared.UserClientError) {
+func (api *NotificationsService) MarkNotificationRead(ctx context.Context, notificationId string) (*shared.ClientResponse[any], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -104,14 +104,14 @@ func (api *NotificationsService) MarkNotificationRead(ctx context.Context, notif
 	client := restClient.NewRestClient[any](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[any](err)
+		return nil, shared.NewClientError[any](err)
 	}
 
-	return shared.NewUserClientResponse[any](resp), nil
+	return shared.NewClientResponse[any](resp), nil
 }
 
 // Unarchives a notification.
-func (api *NotificationsService) UnarchiveNotification(ctx context.Context, notificationId string) (*shared.UserClientResponse[any], *shared.UserClientError) {
+func (api *NotificationsService) UnarchiveNotification(ctx context.Context, notificationId string) (*shared.ClientResponse[any], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -126,14 +126,14 @@ func (api *NotificationsService) UnarchiveNotification(ctx context.Context, noti
 	client := restClient.NewRestClient[any](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[any](err)
+		return nil, shared.NewClientError[any](err)
 	}
 
-	return shared.NewUserClientResponse[any](resp), nil
+	return shared.NewClientResponse[any](resp), nil
 }
 
 // Marks a notification as unread.
-func (api *NotificationsService) MarkNotificationUnread(ctx context.Context, notificationId string) (*shared.UserClientResponse[any], *shared.UserClientError) {
+func (api *NotificationsService) MarkNotificationUnread(ctx context.Context, notificationId string) (*shared.ClientResponse[any], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -148,8 +148,8 @@ func (api *NotificationsService) MarkNotificationUnread(ctx context.Context, not
 	client := restClient.NewRestClient[any](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[any](err)
+		return nil, shared.NewClientError[any](err)
 	}
 
-	return shared.NewUserClientResponse[any](resp), nil
+	return shared.NewClientResponse[any](resp), nil
 }

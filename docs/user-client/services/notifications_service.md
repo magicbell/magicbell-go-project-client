@@ -34,14 +34,14 @@ Lists all notifications for a user.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/user-client/notifications"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := notifications.ListNotificationsRequestParams{
@@ -80,13 +80,13 @@ Archives a notification.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Notifications.ArchiveNotification(context.Background(), "notificationId")
 if err != nil {
@@ -120,13 +120,13 @@ Marks a notification as read.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Notifications.MarkNotificationRead(context.Background(), "notificationId")
 if err != nil {
@@ -160,13 +160,13 @@ Unarchives a notification.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Notifications.UnarchiveNotification(context.Background(), "notificationId")
 if err != nil {
@@ -200,13 +200,13 @@ Marks a notification as unread.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Notifications.MarkNotificationUnread(context.Background(), "notificationId")
 if err != nil {

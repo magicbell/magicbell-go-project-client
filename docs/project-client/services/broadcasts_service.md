@@ -32,14 +32,14 @@ Retrieves a paginated list of broadcasts for the project. Returns basic informat
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := broadcasts.ListBroadcastsRequestParams{
@@ -78,14 +78,14 @@ Creates a new broadcast message. When a broadcast is created, it generates indiv
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 email := broadcasts.Email{
@@ -219,13 +219,13 @@ Retrieves detailed information about a specific broadcast by its ID. Includes th
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Broadcasts.FetchBroadcast(context.Background(), "broadcastId")
 if err != nil {

@@ -12,7 +12,7 @@ This SDK is compatible with the following versions: `Go >= 1.19.0`
 
 ### Access Token Authentication
 
-The UserClient API uses an Access Token for authentication.
+The Client API uses an Access Token for authentication.
 
 This token must be provided to authenticate your requests to the API.
 
@@ -22,27 +22,27 @@ When you initialize the SDK, you can set the access token as follows:
 
 ```go
 import (
-    "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
-    "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
+    "github.com/magicbell/magicbell-go/pkg/user-client/client"
+    "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
   )
 
-config := userclientconfig.NewConfig()
+config := clientconfig.NewConfig()
 config.SetAccessToken("YOUR-TOKEN")
 
-sdk := userclient.NewUserClient(config)
+sdk := client.NewClient(config)
 ```
 
 If you need to set or update the access token after initializing the SDK, you can use:
 
 ```go
 import (
-    "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
-    "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
+    "github.com/magicbell/magicbell-go/pkg/user-client/client"
+    "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
   )
 
-config := userclientconfig.NewConfig()
+config := clientconfig.NewConfig()
 
-sdk := userclient.NewUserClient(config)
+sdk := client.NewClient(config)
 sdk.SetAccessToken("YOUR-TOKEN")
 ```
 
@@ -70,26 +70,26 @@ The response wrapper itself is a generic struct that contains the response data 
 <details>
 <summary>Below are the response wrappers used in the SDK:</summary>
 
-#### `UserClientResponse[T]`
+#### `ClientResponse[T]`
 
 This response wrapper is used to return the response data from the API. It contains the following fields:
 
-| Name     | Type                         | Description                                 |
-| :------- | :--------------------------- | :------------------------------------------ |
-| Data     | `T`                          | The body of the API response                |
-| Metadata | `UserClientResponseMetadata` | Status code and headers returned by the API |
+| Name     | Type                     | Description                                 |
+| :------- | :----------------------- | :------------------------------------------ |
+| Data     | `T`                      | The body of the API response                |
+| Metadata | `ClientResponseMetadata` | Status code and headers returned by the API |
 
-#### `UserClientError`
+#### `ClientError`
 
 This response wrapper is used to return an error. It contains the following fields:
 
-| Name     | Type                         | Description                                 |
-| :------- | :--------------------------- | :------------------------------------------ |
-| Err      | `error`                      | The error that occurred                     |
-| Body     | `T`                          | The body of the API response                |
-| Metadata | `UserClientResponseMetadata` | Status code and headers returned by the API |
+| Name     | Type                     | Description                                 |
+| :------- | :----------------------- | :------------------------------------------ |
+| Err      | `error`                  | The error that occurred                     |
+| Body     | `T`                      | The body of the API response                |
+| Metadata | `ClientResponseMetadata` | Status code and headers returned by the API |
 
-#### `UserClientResponseMetadata`
+#### `ClientResponseMetadata`
 
 This struct is shared by both response wrappers and contains the following fields:
 

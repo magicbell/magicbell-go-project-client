@@ -30,14 +30,14 @@ A list of all methods in the `UsersService` service. Click on the method name to
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/project-client/users"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := users.ListUsersRequestParams{
@@ -76,14 +76,14 @@ Creates a user with the provided details. The user will be associated with the p
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/users"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := users.User{
@@ -129,13 +129,13 @@ fmt.Println(response)
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Users.DeleteUser(context.Background(), "userId")
 if err != nil {

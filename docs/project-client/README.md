@@ -12,7 +12,7 @@ This SDK is compatible with the following versions: `Go >= 1.19.0`
 
 ### Access Token Authentication
 
-The ProjectClient API uses an Access Token for authentication.
+The Client API uses an Access Token for authentication.
 
 This token must be provided to authenticate your requests to the API.
 
@@ -22,27 +22,27 @@ When you initialize the SDK, you can set the access token as follows:
 
 ```go
 import (
-    "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
-    "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+    "github.com/magicbell/magicbell-go/pkg/project-client/client"
+    "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
   )
 
-config := projectclientconfig.NewConfig()
+config := clientconfig.NewConfig()
 config.SetAccessToken("YOUR-TOKEN")
 
-sdk := projectclient.NewProjectClient(config)
+sdk := client.NewClient(config)
 ```
 
 If you need to set or update the access token after initializing the SDK, you can use:
 
 ```go
 import (
-    "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
-    "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+    "github.com/magicbell/magicbell-go/pkg/project-client/client"
+    "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
   )
 
-config := projectclientconfig.NewConfig()
+config := clientconfig.NewConfig()
 
-sdk := projectclient.NewProjectClient(config)
+sdk := client.NewClient(config)
 sdk.SetAccessToken("YOUR-TOKEN")
 ```
 
@@ -74,26 +74,26 @@ The response wrapper itself is a generic struct that contains the response data 
 <details>
 <summary>Below are the response wrappers used in the SDK:</summary>
 
-#### `ProjectClientResponse[T]`
+#### `ClientResponse[T]`
 
 This response wrapper is used to return the response data from the API. It contains the following fields:
 
-| Name     | Type                            | Description                                 |
-| :------- | :------------------------------ | :------------------------------------------ |
-| Data     | `T`                             | The body of the API response                |
-| Metadata | `ProjectClientResponseMetadata` | Status code and headers returned by the API |
+| Name     | Type                     | Description                                 |
+| :------- | :----------------------- | :------------------------------------------ |
+| Data     | `T`                      | The body of the API response                |
+| Metadata | `ClientResponseMetadata` | Status code and headers returned by the API |
 
-#### `ProjectClientError`
+#### `ClientError`
 
 This response wrapper is used to return an error. It contains the following fields:
 
-| Name     | Type                            | Description                                 |
-| :------- | :------------------------------ | :------------------------------------------ |
-| Err      | `error`                         | The error that occurred                     |
-| Body     | `T`                             | The body of the API response                |
-| Metadata | `ProjectClientResponseMetadata` | Status code and headers returned by the API |
+| Name     | Type                     | Description                                 |
+| :------- | :----------------------- | :------------------------------------------ |
+| Err      | `error`                  | The error that occurred                     |
+| Body     | `T`                      | The body of the API response                |
+| Metadata | `ClientResponseMetadata` | Status code and headers returned by the API |
 
-#### `ProjectClientResponseMetadata`
+#### `ClientResponseMetadata`
 
 This struct is shared by both response wrappers and contains the following fields:
 

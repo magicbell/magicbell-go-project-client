@@ -4,14 +4,14 @@ import (
 	"github.com/magicbell/magicbell-go/pkg/user-client/internal/clients/rest/handlers"
 	"github.com/magicbell/magicbell-go/pkg/user-client/internal/clients/rest/hooks"
 	"github.com/magicbell/magicbell-go/pkg/user-client/internal/clients/rest/httptransport"
-	"github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
 )
 
 type RestClient[T any] struct {
 	handlers *handlers.HandlerChain[T]
 }
 
-func NewRestClient[T any](config userclientconfig.Config) *RestClient[T] {
+func NewRestClient[T any](config clientconfig.Config) *RestClient[T] {
 	retryHandler := handlers.NewRetryHandler[T]()
 	bearerTokenHandler := handlers.NewAccessTokenHandler[T]()
 	responseValidationHandler := handlers.NewResponseValidationHandler[T]()

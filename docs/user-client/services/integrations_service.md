@@ -37,14 +37,14 @@ Creates a new installation of a inbox integration for a user. This endpoint is u
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/integrations"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 images := integrations.Images{
@@ -202,13 +202,13 @@ Initiates the installation flow for a inbox integration. This is the first step 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.StartInboxInstallation(context.Background())
 if err != nil {
@@ -242,14 +242,14 @@ Creates a new installation of a slack integration for a user. This endpoint is u
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/integrations"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 authedUser := integrations.AuthedUser{
@@ -328,14 +328,14 @@ Completes the installation flow for a slack integration. This endpoint is typica
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/integrations"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.SlackFinishInstallResponse{
@@ -376,14 +376,14 @@ Initiates the installation flow for a slack integration. This is the first step 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/integrations"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.SlackStartInstall{
@@ -425,14 +425,14 @@ Creates a new installation of a templates integration for a user. This endpoint 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/integrations"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := integrations.TemplatesInstallation{
@@ -473,14 +473,14 @@ Creates a new installation of a web_push integration for a user. This endpoint i
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/shared"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 webPushTokenPayloadKeys := shared.WebPushTokenPayloadKeys{
@@ -524,13 +524,13 @@ Initiates the installation flow for a web_push integration. This is the first st
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Integrations.StartWebPushInstallation(context.Background())
 if err != nil {

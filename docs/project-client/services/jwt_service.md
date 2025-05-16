@@ -35,14 +35,14 @@ Retrieves a list of all active project-level JWT tokens. Returns a paginated lis
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/project-client/jwt"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := jwt.FetchProjectTokensRequestParams{
@@ -81,14 +81,14 @@ Creates a new project-level JWT token. These tokens provide project-wide access 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/jwt"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := jwt.CreateProjectTokenRequest{
@@ -128,13 +128,13 @@ Immediately revokes a project-level JWT token. Once revoked, any requests using 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Jwt.DiscardProjectJwt(context.Background(), "tokenId")
 if err != nil {
@@ -168,14 +168,14 @@ Issues a new user-specific JWT token. These tokens are scoped to individual user
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
   "github.com/magicbell/magicbell-go/pkg/project-client/util"
   "github.com/magicbell/magicbell-go/pkg/project-client/jwt"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := jwt.CreateUserTokenRequest{
@@ -217,13 +217,13 @@ Revokes a specific user's JWT token. This immediately invalidates the token and 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Jwt.DiscardUserJwt(context.Background(), "tokenId")
 if err != nil {
@@ -258,14 +258,14 @@ Lists all JWT tokens associated with a specific user. Returns token metadata inc
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
+  "github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/project-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/project-client/jwt"
 )
 
-config := projectclientconfig.NewConfig()
-client := projectclient.NewProjectClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := jwt.FetchUserTokensRequestParams{

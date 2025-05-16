@@ -5,7 +5,7 @@ import (
 	restClient "github.com/magicbell/magicbell-go/pkg/project-client/internal/clients/rest"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/clients/rest/httptransport"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/configmanager"
-	"github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
 	"github.com/magicbell/magicbell-go/pkg/project-client/shared"
 	"time"
 )
@@ -16,7 +16,7 @@ type EventsService struct {
 
 func NewEventsService() *EventsService {
 	return &EventsService{
-		manager: configmanager.NewConfigManager(projectclientconfig.Config{}),
+		manager: configmanager.NewConfigManager(clientconfig.Config{}),
 	}
 }
 
@@ -25,7 +25,7 @@ func (api *EventsService) WithConfigManager(manager *configmanager.ConfigManager
 	return api
 }
 
-func (api *EventsService) getConfig() *projectclientconfig.Config {
+func (api *EventsService) getConfig() *clientconfig.Config {
 	return api.manager.GetEvents()
 }
 
@@ -45,7 +45,7 @@ func (api *EventsService) SetAccessToken(accessToken string) {
 }
 
 // Retrieves a paginated list of events for the project.
-func (api *EventsService) ListEvents(ctx context.Context, params ListEventsRequestParams) (*shared.ProjectClientResponse[EventCollection], *shared.ProjectClientError) {
+func (api *EventsService) ListEvents(ctx context.Context, params ListEventsRequestParams) (*shared.ClientResponse[EventCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -60,14 +60,14 @@ func (api *EventsService) ListEvents(ctx context.Context, params ListEventsReque
 	client := restClient.NewRestClient[EventCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[EventCollection](err)
+		return nil, shared.NewClientError[EventCollection](err)
 	}
 
-	return shared.NewProjectClientResponse[EventCollection](resp), nil
+	return shared.NewClientResponse[EventCollection](resp), nil
 }
 
 // Retrieves a project event by its ID.
-func (api *EventsService) GetEvent(ctx context.Context, id string) (*shared.ProjectClientResponse[Event], *shared.ProjectClientError) {
+func (api *EventsService) GetEvent(ctx context.Context, id string) (*shared.ClientResponse[Event], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -82,8 +82,8 @@ func (api *EventsService) GetEvent(ctx context.Context, id string) (*shared.Proj
 	client := restClient.NewRestClient[Event](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[Event](err)
+		return nil, shared.NewClientError[Event](err)
 	}
 
-	return shared.NewProjectClientResponse[Event](resp), nil
+	return shared.NewClientResponse[Event](resp), nil
 }
