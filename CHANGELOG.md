@@ -1,5 +1,11 @@
 # magicbell-go-project-client
 
+## 0.3.0
+
+### Minor Changes
+
+- [#14](https://github.com/magicbell/magicbell-go/pull/14) [`f65dd37`](https://github.com/magicbell/magicbell-go/commit/f65dd37da2496a58463954df2ceb6209e3409886) Thanks [@smeijer](https://github.com/smeijer)! - rename to 'client'
+
 ## 0.2.0
 
 ### Minor Changes
