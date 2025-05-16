@@ -16,12 +16,9 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
-      - uses: actions/setup-go@v2
-        with:
-          go-version: '1.18'
-
+      - uses: actions/setup-go@v5
       - uses: bahmutov/npm-install@v1
 
       - name: Create release Pull Request or publish release

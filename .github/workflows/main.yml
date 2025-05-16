@@ -1,0 +1,28 @@
+name: Tests
+on:
+  push:
+    branches:
+      # Match SemVer major release branches, e.g. "2.x" or ".x"
+      - '[0-9]+.x'
+      - 'main'
+      - 'next'
+      - 'alpha'
+      - 'beta'
+      - 'renovate/**'
+      - '!changeset-release/**'
+      - '!all-contributors/**'
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+      - name: Download mods
+        run: go mod download
+      - name: Build
+        run: go build ./...
