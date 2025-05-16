@@ -1,4 +1,4 @@
-#! /usr/bin/env node --experimental-strip-types
+#! /usr/bin/env -S node --experimental-strip-types
 /* eslint-disable no-console */
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs/promises';
