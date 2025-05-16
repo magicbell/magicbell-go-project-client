@@ -57,14 +57,14 @@ Lists all in_app tokens belonging to the authenticated user. Returns a paginated
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := channels.GetInAppInboxTokensRequestParams{
@@ -103,14 +103,14 @@ Saves a in_app token for the authenticated user. This token serves as a credenti
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := channels.InboxToken{
@@ -150,13 +150,13 @@ Retrieves details of a specific in_app token belonging to the authenticated user
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.GetInAppInboxToken(context.Background(), "tokenId")
 if err != nil {
@@ -190,13 +190,13 @@ Revokes one of the authenticated user's in_app tokens. This permanently invalida
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.DiscardInAppInboxToken(context.Background(), "tokenId")
 if err != nil {
@@ -230,14 +230,14 @@ Lists all mobile_push tokens belonging to the authenticated user. Returns a pagi
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := channels.GetMobilePushApnsTokensRequestParams{
@@ -276,14 +276,14 @@ Saves a mobile_push token for the authenticated user. This token serves as a cre
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 apnsTokenPayloadInstallationId := channels.APNS_TOKEN_PAYLOAD_INSTALLATION_ID_DEVELOPMENT
 
@@ -325,13 +325,13 @@ Retrieves details of a specific mobile_push token belonging to the authenticated
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.GetMobilePushApnsToken(context.Background(), "tokenId")
 if err != nil {
@@ -365,13 +365,13 @@ Revokes one of the authenticated user's mobile_push tokens. This permanently inv
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.DiscardMobilePushApnsToken(context.Background(), "tokenId")
 if err != nil {
@@ -405,14 +405,14 @@ Lists all mobile_push tokens belonging to the authenticated user. Returns a pagi
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := channels.GetMobilePushExpoTokensRequestParams{
@@ -451,14 +451,14 @@ Saves a mobile_push token for the authenticated user. This token serves as a cre
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 request := channels.ExpoTokenPayload{
@@ -497,13 +497,13 @@ Retrieves details of a specific mobile_push token belonging to the authenticated
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.GetMobilePushExpoToken(context.Background(), "tokenId")
 if err != nil {
@@ -537,13 +537,13 @@ Revokes one of the authenticated user's mobile_push tokens. This permanently inv
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.DiscardMobilePushExpoToken(context.Background(), "tokenId")
 if err != nil {
@@ -577,14 +577,14 @@ Lists all mobile_push tokens belonging to the authenticated user. Returns a pagi
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := channels.GetMobilePushFcmTokensRequestParams{
@@ -623,14 +623,14 @@ Saves a mobile_push token for the authenticated user. This token serves as a cre
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 fcmTokenPayloadInstallationId := channels.FCM_TOKEN_PAYLOAD_INSTALLATION_ID_DEVELOPMENT
 
@@ -671,13 +671,13 @@ Retrieves details of a specific mobile_push token belonging to the authenticated
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.GetMobilePushFcmToken(context.Background(), "tokenId")
 if err != nil {
@@ -711,13 +711,13 @@ Revokes one of the authenticated user's mobile_push tokens. This permanently inv
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.DiscardMobilePushFcmToken(context.Background(), "tokenId")
 if err != nil {
@@ -751,14 +751,14 @@ Lists all slack tokens belonging to the authenticated user. Returns a paginated 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := channels.GetSlackTokensRequestParams{
@@ -797,14 +797,14 @@ Saves a slack token for the authenticated user. This token serves as a credentia
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 slackTokenPayloadOauth := channels.SlackTokenPayloadOauth{
@@ -855,13 +855,13 @@ Retrieves details of a specific slack token belonging to the authenticated user.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.GetSlackToken(context.Background(), "tokenId")
 if err != nil {
@@ -895,13 +895,13 @@ Revokes one of the authenticated user's slack tokens. This permanently invalidat
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.DiscardSlackToken(context.Background(), "tokenId")
 if err != nil {
@@ -935,14 +935,14 @@ Lists all teams tokens belonging to the authenticated user. Returns a paginated 
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := channels.GetTeamsTokensRequestParams{
@@ -981,14 +981,14 @@ Saves a teams token for the authenticated user. This token serves as a credentia
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 teamsTokenPayloadWebhook := channels.TeamsTokenPayloadWebhook{
@@ -1031,13 +1031,13 @@ Retrieves details of a specific teams token belonging to the authenticated user.
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.GetTeamsToken(context.Background(), "tokenId")
 if err != nil {
@@ -1071,13 +1071,13 @@ Revokes one of the authenticated user's teams tokens. This permanently invalidat
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.DiscardTeamsToken(context.Background(), "tokenId")
 if err != nil {
@@ -1111,14 +1111,14 @@ Lists all web_push tokens belonging to the authenticated user. Returns a paginat
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
   "github.com/magicbell/magicbell-go/pkg/user-client/channels"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 params := channels.GetWebPushTokensRequestParams{
@@ -1157,14 +1157,14 @@ Saves a web_push token for the authenticated user. This token serves as a creden
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
   "github.com/magicbell/magicbell-go/pkg/user-client/util"
   "github.com/magicbell/magicbell-go/pkg/user-client/shared"
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 
 webPushTokenPayloadKeys := shared.WebPushTokenPayloadKeys{
@@ -1209,13 +1209,13 @@ Retrieves details of a specific web_push token belonging to the authenticated us
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.GetWebPushToken(context.Background(), "tokenId")
 if err != nil {
@@ -1249,13 +1249,13 @@ Revokes one of the authenticated user's web_push tokens. This permanently invali
 import (
   "fmt"
   "encoding/json"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
-  "github.com/magicbell/magicbell-go/pkg/user-client/userclient"
+  "github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
+  "github.com/magicbell/magicbell-go/pkg/user-client/client"
 
 )
 
-config := userclientconfig.NewConfig()
-client := userclient.NewUserClient(config)
+config := clientconfig.NewConfig()
+client := client.NewClient(config)
 
 response, err := client.Channels.DiscardWebPushToken(context.Background(), "tokenId")
 if err != nil {

@@ -1,17 +1,17 @@
 package configmanager
 
 import (
-	"github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
 	"time"
 )
 
 type ConfigManager struct {
-	Channels      userclientconfig.Config
-	Integrations  userclientconfig.Config
-	Notifications userclientconfig.Config
+	Channels      clientconfig.Config
+	Integrations  clientconfig.Config
+	Notifications clientconfig.Config
 }
 
-func NewConfigManager(config userclientconfig.Config) *ConfigManager {
+func NewConfigManager(config clientconfig.Config) *ConfigManager {
 	return &ConfigManager{
 		Channels:      config,
 		Integrations:  config,
@@ -52,12 +52,12 @@ func (c *ConfigManager) UpdateAccessToken(originalValue string, newValue string)
 	}
 }
 
-func (c *ConfigManager) GetChannels() *userclientconfig.Config {
+func (c *ConfigManager) GetChannels() *clientconfig.Config {
 	return &c.Channels
 }
-func (c *ConfigManager) GetIntegrations() *userclientconfig.Config {
+func (c *ConfigManager) GetIntegrations() *clientconfig.Config {
 	return &c.Integrations
 }
-func (c *ConfigManager) GetNotifications() *userclientconfig.Config {
+func (c *ConfigManager) GetNotifications() *clientconfig.Config {
 	return &c.Notifications
 }

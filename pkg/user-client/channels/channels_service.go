@@ -5,8 +5,8 @@ import (
 	restClient "github.com/magicbell/magicbell-go/pkg/user-client/internal/clients/rest"
 	"github.com/magicbell/magicbell-go/pkg/user-client/internal/clients/rest/httptransport"
 	"github.com/magicbell/magicbell-go/pkg/user-client/internal/configmanager"
+	"github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
 	"github.com/magicbell/magicbell-go/pkg/user-client/shared"
-	"github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
 	"time"
 )
 
@@ -16,7 +16,7 @@ type ChannelsService struct {
 
 func NewChannelsService() *ChannelsService {
 	return &ChannelsService{
-		manager: configmanager.NewConfigManager(userclientconfig.Config{}),
+		manager: configmanager.NewConfigManager(clientconfig.Config{}),
 	}
 }
 
@@ -25,7 +25,7 @@ func (api *ChannelsService) WithConfigManager(manager *configmanager.ConfigManag
 	return api
 }
 
-func (api *ChannelsService) getConfig() *userclientconfig.Config {
+func (api *ChannelsService) getConfig() *clientconfig.Config {
 	return api.manager.GetChannels()
 }
 
@@ -45,7 +45,7 @@ func (api *ChannelsService) SetAccessToken(accessToken string) {
 }
 
 // Lists all in_app tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
-func (api *ChannelsService) GetInAppInboxTokens(ctx context.Context, params GetInAppInboxTokensRequestParams) (*shared.UserClientResponse[InboxTokenResponseCollection], *shared.UserClientError) {
+func (api *ChannelsService) GetInAppInboxTokens(ctx context.Context, params GetInAppInboxTokensRequestParams) (*shared.ClientResponse[InboxTokenResponseCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -60,14 +60,14 @@ func (api *ChannelsService) GetInAppInboxTokens(ctx context.Context, params GetI
 	client := restClient.NewRestClient[InboxTokenResponseCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[InboxTokenResponseCollection](err)
+		return nil, shared.NewClientError[InboxTokenResponseCollection](err)
 	}
 
-	return shared.NewUserClientResponse[InboxTokenResponseCollection](resp), nil
+	return shared.NewClientResponse[InboxTokenResponseCollection](resp), nil
 }
 
 // Saves a in_app token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
-func (api *ChannelsService) SaveInAppInboxToken(ctx context.Context, inboxToken InboxToken) (*shared.UserClientResponse[InboxToken], *shared.UserClientError) {
+func (api *ChannelsService) SaveInAppInboxToken(ctx context.Context, inboxToken InboxToken) (*shared.ClientResponse[InboxToken], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -83,14 +83,14 @@ func (api *ChannelsService) SaveInAppInboxToken(ctx context.Context, inboxToken 
 	client := restClient.NewRestClient[InboxToken](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[InboxToken](err)
+		return nil, shared.NewClientError[InboxToken](err)
 	}
 
-	return shared.NewUserClientResponse[InboxToken](resp), nil
+	return shared.NewClientResponse[InboxToken](resp), nil
 }
 
 // Retrieves details of a specific in_app token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
-func (api *ChannelsService) GetInAppInboxToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[InboxTokenResponse], *shared.UserClientError) {
+func (api *ChannelsService) GetInAppInboxToken(ctx context.Context, tokenId string) (*shared.ClientResponse[InboxTokenResponse], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -105,14 +105,14 @@ func (api *ChannelsService) GetInAppInboxToken(ctx context.Context, tokenId stri
 	client := restClient.NewRestClient[InboxTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[InboxTokenResponse](err)
+		return nil, shared.NewClientError[InboxTokenResponse](err)
 	}
 
-	return shared.NewUserClientResponse[InboxTokenResponse](resp), nil
+	return shared.NewClientResponse[InboxTokenResponse](resp), nil
 }
 
 // Revokes one of the authenticated user's in_app tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
-func (api *ChannelsService) DiscardInAppInboxToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[DiscardResult], *shared.UserClientError) {
+func (api *ChannelsService) DiscardInAppInboxToken(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardResult], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -127,14 +127,14 @@ func (api *ChannelsService) DiscardInAppInboxToken(ctx context.Context, tokenId 
 	client := restClient.NewRestClient[DiscardResult](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[DiscardResult](err)
+		return nil, shared.NewClientError[DiscardResult](err)
 	}
 
-	return shared.NewUserClientResponse[DiscardResult](resp), nil
+	return shared.NewClientResponse[DiscardResult](resp), nil
 }
 
 // Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
-func (api *ChannelsService) GetMobilePushApnsTokens(ctx context.Context, params GetMobilePushApnsTokensRequestParams) (*shared.UserClientResponse[ApnsTokenCollection], *shared.UserClientError) {
+func (api *ChannelsService) GetMobilePushApnsTokens(ctx context.Context, params GetMobilePushApnsTokensRequestParams) (*shared.ClientResponse[ApnsTokenCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -149,14 +149,14 @@ func (api *ChannelsService) GetMobilePushApnsTokens(ctx context.Context, params 
 	client := restClient.NewRestClient[ApnsTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[ApnsTokenCollection](err)
+		return nil, shared.NewClientError[ApnsTokenCollection](err)
 	}
 
-	return shared.NewUserClientResponse[ApnsTokenCollection](resp), nil
+	return shared.NewClientResponse[ApnsTokenCollection](resp), nil
 }
 
 // Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
-func (api *ChannelsService) SaveMobilePushApnsToken(ctx context.Context, apnsTokenPayload ApnsTokenPayload) (*shared.UserClientResponse[ApnsTokenPayload], *shared.UserClientError) {
+func (api *ChannelsService) SaveMobilePushApnsToken(ctx context.Context, apnsTokenPayload ApnsTokenPayload) (*shared.ClientResponse[ApnsTokenPayload], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -172,14 +172,14 @@ func (api *ChannelsService) SaveMobilePushApnsToken(ctx context.Context, apnsTok
 	client := restClient.NewRestClient[ApnsTokenPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[ApnsTokenPayload](err)
+		return nil, shared.NewClientError[ApnsTokenPayload](err)
 	}
 
-	return shared.NewUserClientResponse[ApnsTokenPayload](resp), nil
+	return shared.NewClientResponse[ApnsTokenPayload](resp), nil
 }
 
 // Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
-func (api *ChannelsService) GetMobilePushApnsToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[ApnsToken], *shared.UserClientError) {
+func (api *ChannelsService) GetMobilePushApnsToken(ctx context.Context, tokenId string) (*shared.ClientResponse[ApnsToken], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -194,14 +194,14 @@ func (api *ChannelsService) GetMobilePushApnsToken(ctx context.Context, tokenId 
 	client := restClient.NewRestClient[ApnsToken](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[ApnsToken](err)
+		return nil, shared.NewClientError[ApnsToken](err)
 	}
 
-	return shared.NewUserClientResponse[ApnsToken](resp), nil
+	return shared.NewClientResponse[ApnsToken](resp), nil
 }
 
 // Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
-func (api *ChannelsService) DiscardMobilePushApnsToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[DiscardResult], *shared.UserClientError) {
+func (api *ChannelsService) DiscardMobilePushApnsToken(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardResult], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -216,14 +216,14 @@ func (api *ChannelsService) DiscardMobilePushApnsToken(ctx context.Context, toke
 	client := restClient.NewRestClient[DiscardResult](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[DiscardResult](err)
+		return nil, shared.NewClientError[DiscardResult](err)
 	}
 
-	return shared.NewUserClientResponse[DiscardResult](resp), nil
+	return shared.NewClientResponse[DiscardResult](resp), nil
 }
 
 // Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
-func (api *ChannelsService) GetMobilePushExpoTokens(ctx context.Context, params GetMobilePushExpoTokensRequestParams) (*shared.UserClientResponse[ExpoTokenCollection], *shared.UserClientError) {
+func (api *ChannelsService) GetMobilePushExpoTokens(ctx context.Context, params GetMobilePushExpoTokensRequestParams) (*shared.ClientResponse[ExpoTokenCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -238,14 +238,14 @@ func (api *ChannelsService) GetMobilePushExpoTokens(ctx context.Context, params 
 	client := restClient.NewRestClient[ExpoTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[ExpoTokenCollection](err)
+		return nil, shared.NewClientError[ExpoTokenCollection](err)
 	}
 
-	return shared.NewUserClientResponse[ExpoTokenCollection](resp), nil
+	return shared.NewClientResponse[ExpoTokenCollection](resp), nil
 }
 
 // Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
-func (api *ChannelsService) SaveMobilePushExpoToken(ctx context.Context, expoTokenPayload ExpoTokenPayload) (*shared.UserClientResponse[ExpoTokenPayload], *shared.UserClientError) {
+func (api *ChannelsService) SaveMobilePushExpoToken(ctx context.Context, expoTokenPayload ExpoTokenPayload) (*shared.ClientResponse[ExpoTokenPayload], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -261,14 +261,14 @@ func (api *ChannelsService) SaveMobilePushExpoToken(ctx context.Context, expoTok
 	client := restClient.NewRestClient[ExpoTokenPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[ExpoTokenPayload](err)
+		return nil, shared.NewClientError[ExpoTokenPayload](err)
 	}
 
-	return shared.NewUserClientResponse[ExpoTokenPayload](resp), nil
+	return shared.NewClientResponse[ExpoTokenPayload](resp), nil
 }
 
 // Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
-func (api *ChannelsService) GetMobilePushExpoToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[ExpoToken], *shared.UserClientError) {
+func (api *ChannelsService) GetMobilePushExpoToken(ctx context.Context, tokenId string) (*shared.ClientResponse[ExpoToken], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -283,14 +283,14 @@ func (api *ChannelsService) GetMobilePushExpoToken(ctx context.Context, tokenId 
 	client := restClient.NewRestClient[ExpoToken](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[ExpoToken](err)
+		return nil, shared.NewClientError[ExpoToken](err)
 	}
 
-	return shared.NewUserClientResponse[ExpoToken](resp), nil
+	return shared.NewClientResponse[ExpoToken](resp), nil
 }
 
 // Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
-func (api *ChannelsService) DiscardMobilePushExpoToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[DiscardResult], *shared.UserClientError) {
+func (api *ChannelsService) DiscardMobilePushExpoToken(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardResult], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -305,14 +305,14 @@ func (api *ChannelsService) DiscardMobilePushExpoToken(ctx context.Context, toke
 	client := restClient.NewRestClient[DiscardResult](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[DiscardResult](err)
+		return nil, shared.NewClientError[DiscardResult](err)
 	}
 
-	return shared.NewUserClientResponse[DiscardResult](resp), nil
+	return shared.NewClientResponse[DiscardResult](resp), nil
 }
 
 // Lists all mobile_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
-func (api *ChannelsService) GetMobilePushFcmTokens(ctx context.Context, params GetMobilePushFcmTokensRequestParams) (*shared.UserClientResponse[FcmTokenCollection], *shared.UserClientError) {
+func (api *ChannelsService) GetMobilePushFcmTokens(ctx context.Context, params GetMobilePushFcmTokensRequestParams) (*shared.ClientResponse[FcmTokenCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -327,14 +327,14 @@ func (api *ChannelsService) GetMobilePushFcmTokens(ctx context.Context, params G
 	client := restClient.NewRestClient[FcmTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[FcmTokenCollection](err)
+		return nil, shared.NewClientError[FcmTokenCollection](err)
 	}
 
-	return shared.NewUserClientResponse[FcmTokenCollection](resp), nil
+	return shared.NewClientResponse[FcmTokenCollection](resp), nil
 }
 
 // Saves a mobile_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
-func (api *ChannelsService) SaveMobilePushFcmToken(ctx context.Context, fcmTokenPayload FcmTokenPayload) (*shared.UserClientResponse[FcmTokenPayload], *shared.UserClientError) {
+func (api *ChannelsService) SaveMobilePushFcmToken(ctx context.Context, fcmTokenPayload FcmTokenPayload) (*shared.ClientResponse[FcmTokenPayload], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -350,14 +350,14 @@ func (api *ChannelsService) SaveMobilePushFcmToken(ctx context.Context, fcmToken
 	client := restClient.NewRestClient[FcmTokenPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[FcmTokenPayload](err)
+		return nil, shared.NewClientError[FcmTokenPayload](err)
 	}
 
-	return shared.NewUserClientResponse[FcmTokenPayload](resp), nil
+	return shared.NewClientResponse[FcmTokenPayload](resp), nil
 }
 
 // Retrieves details of a specific mobile_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
-func (api *ChannelsService) GetMobilePushFcmToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[FcmToken], *shared.UserClientError) {
+func (api *ChannelsService) GetMobilePushFcmToken(ctx context.Context, tokenId string) (*shared.ClientResponse[FcmToken], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -372,14 +372,14 @@ func (api *ChannelsService) GetMobilePushFcmToken(ctx context.Context, tokenId s
 	client := restClient.NewRestClient[FcmToken](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[FcmToken](err)
+		return nil, shared.NewClientError[FcmToken](err)
 	}
 
-	return shared.NewUserClientResponse[FcmToken](resp), nil
+	return shared.NewClientResponse[FcmToken](resp), nil
 }
 
 // Revokes one of the authenticated user's mobile_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
-func (api *ChannelsService) DiscardMobilePushFcmToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[DiscardResult], *shared.UserClientError) {
+func (api *ChannelsService) DiscardMobilePushFcmToken(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardResult], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -394,14 +394,14 @@ func (api *ChannelsService) DiscardMobilePushFcmToken(ctx context.Context, token
 	client := restClient.NewRestClient[DiscardResult](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[DiscardResult](err)
+		return nil, shared.NewClientError[DiscardResult](err)
 	}
 
-	return shared.NewUserClientResponse[DiscardResult](resp), nil
+	return shared.NewClientResponse[DiscardResult](resp), nil
 }
 
 // Lists all slack tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
-func (api *ChannelsService) GetSlackTokens(ctx context.Context, params GetSlackTokensRequestParams) (*shared.UserClientResponse[SlackTokenCollection], *shared.UserClientError) {
+func (api *ChannelsService) GetSlackTokens(ctx context.Context, params GetSlackTokensRequestParams) (*shared.ClientResponse[SlackTokenCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -416,14 +416,14 @@ func (api *ChannelsService) GetSlackTokens(ctx context.Context, params GetSlackT
 	client := restClient.NewRestClient[SlackTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[SlackTokenCollection](err)
+		return nil, shared.NewClientError[SlackTokenCollection](err)
 	}
 
-	return shared.NewUserClientResponse[SlackTokenCollection](resp), nil
+	return shared.NewClientResponse[SlackTokenCollection](resp), nil
 }
 
 // Saves a slack token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
-func (api *ChannelsService) SaveSlackToken(ctx context.Context, slackTokenPayload SlackTokenPayload) (*shared.UserClientResponse[SlackTokenPayload], *shared.UserClientError) {
+func (api *ChannelsService) SaveSlackToken(ctx context.Context, slackTokenPayload SlackTokenPayload) (*shared.ClientResponse[SlackTokenPayload], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -439,14 +439,14 @@ func (api *ChannelsService) SaveSlackToken(ctx context.Context, slackTokenPayloa
 	client := restClient.NewRestClient[SlackTokenPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[SlackTokenPayload](err)
+		return nil, shared.NewClientError[SlackTokenPayload](err)
 	}
 
-	return shared.NewUserClientResponse[SlackTokenPayload](resp), nil
+	return shared.NewClientResponse[SlackTokenPayload](resp), nil
 }
 
 // Retrieves details of a specific slack token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
-func (api *ChannelsService) GetSlackToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[SlackToken], *shared.UserClientError) {
+func (api *ChannelsService) GetSlackToken(ctx context.Context, tokenId string) (*shared.ClientResponse[SlackToken], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -461,14 +461,14 @@ func (api *ChannelsService) GetSlackToken(ctx context.Context, tokenId string) (
 	client := restClient.NewRestClient[SlackToken](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[SlackToken](err)
+		return nil, shared.NewClientError[SlackToken](err)
 	}
 
-	return shared.NewUserClientResponse[SlackToken](resp), nil
+	return shared.NewClientResponse[SlackToken](resp), nil
 }
 
 // Revokes one of the authenticated user's slack tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
-func (api *ChannelsService) DiscardSlackToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[DiscardResult], *shared.UserClientError) {
+func (api *ChannelsService) DiscardSlackToken(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardResult], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -483,14 +483,14 @@ func (api *ChannelsService) DiscardSlackToken(ctx context.Context, tokenId strin
 	client := restClient.NewRestClient[DiscardResult](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[DiscardResult](err)
+		return nil, shared.NewClientError[DiscardResult](err)
 	}
 
-	return shared.NewUserClientResponse[DiscardResult](resp), nil
+	return shared.NewClientResponse[DiscardResult](resp), nil
 }
 
 // Lists all teams tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
-func (api *ChannelsService) GetTeamsTokens(ctx context.Context, params GetTeamsTokensRequestParams) (*shared.UserClientResponse[TeamsTokenCollection], *shared.UserClientError) {
+func (api *ChannelsService) GetTeamsTokens(ctx context.Context, params GetTeamsTokensRequestParams) (*shared.ClientResponse[TeamsTokenCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -505,14 +505,14 @@ func (api *ChannelsService) GetTeamsTokens(ctx context.Context, params GetTeamsT
 	client := restClient.NewRestClient[TeamsTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[TeamsTokenCollection](err)
+		return nil, shared.NewClientError[TeamsTokenCollection](err)
 	}
 
-	return shared.NewUserClientResponse[TeamsTokenCollection](resp), nil
+	return shared.NewClientResponse[TeamsTokenCollection](resp), nil
 }
 
 // Saves a teams token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
-func (api *ChannelsService) SaveTeamsToken(ctx context.Context, teamsTokenPayload TeamsTokenPayload) (*shared.UserClientResponse[TeamsTokenPayload], *shared.UserClientError) {
+func (api *ChannelsService) SaveTeamsToken(ctx context.Context, teamsTokenPayload TeamsTokenPayload) (*shared.ClientResponse[TeamsTokenPayload], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -528,14 +528,14 @@ func (api *ChannelsService) SaveTeamsToken(ctx context.Context, teamsTokenPayloa
 	client := restClient.NewRestClient[TeamsTokenPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[TeamsTokenPayload](err)
+		return nil, shared.NewClientError[TeamsTokenPayload](err)
 	}
 
-	return shared.NewUserClientResponse[TeamsTokenPayload](resp), nil
+	return shared.NewClientResponse[TeamsTokenPayload](resp), nil
 }
 
 // Retrieves details of a specific teams token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
-func (api *ChannelsService) GetTeamsToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[TeamsToken], *shared.UserClientError) {
+func (api *ChannelsService) GetTeamsToken(ctx context.Context, tokenId string) (*shared.ClientResponse[TeamsToken], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -550,14 +550,14 @@ func (api *ChannelsService) GetTeamsToken(ctx context.Context, tokenId string) (
 	client := restClient.NewRestClient[TeamsToken](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[TeamsToken](err)
+		return nil, shared.NewClientError[TeamsToken](err)
 	}
 
-	return shared.NewUserClientResponse[TeamsToken](resp), nil
+	return shared.NewClientResponse[TeamsToken](resp), nil
 }
 
 // Revokes one of the authenticated user's teams tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
-func (api *ChannelsService) DiscardTeamsToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[DiscardResult], *shared.UserClientError) {
+func (api *ChannelsService) DiscardTeamsToken(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardResult], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -572,14 +572,14 @@ func (api *ChannelsService) DiscardTeamsToken(ctx context.Context, tokenId strin
 	client := restClient.NewRestClient[DiscardResult](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[DiscardResult](err)
+		return nil, shared.NewClientError[DiscardResult](err)
 	}
 
-	return shared.NewUserClientResponse[DiscardResult](resp), nil
+	return shared.NewClientResponse[DiscardResult](resp), nil
 }
 
 // Lists all web_push tokens belonging to the authenticated user. Returns a paginated list of tokens, including their status, creation dates, and associated metadata.
-func (api *ChannelsService) GetWebPushTokens(ctx context.Context, params GetWebPushTokensRequestParams) (*shared.UserClientResponse[WebPushTokenCollection], *shared.UserClientError) {
+func (api *ChannelsService) GetWebPushTokens(ctx context.Context, params GetWebPushTokensRequestParams) (*shared.ClientResponse[WebPushTokenCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -594,14 +594,14 @@ func (api *ChannelsService) GetWebPushTokens(ctx context.Context, params GetWebP
 	client := restClient.NewRestClient[WebPushTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[WebPushTokenCollection](err)
+		return nil, shared.NewClientError[WebPushTokenCollection](err)
 	}
 
-	return shared.NewUserClientResponse[WebPushTokenCollection](resp), nil
+	return shared.NewClientResponse[WebPushTokenCollection](resp), nil
 }
 
 // Saves a web_push token for the authenticated user. This token serves as a credential for accessing channel-specific functionality. Each token is unique to the user and channel combination, allowing for direct communication with the user via the channel.
-func (api *ChannelsService) SaveWebPushToken(ctx context.Context, webPushTokenPayload shared.WebPushTokenPayload) (*shared.UserClientResponse[shared.WebPushTokenPayload], *shared.UserClientError) {
+func (api *ChannelsService) SaveWebPushToken(ctx context.Context, webPushTokenPayload shared.WebPushTokenPayload) (*shared.ClientResponse[shared.WebPushTokenPayload], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -617,14 +617,14 @@ func (api *ChannelsService) SaveWebPushToken(ctx context.Context, webPushTokenPa
 	client := restClient.NewRestClient[shared.WebPushTokenPayload](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[shared.WebPushTokenPayload](err)
+		return nil, shared.NewClientError[shared.WebPushTokenPayload](err)
 	}
 
-	return shared.NewUserClientResponse[shared.WebPushTokenPayload](resp), nil
+	return shared.NewClientResponse[shared.WebPushTokenPayload](resp), nil
 }
 
 // Retrieves details of a specific web_push token belonging to the authenticated user. Returns information about the token's status, creation date, and any associated metadata. Users can only access their own tokens.
-func (api *ChannelsService) GetWebPushToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[WebPushToken], *shared.UserClientError) {
+func (api *ChannelsService) GetWebPushToken(ctx context.Context, tokenId string) (*shared.ClientResponse[WebPushToken], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -639,14 +639,14 @@ func (api *ChannelsService) GetWebPushToken(ctx context.Context, tokenId string)
 	client := restClient.NewRestClient[WebPushToken](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[WebPushToken](err)
+		return nil, shared.NewClientError[WebPushToken](err)
 	}
 
-	return shared.NewUserClientResponse[WebPushToken](resp), nil
+	return shared.NewClientResponse[WebPushToken](resp), nil
 }
 
 // Revokes one of the authenticated user's web_push tokens. This permanently invalidates the specified token, preventing it from being used for future channel access. This action cannot be undone. Users can only revoke their own tokens.
-func (api *ChannelsService) DiscardWebPushToken(ctx context.Context, tokenId string) (*shared.UserClientResponse[DiscardResult], *shared.UserClientError) {
+func (api *ChannelsService) DiscardWebPushToken(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardResult], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -661,8 +661,8 @@ func (api *ChannelsService) DiscardWebPushToken(ctx context.Context, tokenId str
 	client := restClient.NewRestClient[DiscardResult](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewUserClientError[DiscardResult](err)
+		return nil, shared.NewClientError[DiscardResult](err)
 	}
 
-	return shared.NewUserClientResponse[DiscardResult](resp), nil
+	return shared.NewClientResponse[DiscardResult](resp), nil
 }

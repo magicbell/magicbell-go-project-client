@@ -5,7 +5,7 @@ import (
 	restClient "github.com/magicbell/magicbell-go/pkg/project-client/internal/clients/rest"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/clients/rest/httptransport"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/configmanager"
-	"github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
 	"github.com/magicbell/magicbell-go/pkg/project-client/shared"
 	"time"
 )
@@ -16,7 +16,7 @@ type UsersService struct {
 
 func NewUsersService() *UsersService {
 	return &UsersService{
-		manager: configmanager.NewConfigManager(projectclientconfig.Config{}),
+		manager: configmanager.NewConfigManager(clientconfig.Config{}),
 	}
 }
 
@@ -25,7 +25,7 @@ func (api *UsersService) WithConfigManager(manager *configmanager.ConfigManager)
 	return api
 }
 
-func (api *UsersService) getConfig() *projectclientconfig.Config {
+func (api *UsersService) getConfig() *clientconfig.Config {
 	return api.manager.GetUsers()
 }
 
@@ -44,7 +44,7 @@ func (api *UsersService) SetAccessToken(accessToken string) {
 	config.SetAccessToken(accessToken)
 }
 
-func (api *UsersService) ListUsers(ctx context.Context, params ListUsersRequestParams) (*shared.ProjectClientResponse[UserCollection], *shared.ProjectClientError) {
+func (api *UsersService) ListUsers(ctx context.Context, params ListUsersRequestParams) (*shared.ClientResponse[UserCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -59,14 +59,14 @@ func (api *UsersService) ListUsers(ctx context.Context, params ListUsersRequestP
 	client := restClient.NewRestClient[UserCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[UserCollection](err)
+		return nil, shared.NewClientError[UserCollection](err)
 	}
 
-	return shared.NewProjectClientResponse[UserCollection](resp), nil
+	return shared.NewClientResponse[UserCollection](resp), nil
 }
 
 // Creates a user with the provided details. The user will be associated with the project specified in the request context.
-func (api *UsersService) CreateUser(ctx context.Context, user User) (*shared.ProjectClientResponse[User], *shared.ProjectClientError) {
+func (api *UsersService) CreateUser(ctx context.Context, user User) (*shared.ClientResponse[User], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -82,13 +82,13 @@ func (api *UsersService) CreateUser(ctx context.Context, user User) (*shared.Pro
 	client := restClient.NewRestClient[User](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[User](err)
+		return nil, shared.NewClientError[User](err)
 	}
 
-	return shared.NewProjectClientResponse[User](resp), nil
+	return shared.NewClientResponse[User](resp), nil
 }
 
-func (api *UsersService) DeleteUser(ctx context.Context, userId string) (*shared.ProjectClientResponse[any], *shared.ProjectClientError) {
+func (api *UsersService) DeleteUser(ctx context.Context, userId string) (*shared.ClientResponse[any], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -103,8 +103,8 @@ func (api *UsersService) DeleteUser(ctx context.Context, userId string) (*shared
 	client := restClient.NewRestClient[any](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[any](err)
+		return nil, shared.NewClientError[any](err)
 	}
 
-	return shared.NewProjectClientResponse[any](resp), nil
+	return shared.NewClientResponse[any](resp), nil
 }

@@ -1,4 +1,4 @@
-package userclientconfig
+package clientconfig
 
 import "time"
 

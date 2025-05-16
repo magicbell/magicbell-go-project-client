@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/magicbell/magicbell-go/pkg/project-client/projectclient"
-	"github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/client"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
 
 	"github.com/magicbell/magicbell-go/pkg/project-client/broadcasts"
 )
@@ -16,8 +16,8 @@ import (
 func main() {
 	loadEnv()
 
-	config := projectclientconfig.NewConfig()
-	client := projectclient.NewProjectClient(config)
+	config := clientconfig.NewConfig()
+	client := client.NewClient(config)
 
 	params := broadcasts.ListBroadcastsRequestParams{}
 

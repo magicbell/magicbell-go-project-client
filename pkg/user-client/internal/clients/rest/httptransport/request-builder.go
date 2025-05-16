@@ -3,7 +3,7 @@ package httptransport
 import (
 	"context"
 
-	"github.com/magicbell/magicbell-go/pkg/user-client/userclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/user-client/clientconfig"
 )
 
 type RequestBuilder struct {
@@ -55,7 +55,7 @@ func (rb *RequestBuilder) WithBody(body any) *RequestBuilder {
 	return rb
 }
 
-func (rb *RequestBuilder) WithConfig(config userclientconfig.Config) *RequestBuilder {
+func (rb *RequestBuilder) WithConfig(config clientconfig.Config) *RequestBuilder {
 	rb.request.Config = config
 	return rb
 }

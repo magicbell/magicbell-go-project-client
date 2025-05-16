@@ -5,7 +5,7 @@ import (
 	restClient "github.com/magicbell/magicbell-go/pkg/project-client/internal/clients/rest"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/clients/rest/httptransport"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/configmanager"
-	"github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
 	"github.com/magicbell/magicbell-go/pkg/project-client/shared"
 	"time"
 )
@@ -16,7 +16,7 @@ type JwtService struct {
 
 func NewJwtService() *JwtService {
 	return &JwtService{
-		manager: configmanager.NewConfigManager(projectclientconfig.Config{}),
+		manager: configmanager.NewConfigManager(clientconfig.Config{}),
 	}
 }
 
@@ -25,7 +25,7 @@ func (api *JwtService) WithConfigManager(manager *configmanager.ConfigManager) *
 	return api
 }
 
-func (api *JwtService) getConfig() *projectclientconfig.Config {
+func (api *JwtService) getConfig() *clientconfig.Config {
 	return api.manager.GetJwt()
 }
 
@@ -45,7 +45,7 @@ func (api *JwtService) SetAccessToken(accessToken string) {
 }
 
 // Retrieves a list of all active project-level JWT tokens. Returns a paginated list showing token metadata including creation date, last used date, and expiration time. For security reasons, the actual token values are not included in the response.
-func (api *JwtService) FetchProjectTokens(ctx context.Context, params FetchProjectTokensRequestParams) (*shared.ProjectClientResponse[AccessTokenCollection], *shared.ProjectClientError) {
+func (api *JwtService) FetchProjectTokens(ctx context.Context, params FetchProjectTokensRequestParams) (*shared.ClientResponse[AccessTokenCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -60,14 +60,14 @@ func (api *JwtService) FetchProjectTokens(ctx context.Context, params FetchProje
 	client := restClient.NewRestClient[AccessTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[AccessTokenCollection](err)
+		return nil, shared.NewClientError[AccessTokenCollection](err)
 	}
 
-	return shared.NewProjectClientResponse[AccessTokenCollection](resp), nil
+	return shared.NewClientResponse[AccessTokenCollection](resp), nil
 }
 
 // Creates a new project-level JWT token. These tokens provide project-wide access and should be carefully managed. Only administrators can create project tokens. The returned token should be securely stored as it cannot be retrieved again after creation.
-func (api *JwtService) CreateProjectJwt(ctx context.Context, createProjectTokenRequest CreateProjectTokenRequest) (*shared.ProjectClientResponse[CreateTokenResponse], *shared.ProjectClientError) {
+func (api *JwtService) CreateProjectJwt(ctx context.Context, createProjectTokenRequest CreateProjectTokenRequest) (*shared.ClientResponse[CreateTokenResponse], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -83,14 +83,14 @@ func (api *JwtService) CreateProjectJwt(ctx context.Context, createProjectTokenR
 	client := restClient.NewRestClient[CreateTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[CreateTokenResponse](err)
+		return nil, shared.NewClientError[CreateTokenResponse](err)
 	}
 
-	return shared.NewProjectClientResponse[CreateTokenResponse](resp), nil
+	return shared.NewClientResponse[CreateTokenResponse](resp), nil
 }
 
 // Immediately revokes a project-level JWT token. Once revoked, any requests using this token will be rejected. This action is immediate and cannot be undone. Active sessions using this token will be terminated.
-func (api *JwtService) DiscardProjectJwt(ctx context.Context, tokenId string) (*shared.ProjectClientResponse[DiscardTokenResponse], *shared.ProjectClientError) {
+func (api *JwtService) DiscardProjectJwt(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardTokenResponse], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -105,14 +105,14 @@ func (api *JwtService) DiscardProjectJwt(ctx context.Context, tokenId string) (*
 	client := restClient.NewRestClient[DiscardTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[DiscardTokenResponse](err)
+		return nil, shared.NewClientError[DiscardTokenResponse](err)
 	}
 
-	return shared.NewProjectClientResponse[DiscardTokenResponse](resp), nil
+	return shared.NewClientResponse[DiscardTokenResponse](resp), nil
 }
 
 // Issues a new user-specific JWT token. These tokens are scoped to individual user permissions and access levels. Only administrators can create user tokens. The token is returned only once at creation time and cannot be retrieved later.
-func (api *JwtService) CreateUserJwt(ctx context.Context, createUserTokenRequest CreateUserTokenRequest) (*shared.ProjectClientResponse[CreateTokenResponse], *shared.ProjectClientError) {
+func (api *JwtService) CreateUserJwt(ctx context.Context, createUserTokenRequest CreateUserTokenRequest) (*shared.ClientResponse[CreateTokenResponse], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -128,14 +128,14 @@ func (api *JwtService) CreateUserJwt(ctx context.Context, createUserTokenRequest
 	client := restClient.NewRestClient[CreateTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[CreateTokenResponse](err)
+		return nil, shared.NewClientError[CreateTokenResponse](err)
 	}
 
-	return shared.NewProjectClientResponse[CreateTokenResponse](resp), nil
+	return shared.NewClientResponse[CreateTokenResponse](resp), nil
 }
 
 // Revokes a specific user's JWT token. This immediately invalidates the token and terminates any active sessions using it. This action cannot be undone. Administrators should use this to revoke access when needed for security purposes.
-func (api *JwtService) DiscardUserJwt(ctx context.Context, tokenId string) (*shared.ProjectClientResponse[DiscardTokenResponse], *shared.ProjectClientError) {
+func (api *JwtService) DiscardUserJwt(ctx context.Context, tokenId string) (*shared.ClientResponse[DiscardTokenResponse], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -150,14 +150,14 @@ func (api *JwtService) DiscardUserJwt(ctx context.Context, tokenId string) (*sha
 	client := restClient.NewRestClient[DiscardTokenResponse](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[DiscardTokenResponse](err)
+		return nil, shared.NewClientError[DiscardTokenResponse](err)
 	}
 
-	return shared.NewProjectClientResponse[DiscardTokenResponse](resp), nil
+	return shared.NewClientResponse[DiscardTokenResponse](resp), nil
 }
 
 // Lists all JWT tokens associated with a specific user. Returns token metadata including creation time, last access time, and expiration date. Administrators can use this to audit user token usage and manage active sessions. Token values are not included in the response for security reasons.
-func (api *JwtService) FetchUserTokens(ctx context.Context, userId string, params FetchUserTokensRequestParams) (*shared.ProjectClientResponse[AccessTokenCollection], *shared.ProjectClientError) {
+func (api *JwtService) FetchUserTokens(ctx context.Context, userId string, params FetchUserTokensRequestParams) (*shared.ClientResponse[AccessTokenCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -173,8 +173,8 @@ func (api *JwtService) FetchUserTokens(ctx context.Context, userId string, param
 	client := restClient.NewRestClient[AccessTokenCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[AccessTokenCollection](err)
+		return nil, shared.NewClientError[AccessTokenCollection](err)
 	}
 
-	return shared.NewProjectClientResponse[AccessTokenCollection](resp), nil
+	return shared.NewClientResponse[AccessTokenCollection](resp), nil
 }

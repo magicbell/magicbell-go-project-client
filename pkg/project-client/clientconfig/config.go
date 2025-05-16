@@ -1,4 +1,4 @@
-package projectclientconfig
+package clientconfig
 
 import "time"
 

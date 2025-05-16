@@ -5,7 +5,7 @@ import (
 	restClient "github.com/magicbell/magicbell-go/pkg/project-client/internal/clients/rest"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/clients/rest/httptransport"
 	"github.com/magicbell/magicbell-go/pkg/project-client/internal/configmanager"
-	"github.com/magicbell/magicbell-go/pkg/project-client/projectclientconfig"
+	"github.com/magicbell/magicbell-go/pkg/project-client/clientconfig"
 	"github.com/magicbell/magicbell-go/pkg/project-client/shared"
 	"time"
 )
@@ -16,7 +16,7 @@ type BroadcastsService struct {
 
 func NewBroadcastsService() *BroadcastsService {
 	return &BroadcastsService{
-		manager: configmanager.NewConfigManager(projectclientconfig.Config{}),
+		manager: configmanager.NewConfigManager(clientconfig.Config{}),
 	}
 }
 
@@ -25,7 +25,7 @@ func (api *BroadcastsService) WithConfigManager(manager *configmanager.ConfigMan
 	return api
 }
 
-func (api *BroadcastsService) getConfig() *projectclientconfig.Config {
+func (api *BroadcastsService) getConfig() *clientconfig.Config {
 	return api.manager.GetBroadcasts()
 }
 
@@ -45,7 +45,7 @@ func (api *BroadcastsService) SetAccessToken(accessToken string) {
 }
 
 // Retrieves a paginated list of broadcasts for the project. Returns basic information about each broadcast including its creation time and status.
-func (api *BroadcastsService) ListBroadcasts(ctx context.Context, params ListBroadcastsRequestParams) (*shared.ProjectClientResponse[BroadcastCollection], *shared.ProjectClientError) {
+func (api *BroadcastsService) ListBroadcasts(ctx context.Context, params ListBroadcastsRequestParams) (*shared.ClientResponse[BroadcastCollection], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -60,14 +60,14 @@ func (api *BroadcastsService) ListBroadcasts(ctx context.Context, params ListBro
 	client := restClient.NewRestClient[BroadcastCollection](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[BroadcastCollection](err)
+		return nil, shared.NewClientError[BroadcastCollection](err)
 	}
 
-	return shared.NewProjectClientResponse[BroadcastCollection](resp), nil
+	return shared.NewClientResponse[BroadcastCollection](resp), nil
 }
 
 // Creates a new broadcast message. When a broadcast is created, it generates individual notifications for relevant users within the project.
-func (api *BroadcastsService) CreateBroadcast(ctx context.Context, broadcast Broadcast) (*shared.ProjectClientResponse[Broadcast], *shared.ProjectClientError) {
+func (api *BroadcastsService) CreateBroadcast(ctx context.Context, broadcast Broadcast) (*shared.ClientResponse[Broadcast], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -83,14 +83,14 @@ func (api *BroadcastsService) CreateBroadcast(ctx context.Context, broadcast Bro
 	client := restClient.NewRestClient[Broadcast](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[Broadcast](err)
+		return nil, shared.NewClientError[Broadcast](err)
 	}
 
-	return shared.NewProjectClientResponse[Broadcast](resp), nil
+	return shared.NewClientResponse[Broadcast](resp), nil
 }
 
 // Retrieves detailed information about a specific broadcast by its ID. Includes the broadcast's configuration and current status.
-func (api *BroadcastsService) FetchBroadcast(ctx context.Context, broadcastId string) (*shared.ProjectClientResponse[Broadcast], *shared.ProjectClientError) {
+func (api *BroadcastsService) FetchBroadcast(ctx context.Context, broadcastId string) (*shared.ClientResponse[Broadcast], *shared.ClientError) {
 	config := *api.getConfig()
 
 	request := httptransport.NewRequestBuilder().WithContext(ctx).
@@ -105,8 +105,8 @@ func (api *BroadcastsService) FetchBroadcast(ctx context.Context, broadcastId st
 	client := restClient.NewRestClient[Broadcast](config)
 	resp, err := client.Call(*request)
 	if err != nil {
-		return nil, shared.NewProjectClientError[Broadcast](err)
+		return nil, shared.NewClientError[Broadcast](err)
 	}
 
-	return shared.NewProjectClientResponse[Broadcast](resp), nil
+	return shared.NewClientResponse[Broadcast](resp), nil
 }
